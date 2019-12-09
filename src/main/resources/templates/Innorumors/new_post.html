@@ -75,7 +75,7 @@
                 <div class="ask-question-input-part032">
                     <h4>Создать пост</h4>
                     <hr>
-                    <form method="POST">
+                    <form method="POST" th:action="@{/newpost}" >
 
                         <div class="question-title39">
                             <span class="form-description433">Title* </span><input type="text" name="title"
@@ -83,14 +83,14 @@
                                                                                    placeholder="Тема Вашего поста">
                         </div>
 
-                        <div class="button-group-addfile3239">
-                            <span class="form-description23993">Attactment*</span><input type="file" name="ffile"
-                                                                                         class="question-ttile3226">
+<!--                        <div class="button-group-addfile3239">-->
+<!--                            <span class="form-description23993">Attactment*</span><input type="file" name="ffile"-->
+<!--                                                                                         class="question-ttile3226">-->
 
-                        </div>
+<!--                        </div>-->
                         <div class="details2-239">
                             <div class="col-md-12 nopadding">
-                                <textarea id="txtEditor"></textarea>
+                                <textarea id="txtEditor" name="body"></textarea>
                             </div>
                         </div>
 
