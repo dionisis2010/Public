@@ -19,4 +19,15 @@ public class HelloController {
         return "Innorumors/post-deatils";
     }
 
+    @RequestMapping(method = RequestMethod.GET, path = "create-post")
+    public String getCreatPostForm(){
+        return "Innorumors/new_post";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "newpost")
+    public String createPost(Model model){
+
+        return "Innorumors/post-deatils";
+    }
+
 }
