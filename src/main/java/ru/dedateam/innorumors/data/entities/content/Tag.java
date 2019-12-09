@@ -1,4 +1,4 @@
-package ru.dedateam.innorumors.entities.content;
+package ru.dedateam.innorumors.data.entities.content;
 
 import java.util.Set;
 

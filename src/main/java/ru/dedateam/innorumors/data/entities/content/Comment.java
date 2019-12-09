@@ -1,7 +1,7 @@
-package ru.dedateam.innorumors.entities.content;
+package ru.dedateam.innorumors.data.entities.content;
 
 
-import ru.dedateam.innorumors.entities.profiles.User;
+import ru.dedateam.innorumors.data.entities.profiles.User;
 
 import java.util.Date;
 

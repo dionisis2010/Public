@@ -1,8 +1,8 @@
-package ru.dedateam.innorumors.entities.profiles;
+package ru.dedateam.innorumors.data.entities.profiles;
 
 
-import ru.dedateam.innorumors.entities.content.Comment;
-import ru.dedateam.innorumors.entities.content.Post;
+import ru.dedateam.innorumors.data.entities.content.Comment;
+import ru.dedateam.innorumors.data.entities.content.Post;
 
 import java.net.URL;
 import java.util.Date;
