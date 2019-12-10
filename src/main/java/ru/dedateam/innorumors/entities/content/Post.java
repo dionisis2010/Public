@@ -20,6 +20,8 @@ public class Post {
 
     private Date postedTime;
 
-    private Set<Tag> tags;              // хэштэги
+    private Set<Tag> tags;// хэштэги
+
+
     private List<Comment> comments;
 }
