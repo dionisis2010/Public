@@ -23,15 +23,23 @@ public class Comment {
     @Column(nullable = false)
     private Date postedTime;
 
-    @Column
+
+
+    @OneToOne
+    @JoinColumn(name = "comment")
     private Comment comment;    // комент на который мы отвчемаем
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "post")
     private Post post;          // ссылка на пост под которым написан проект
 
-    @Column(nullable = false)
-    @OneToOne(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author")
     private User author;
+
+
+
 
     public Comment() {
     }
