@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
 
 @Controller
-@RequestMapping()
+//@RequestMapping()
 public class HelloController {
 
     @RequestMapping(method = RequestMethod.GET, path = "deda")
@@ -22,12 +22,12 @@ public class HelloController {
         return "Innorumors/post-deatils";
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "create-post")
+    @RequestMapping(method = RequestMethod.GET, path = "/create-post")
     public String getCreatPostForm(){
         return "Innorumors/new_post";
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = "newpost")
+    @RequestMapping(method = RequestMethod.POST, path = "/newpost")
     public String createPost(Post post){
         System.out.println(post.getTitle());
         return "Innorumors/post-deatils";
@@ -38,5 +38,4 @@ public class HelloController {
         System.out.println(123);
         return post.getTitle();
     }
-
 }

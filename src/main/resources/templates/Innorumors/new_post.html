@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -14,7 +13,7 @@
     <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/responsive.css}" rel="stylesheet" type="text/css">
-
+</head>
 <body>
 <div class="top-menu-bottom932">
     <nav class="navbar navbar-default">
@@ -32,15 +31,7 @@
                 <ul class="nav navbar-nav"></ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="navbar-menu-left-side239">
-                                <ul>
 
-                                    <li><a href="logIn.html"><i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="navbar-serch-right-side">
                                 <form class="navbar-form" role="search">
@@ -52,9 +43,7 @@
                                                     class="glyphicon glyphicon-search"></i></button>
                                         </div>
                                     </div>
-
                             </div>
-
                         </div>
                     </div>
 
@@ -68,6 +57,7 @@
 
 <!-- new Post -->
 
+<form id="1" th:action="@{/newpost}" method="post"  >
 <section class="main-content920">
     <div class="container">
         <div class="row">
@@ -75,30 +65,21 @@
                 <div class="ask-question-input-part032">
                     <h4>Создать пост</h4>
                     <hr>
-                    <form method="POST" th:action="@{/newpost}" >
 
                         <div class="question-title39">
-                            <span class="form-description433">Title* </span><input type="text" name="title"
-                                                                                   class="question-ttile32"
-                                                                                   placeholder="Тема Вашего поста">
+                            <span class="form-description433">Title* </span>
+                            <input type="text" th:name="title" class="question-ttile32" placeholder="Тема Вашего поста">
                         </div>
-
-<!--                        <div class="button-group-addfile3239">-->
-<!--                            <span class="form-description23993">Attactment*</span><input type="file" name="ffile"-->
-<!--                                                                                         class="question-ttile3226">-->
-
-<!--                        </div>-->
                         <div class="details2-239">
                             <div class="col-md-12 nopadding">
-                                <textarea id="txtEditor" name="body"></textarea>
+                                <textarea id="txtEditor" th:name="body"></textarea>
+<!--                                <input type="text" th:name="body" class="question-ttile32" placeholder="123">-->
                             </div>
                         </div>
 
-                    </form>
                     <div class="publish-button2389">
-                        <button type="submit" class="publis1291">Опубликовать пост</button>
+                        <button type="button" onclick="$('#1').submit()" class="publis1291">Опубликовать пост</button>
                     </div>
-                    </form>
                 </div>
             </div>
             <!--                end of col-md-9 -->
@@ -124,6 +105,8 @@
         </div>
     </div>
 </section>
+</form>
+
 
 
 <section class="footer-part">

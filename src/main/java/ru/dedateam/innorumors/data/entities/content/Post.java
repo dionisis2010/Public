@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
 public class Post {
 
     private Long id;
@@ -30,76 +32,8 @@ public class Post {
         this.title = title;
         this.body = body;
     }
+    public Post(){
 
-    public Long getId() {
-        return id;
     }
 
-    public Post setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public Post setAuthor(User author) {
-        this.author = author;
-        return this;
-    }
-
-    public Boolean getAnonymous() {
-        return isAnonymous;
-    }
-
-    public Post setAnonymous(Boolean anonymous) {
-        isAnonymous = anonymous;
-        return this;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Post setTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public Post setBody(String body) {
-        this.body = body;
-        return this;
-    }
-
-    public Date getPostedTime() {
-        return postedTime;
-    }
-
-    public Post setPostedTime(Date postedTime) {
-        this.postedTime = postedTime;
-        return this;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public Post setTags(Set<Tag> tags) {
-        this.tags = tags;
-        return this;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public Post setComments(List<Comment> comments) {
-        this.comments = comments;
-        return this;
-    }
 }
