@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="${count}"></p>
+<h1 th:each="u : ${findedUser}">
+
+    <p th:text="${u.getId()}"></p>
+    <p th:text="${u.getUsername()}"></p>
+    <p th:text="${u.getPassword()}"></p>
+    <p th:text="${u.getAge()}"></p>
+</h1>
+</body>
+</html>

@@ -1,47 +1,78 @@
 package ru.dedateam.innorumors.data.entities.profiles;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import ru.dedateam.innorumors.data.entities.content.Comment;
-import ru.dedateam.innorumors.data.entities.content.Post;
+import javax.persistence.*;
 
-import java.net.URL;
-import java.util.Date;
-import java.util.Set;
-
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String nickName;
+    private String username;
     private String password;
 
-    private Date logIn;
-    private Date lastLogIn;
+//    private Date logUpTime;
+//    private Date lastLogInTime;
 
-    private Gender gender;
     private Integer age;
 
-    private Integer rating;
+//    private Integer rating;
 
-    private Set<Post> posts;           // выложенные посты
-    private Set<Comment> comments;     // оставленные комментарии
-
-    private Set<Post> favoritesPosts;       // избранные посты
-    private Set<Post> unFavoritesPosts;
-
-    private Set<Comment> favoritesComments; // избранные комменты
-    private Set<Comment> unFavoritesComments;
-
-    public User(Long id, String nickName, String password) {
-        this.nickName = nickName;
+    public User(String username, String password, Integer age) {
+        this.username = username;
         this.password = password;
+        this.age = age;
+    }
+
+
+    public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public User() {
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String nickName) {
+        this.username = nickName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "id " + getId()
+                + "\nnick " + getUsername()
+                + "\npass " + getPassword()
+//                + "\nlogUpTime " + getLogUpTime()
+//                + "\nlastLogInTime " + getLastLogInTime()
+                + "\nage " + getAge();
+//                + "\nrating " + getRating();
     }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" name="logUp" th:action="@{/profile/logup}">
+    <input th:name="username">
+    <input th:name="password">
+    <input th:name="age">
+    <button type="submit">logIn</button>
+</form>
+<!--<form method="post" name="logUp" th:action="">-->
+<!--    <input name="nickName">-->
+<!--    <input name="nickName">-->
+<!--    <input name="password">-->
+<!--</form>-->
+</body>
+</html>
