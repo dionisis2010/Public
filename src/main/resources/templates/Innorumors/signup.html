@@ -1,57 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Innorumors | Регистрация</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Innorumors | Регистрация</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-   <link rel="stylesheet" th:href="@{css/loginstyle.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
+    <link rel="stylesheet" th:href="@{/css/loginstyle.css}">
 
-  
 </head>
 
 <body>
-  
+
 <div class="modal-wrap">
 
-  <div class="modal-bodies">
-    <div class="modal-body modal-body-step-1 is-showing">
-      <div class="title">Зарегистрируйтесь</div>
-      <div class="description">Заполните форму</div>
-      <form>
-        <input type="text" placeholder="Логин*"/>
-        <input type="email" placeholder="E-Mail*"/>
-          <input type="password" placeholder="Пароль*"/>
-            <input type="con-password" placeholder="Повторите пароль*"/>
-               <div class="col-md-4">
-<!--            Google and Facebook register form
-                        <div class="row text-center sign-with">
-                            <div class="col-md-12">
-                                <h3>Войдите через</h3>
-                            </div>
-                            <div class="col-md-12 sign-in28912">
-                                <div class="btn-group btn-group-justified">
-                <a href="#" class="btn btn-primary btn-primary3838">Facebook</a> <a href="#" class="btn btn-danger btn-danger37883">
-                                        Google</a>
-                                </div>
-                            </div>
-                        </div>
--->
-                    </div>
-        <div class="text-center">
-          <div class="button" type="submit">Регистрация</div>
+    <div class="modal-bodies">
+        <div class="modal-body modal-body-step-1 is-showing">
+            <div class="title">Зарегистрируйтесь</div>
+            <div class="description">Заполните форму</div>
+            <form>
+                <input type="text" placeholder="Логин*"/>
+                <input type="email" placeholder="E-Mail*"/>
+                <input type="password" placeholder="Пароль*"/>
+                <input type="con-password" placeholder="Повторите пароль*"/>
+                <div class="col-md-4">
+                    <!--            Google and Facebook register form
+                                            <div class="row text-center sign-with">
+                                                <div class="col-md-12">
+                                                    <h3>Войдите через</h3>
+                                                </div>
+                                                <div class="col-md-12 sign-in28912">
+                                                    <div class="btn-group btn-group-justified">
+                                    <a href="#" class="btn btn-primary btn-primary3838">Facebook</a> <a href="#" class="btn btn-danger btn-danger37883">
+                                                            Google</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    -->
+                </div>
+                <div class="text-center">
+                    <div class="button">Регистрация</div>
 
+                </div>
+            </form>
         </div>
-      </form>
+
+
     </div>
-
- 
-  </div>
 </div>
-  <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
 
-    
 
 </body>
 </html>

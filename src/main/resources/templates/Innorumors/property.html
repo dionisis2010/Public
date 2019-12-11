@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Innorumors | Настройки</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
+    <link rel="stylesheet" th:href="@{/css/loginstyle.css}">
+</head>
+
+<body>
+
+<div class="modal-wrap">
+
+    <div class="modal-bodies">
+        <div class="modal-body modal-body-step-1 is-showing">
+            <div class="title">Настройки</div>
+            <form>
+                <input type="text" placeholder="Имя*"/>
+                <input type="email" placeholder="Фамилия*"/>
+                <input type="password" placeholder="Возраст*"/>
+                <div class="categori49">
+                         <span class="form-description43305">Пол*
+                         </span>
+                    <label>
+                        <input list="browsers" name="myBrowser" class="list-category53"/></label>
+                    <datalist id="browsers">
+                        <option value="Мужской">
+                        <option value="Женский">
+
+                    </datalist>
+                </div>
+                <div class="photo">
+                    <span class="photo-description23993">Ваше фото*</span><input type="file" name="ffile"
+                                                                                 class="photo1">
+                    <a href="#"><img src="image/images.png" alt="image"> </a>
+                </div>
+                <br>
+                <div class="text-center">
+                    <div class="button">Сохранить</div>
+                    <a href="index.html" target="_blank">
+                        <div class="button">Главная</div>
+                    </a>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+
+
+</body>
+</html>

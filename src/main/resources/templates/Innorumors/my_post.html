@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Innorumors | Мои посты</title>
-    <link href="../../static/css/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/style.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/editor.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/animate.css" rel="stylesheet" type="text/css">
-    <link href="../../static/css/font-awesome.min.css" rel="stylesheet" type="text/css"> </head>
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/editor.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css"> </head>
 
 <body>
     <!-- ==========header mega navbar=======-->
@@ -21,7 +21,7 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Переключить навигацию</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                    <a class="navbar-brand" href="#"><img src="../../static/image/download.gif" alt="Logo"></a>
+                    <a class="navbar-brand" href="#"><img src="image/download.gif" alt="Logo"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -70,7 +70,7 @@
                         <input id="tab3" type="radio" name="tabs">
                         <label for="tab3">Мои обсуждаемые посты</label>
                         <input id="tab5" type="radio" name="tabs">
-                        <label for="tab5">Мои закладки</label>
+                       <!-- <label for="tab5">Мои закладки</label> -->
      
                        
                         <section id="content1">
@@ -79,19 +79,25 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                            <a href="#"><img src="image/images.png" alt="image"> </a>
+<!--                                            <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>-->
+                                        </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
+                                                <h3><a href="post_user.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
                                             <div class="ques-details10018">
                                                 <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
 
                                                 Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
+                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a>
+                                                <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a>
+<!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a>-->
+                                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a>
+<!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
                                               <div class="l-rightside39">
                                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
@@ -110,19 +116,25 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#">
+<!--                                            <i class="fa fa-check" aria-hidden="true"></i></a>-->
+                                        </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
+                                                <h3><a href="post_user.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
                                             <div class="ques-details10018">
                                                 <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
 
                                                 Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
+                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a>
+                                                <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a>
+<!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
+                                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a>
+<!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
                                               <div class="l-rightside39">
                                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
@@ -144,19 +156,25 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                            <a href="#"><img src="image/images.png" alt="image"> </a> <a href="#">
+<!--                                            <i class="fa fa-check" aria-hidden="true"></i></a> -->
+                                        </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
                                             <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
+                                                <h3><a href="post_user.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
                                             <div class="ques-details10018">
                                                 <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
 
                                                 Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
+                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a>
+                                                <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a>
+<!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
+                                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a>
+<!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
                                               <div class="l-rightside39">
                                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
@@ -171,19 +189,25 @@
                                 <div class="row">
                                     <div class="col-md-1">
                                         <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
+                                            <a href="#"><img src="image/images.png" alt="image"> </a>
+<!--                                            <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>-->
+                                        </div>
                                     </div>
                                     <div class="col-md-9">
                                         <div class="right-description893">
-                                            <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
+                                            <div id="question-hedder2983">
+                                                <h3><a href="post_user.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
                                             <div class="ques-details10018">
                                                 <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
 
                                                 Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
                                             </div>
                                             <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
+                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a>
+                                                <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a>
+<!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
+                                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a>
+<!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
                                               <div class="l-rightside39">
                                     <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
                                     <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
@@ -195,77 +219,11 @@
                             </div> 
                         </section>
                         <!--End content-3 -->
-                        
-                        
-                        
-                                 <section id="content4">
-                                  <!--No answered Content Section -->
-                                  <div class="question-type2033">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="right-description893">
-                                            <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
-                                            <div class="ques-details10018">
-                                                <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
 
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
-                                            </div>
-                                            <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
-                                              <div class="l-rightside39">
-                                    <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                    <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-                             <!--End of content-4-->
-                        </section>
-                        
-                        
-  
-                     <!--===    <section id="content5">=====-->
-                              <!--Recent Question Content Section -->
-     <br>
-     <br>
-                            <div class="question-type2033">
-                                <div class="row">
-                                    <div class="col-md-1">
-                                        <div class="left-user12923 left-user12923-repeat">
-                                            <a href="#"><img src="../../static/image/images.png" alt="image"> </a> <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a> </div>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="right-description893">
-                                            <div id="que-hedder2983">
-                                                <h3><a href="post-deatils.html" target="_blank">Jest, Enzyme. Как тестировать рефы?</a></h3> </div>
-                                            <div class="ques-details10018">
-                                                <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не могу решить эту задачу уже несколько дней.
-
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды вызывать setProps, но тогда появляется ошибка "maximum call stack size".</p>
-                                            </div>
-                                            <hr>
-                                            <div class="ques-icon-info2933"> <a href="#"><i class="fa fa-user" aria-hidden="true"> Дамблдор</i></a> <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21, 2019</i></a> <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2</i></a> <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>   
-                                              <div class="l-rightside39">
-                                    <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip" data-placement="bottom" title="Like"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                    <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip" data-placement="bottom" title="Dislike"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></button> <span class="single-question-vote-result">+22</span> </div>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    
-                                </div>
-                            </div> 
-                            <!--End of content-5-->
                        <!--==== </section>===-->
-              
+
          <!--               end of Highest points -->
-  
+
         </div>
                     
                     
@@ -309,9 +267,9 @@
         </div>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../../static/js/jquery-3.1.1.min.js"></script>
-    <script src="../../static/js/bootstrap.min.js"></script>
-    <script src="../../static/js/editor.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/editor.js"></script>
     <script>
         $(document).ready(function () {
             $("#txtEditor").Editor();
