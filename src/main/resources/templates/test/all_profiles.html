@@ -6,7 +6,7 @@
 </head>
 <body>
 <p th:text="${count}"></p>
-<h1 th:each="u : ${users}">
+<h1 th:each="u : ${all_users}">
     <p th:text="${u.getId()}"></p>
     <p th:text="${u.getUsername()}"></p>
     <p th:text="${u.getPassword()}"></p>

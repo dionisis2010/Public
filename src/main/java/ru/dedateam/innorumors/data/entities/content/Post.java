@@ -15,9 +15,10 @@ import java.util.Set;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
-    @SequenceGenerator(name = "posts_seq", sequenceName = "posts_id_seq", allocationSize = 1)
-    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
+//    @SequenceGenerator(name = "posts_seq", sequenceName = "posts_id_seq", allocationSize = 1)
+//    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,17 +34,17 @@ public class Post {
     @Column(name = "body", nullable = false)
     private String body;
 
-    @Column(name = "postedTime", nullable = false)
-    private Date postedTime;
+//    @Column(name = "postedTime", nullable = false)
+//    private Date postedTime;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private Set<Comment> comments;
+//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+//    private Set<Comment> comments;
 
-    public Post(User author, String title, String body, boolean isAnonymous) {
+    public Post(User author, String title, String body, Boolean isAnonymous) {
         this.author = author;
         this.title = title;
         this.body = body;
         this.isAnonymous = isAnonymous;
-        this.postedTime = new Date();
+//        this.postedTime = new Date();
     }
 }

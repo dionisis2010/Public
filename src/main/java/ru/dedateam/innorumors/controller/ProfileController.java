@@ -3,13 +3,14 @@ package ru.dedateam.innorumors.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ru.dedateam.innorumors.data.entities.profiles.User;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.security.InvalidParameterException;
 
 @Controller
 @RequestMapping(path = "profile")
@@ -27,20 +28,6 @@ public class ProfileController {
     @GetMapping(path = "singup")
     public String getSingUpPage() {
         return "Innorumors/signup";
-    }
-
-    @PostMapping(path = "registration")
-    public String login(@RequestParam(name = "username") String username,
-                        @RequestParam(name = "password") String password,
-                        @RequestParam(name = "password") String conPassword,
-                        @RequestParam(name = "age") Integer age) {
-        if (!conPassword.equals(password)) {
-            throw new InvalidParameterException("Паролли не совпадают");
-        } else {
-            User user = new User(username, password, age);
-            userRepo.save(user);
-            return "deda";
-        }
     }
 
     @GetMapping(path = "get-user")
@@ -63,14 +50,6 @@ public class ProfileController {
         return "redirect:profile/get-all-users";
     }
 
-    @PostMapping(path = "/logup")
-    public String login(@RequestParam String username,
-                        @RequestParam String password,
-                        @RequestParam Integer age) {
-        User user = new User(username, password, age);
-        userRepo.save(user);
-        return "redirect:profile/get-all-users";
-    }
 
     @GetMapping(path = "clear-base")
     public void clearBaseUser(HttpServletResponse response) {
