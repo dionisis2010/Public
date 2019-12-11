@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
@@ -24,7 +24,7 @@ public class Comment {
     private String body;
 
     @Column(name = "posted_time", nullable = false)
-    private Date postedTime;
+    private LocalDateTime postedTime;
 
     @OneToOne
     @JoinColumn(name = "comment")
@@ -42,13 +42,13 @@ public class Comment {
         this.author = author;
         this.body = body;
         this.post = post;
-        this.postedTime = new Date();
+        this.postedTime = LocalDateTime.now();
     }
 
     public Comment(User author, String body, Comment comment) {
         this.author = author;
         this.body = body;
         this.comment = comment;
-        this.postedTime = new Date();
+        this.postedTime = LocalDateTime.now();
     }
 }

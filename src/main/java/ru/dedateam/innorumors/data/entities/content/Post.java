@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -35,7 +35,7 @@ public class Post {
     private String body;
 
     @Column(name = "posted_time", nullable = true)
-    private Date postedTime;
+    private LocalDateTime postedTime;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private Set<Comment> comments;
@@ -45,6 +45,6 @@ public class Post {
         this.title = title;
         this.body = body;
         this.isAnonymous = isAnonymous;
-        this.postedTime = new Date();
+        this.postedTime = LocalDateTime.now();
     }
 }
