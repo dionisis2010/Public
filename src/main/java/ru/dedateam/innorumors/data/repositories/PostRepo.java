@@ -6,4 +6,5 @@ import ru.dedateam.innorumors.data.entities.content.Post;
 
 @Repository
 public interface PostRepo extends CrudRepository<Post, Long> {
+    Post findByBody(String body);
 }
