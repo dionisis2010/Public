@@ -5,16 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" name="logUp" th:action="@{/profile/logup}">
+<h2>user</h2>
+<form method="post" th:action="@{/add_user}">
     <input th:name="username">
     <input th:name="password">
     <input th:name="age">
     <button type="submit">logIn</button>
 </form>
-<!--<form method="post" name="logUp" th:action="">-->
-<!--    <input name="nickName">-->
-<!--    <input name="nickName">-->
-<!--    <input name="password">-->
-<!--</form>-->
+<br>
+<h2>Post</h2>
+<form method="post" th:action="@{/add_post}">
+    <input th:name="title" >
+    <input th:name="body">
+    <button type="submit">logIn</button>
+</form>
 </body>
 </html>
