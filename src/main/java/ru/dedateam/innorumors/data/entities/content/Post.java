@@ -39,7 +39,7 @@ public class Post {
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private Set<Comment> comments;
 
-    public Post(User author, String title, String body, boolean isAnonymous) {
+    public Post(User author, String title, String body, Boolean isAnonymous) {
         this.author = author;
         this.title = title;
         this.body = body;

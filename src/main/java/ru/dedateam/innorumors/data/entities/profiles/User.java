@@ -43,7 +43,7 @@ public class User {
     @Column(name = "registrationTime", nullable = false)
     private Date registrationTime; //время реги
 
-    public User(String username, String password, boolean gender, Integer age) {
+    public User(String username, String password, Boolean gender, Integer age) {
         this.username = username;
         this.password = password;
         this.gender = gender;
