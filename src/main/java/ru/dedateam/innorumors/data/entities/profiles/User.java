@@ -1,78 +1,95 @@
 package ru.dedateam.innorumors.data.entities.profiles;
 
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.WhereJoinTable;
+import ru.dedateam.innorumors.data.entities.content.Comment;
+import ru.dedateam.innorumors.data.entities.content.Post;
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
-//@Getter
-//@Setter
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
+    @SequenceGenerator(name = "users_seq", sequenceName = "users_id_seq", allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
 
-//    private Date logUpTime;
-//    private Date lastLogInTime;
+    @Column(name = "last_login", nullable = false)
+    private Date lastLogIn;
 
+    @Column(name = "gender", nullable = false)
+    private boolean gender;
+
+    @Column(name = "age", nullable = false)
     private Integer age;
 
-//    private Integer rating;
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
 
-    public User(String username, String password, Integer age) {
+    @Column(name = "registrationTime", nullable = false)
+    private Date registrationTime; //время реги
+
+    public User(String username, String password, boolean gender, Integer age) {
         this.username = username;
         this.password = password;
+        this.gender = gender;
         this.age = age;
+        this.registrationTime = new Date();
     }
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<Post> posts;           // выложенные посты
 
-    public User() {
-    }
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<Comment> comments;     // оставленные комментарии
 
-    public Long getId() {
-        return id;
-    }
+    @WhereJoinTable(clause = "vote = true")
+    @ManyToMany
+    @JoinTable(
+            name = "PostVotes",
+            joinColumns = { @JoinColumn(name = "author")},
+            inverseJoinColumns = {@JoinColumn(name = "post")}
+    )
+    private Set<Post> favoritesPosts;       // избранные посты
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @WhereJoinTable(clause = "vote = false")
+    @ManyToMany
+    @JoinTable(
+            name = "PostVotes",
+            joinColumns = { @JoinColumn(name = "author")},
+            inverseJoinColumns = {@JoinColumn(name = "post")}
+    )
+    private Set<Post> unFavoritesPosts;
 
-    public String getUsername() {
-        return username;
-    }
+    @WhereJoinTable(clause = "vote = true")
+    @ManyToMany
+    @JoinTable(
+            name = "CommentVotes",
+            joinColumns = { @JoinColumn(name = "author")},
+            inverseJoinColumns = {@JoinColumn(name = "post")}
+    )
+    private Set<Comment> favoritesComments; // избранные комменты
 
-    public void setUsername(String nickName) {
-        this.username = nickName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "id " + getId()
-                + "\nnick " + getUsername()
-                + "\npass " + getPassword()
-//                + "\nlogUpTime " + getLogUpTime()
-//                + "\nlastLogInTime " + getLastLogInTime()
-                + "\nage " + getAge();
-//                + "\nrating " + getRating();
-    }
+    @WhereJoinTable(clause = "vote = false")
+    @ManyToMany
+    @JoinTable(
+            name = "CommentVotes",
+            joinColumns = { @JoinColumn(name = "author")},
+            inverseJoinColumns = {@JoinColumn(name = "post")}
+    )
+    private Set<Comment> unFavoritesComments;
 }

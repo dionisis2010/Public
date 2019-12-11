@@ -1,10 +1,6 @@
 package ru.dedateam.innorumors.data.entities;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.dedateam.innorumors.data.entities.content.Comment;
-import ru.dedateam.innorumors.data.entities.content.Post;
-import ru.dedateam.innorumors.data.entities.profiles.User;
 
 import java.text.SimpleDateFormat;
 

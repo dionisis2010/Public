@@ -1,17 +1,13 @@
 package ru.dedateam.innorumors.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "profile")
@@ -47,8 +43,9 @@ public class ProfileController {
     @PostMapping(path = "/logup")
     public String login(@RequestParam String username,
                         @RequestParam String password,
+                        @RequestParam boolean gender,
                         @RequestParam Integer age) {
-        User user = new User(username, password, age);
+        User user = new User(username, password, gender, age);
         userRepo.save(user);
         return "redirect:profile/get-all-users";
     }

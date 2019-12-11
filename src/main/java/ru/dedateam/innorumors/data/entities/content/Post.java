@@ -1,50 +1,49 @@
 package ru.dedateam.innorumors.data.entities.content;
 
-import lombok.Getter;
-import lombok.Setter;
-import ru.dedateam.innorumors.data.entities.Default;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 
+import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Entity
+@Table(name = "posts")
+@Data
+@NoArgsConstructor
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
+    @SequenceGenerator(name = "posts_seq", sequenceName = "posts_id_seq", allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author")
     private User author;
-    private boolean isAnonymous;
 
+    @Column(name = "isAnonymous", nullable = false)
+    private Boolean isAnonymous;
+
+    @Column(name = "title", nullable = false)
     private String title;
+
+    @Column(name = "body", nullable = false)
     private String body;
 
+    @Column(name = "postedTime", nullable = false)
     private Date postedTime;
 
-    private List<Comment> comments;
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private Set<Comment> comments;
 
-
-
-    public Post() {
+    public Post(User author, String title, String body, boolean isAnonymous) {
+        this.author = author;
+        this.title = title;
+        this.body = body;
+        this.isAnonymous = isAnonymous;
+        this.postedTime = new Date();
     }
-
-    public Boolean addComment(Comment comment) {
-        this.getComments().add(comment);
-        return true;
-    }
-
-    public String getFormatPostedTime() {
-        return Default.DATE_FORMAT.format(this.postedTime);
-    }
-
-
-//    @Override
-//    public String toString() {
-//        return "Author: " + getAuthor().getNickName() + " " + isAnonymous()
-//                + "\nTitle" + getTitle()
-//                + "\n" + getBody()
-//                + "\n" + getFormatPostedTime()
-//                + "\nComments: " + getComments().size();
-//    }
 }

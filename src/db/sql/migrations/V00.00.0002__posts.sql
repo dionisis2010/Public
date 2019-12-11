@@ -11,7 +11,7 @@ CREATE TABLE "public"."posts"
     "body"        text                                   NOT NULL,
     "postedTime"  timestamp                              NOT NULL,
     "isAnonymous" boolean                                NOT NULL,
-    "title"       text,
+    "title"       text                                   NOT NULL,
     CONSTRAINT "posts_id" PRIMARY KEY ("id"),
-    CONSTRAINT "posts_user_id_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE
+    CONSTRAINT "posts_author_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE
 ) WITH (oids = false);

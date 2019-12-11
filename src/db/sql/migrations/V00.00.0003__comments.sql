@@ -13,7 +13,7 @@ CREATE TABLE "public"."comments"
     "postedTime" timestamp                                 NOT NULL,
     "comment"    bigint,
     CONSTRAINT "comments_id" PRIMARY KEY ("id"),
+    CONSTRAINT "comments_author_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE,
     CONSTRAINT "comments_comment_fkey" FOREIGN KEY (comment) REFERENCES comments (id) NOT DEFERRABLE,
-    CONSTRAINT "comments_post_id_fkey" FOREIGN KEY (post) REFERENCES posts (id) NOT DEFERRABLE,
-    CONSTRAINT "comments_user_id_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE
+    CONSTRAINT "comments_post_fkey" FOREIGN KEY (post) REFERENCES posts (id) NOT DEFERRABLE
 ) WITH (oids = false);
