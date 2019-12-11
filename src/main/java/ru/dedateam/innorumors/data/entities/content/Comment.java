@@ -3,6 +3,7 @@ package ru.dedateam.innorumors.data.entities.content;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+
 import javax.persistence.*;
 import java.util.Date;
 

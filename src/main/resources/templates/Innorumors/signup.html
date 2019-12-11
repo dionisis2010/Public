@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Innorumors | Регистрация</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-   <link rel="stylesheet" href="../../static/css/loginstyle.css">
+   <link rel="stylesheet" th:href="@{css/loginstyle.css}">
 
   
 </head>
@@ -25,6 +25,7 @@
           <input type="password" placeholder="Пароль*"/>
             <input type="con-password" placeholder="Повторите пароль*"/>
                <div class="col-md-4">
+<!--            Google and Facebook register form
                         <div class="row text-center sign-with">
                             <div class="col-md-12">
                                 <h3>Войдите через</h3>
@@ -36,9 +37,10 @@
                                 </div>
                             </div>
                         </div>
+-->
                     </div>
         <div class="text-center">
-          <div class="button">Регистрация</div>
+          <div class="button" type="submit">Регистрация</div>
 
         </div>
       </form>

@@ -25,4 +25,6 @@ public class ContentController {
         modelAndView.addObject("post", post);
         return modelAndView;
     }
+
+
 }
