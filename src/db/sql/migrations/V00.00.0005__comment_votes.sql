@@ -1,7 +1,7 @@
 --Likes table
 
 DROP TABLE IF EXISTS "commentVotes";
-CREATE TABLE "public"."commentVotes"
+CREATE TABLE "public"."comment_votes"
 (
     "author"  bigint  NOT NULL,
     "comment" bigint  NOT NULL,

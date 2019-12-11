@@ -9,8 +9,8 @@ CREATE TABLE "public"."posts"
     "id"          bigint DEFAULT nextval('posts_id_seq') NOT NULL,
     "author"      bigint                                 NOT NULL,
     "body"        text                                   NOT NULL,
-    "postedTime"  timestamp                              NOT NULL,
-    "isAnonymous" boolean                                NOT NULL,
+    "posted_time"  timestamp                              NOT NULL,
+    "is_anonymous" boolean                                NOT NULL,
     "title"       text                                   NOT NULL,
     CONSTRAINT "posts_id" PRIMARY KEY ("id"),
     CONSTRAINT "posts_author_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE

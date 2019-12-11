@@ -10,7 +10,7 @@ CREATE TABLE "public"."comments"
     "author"     bigint                                    NOT NULL,
     "post"       bigint                                    NOT NULL,
     "body"       text                                      NOT NULL,
-    "postedTime" timestamp                                 NOT NULL,
+    "posted_time" timestamp                                 NOT NULL,
     "comment"    bigint,
     CONSTRAINT "comments_id" PRIMARY KEY ("id"),
     CONSTRAINT "comments_author_fkey" FOREIGN KEY (author) REFERENCES users (id) NOT DEFERRABLE,

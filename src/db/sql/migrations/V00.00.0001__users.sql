@@ -10,9 +10,9 @@ CREATE TABLE "public"."users"
     "username"         character varying                      NOT NULL,
     "password"         character(32)                          NOT NULL,
     "last_login"       timestamp                              NOT NULL,
+    "registration_time" timestamp                             NOT NULL,
     "age"              smallint                               NOT NULL,
     "gender"           boolean                                NOT NULL,
     "rating"           bigint                                 NOT NULL,
-    "registrationTime" timestamp                              NOT NULL,
     CONSTRAINT "users_id" PRIMARY KEY ("id")
 ) WITH (oids = false);
