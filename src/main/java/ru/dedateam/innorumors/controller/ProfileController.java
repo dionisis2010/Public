@@ -3,10 +3,9 @@ package ru.dedateam.innorumors.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.dedateam.innorumors.data.entities.profiles.Role;
+import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
 import javax.servlet.http.HttpServletResponse;
@@ -16,48 +15,57 @@ import java.io.IOException;
 @RequestMapping(path = "profile")
 public class ProfileController {
 
-    @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    public ProfileController(UserRepo userRepo) {
+        this.userRepo = userRepo;
+    }
 
-    @GetMapping(path = "login")
+    @GetMapping(path = "/login")
     public String getLogInPage() {
-        return "/Innorumors/logIn";
+        return "logIn";
     }
 
-    @GetMapping(path = "singup")
-    public String getSingUpPage() {
-        return "Innorumors/signup";
+
+    @GetMapping(path = "/registration")
+    public String getRegistrationPage() {
+        return "signup";
     }
 
-    @GetMapping(path = "get-user")
+    @PostMapping(path = "/registration")
+    public String registration(User user, Model model){
+        user.setRole(Role.USER);
+        userRepo.save(user);
+        model.addAttribute("user", user);
+        return "user_info";
+    }
+
+    @GetMapping(path = "/get_user")
     public String getProfile(Model model, @RequestParam(name = "id") Long id) {
-        model.addAttribute("profile", userRepo.findById(id));
-        return "test/profile";
+        model.addAttribute("user", userRepo.findById(id));
+        return "user_info";
     }
 
-    @GetMapping(path = "get-all-users")
+    @GetMapping(path = "/get_all_users")
     public String get(Model model) {
-        model.addAttribute("findedUser", userRepo.findAll());
         model.addAttribute("count", userRepo.count());
+        model.addAttribute("all_users", userRepo.findAll());
 
-        return "/test/profile";
+//        return "user";
+        return "test/all_profiles";
     }
 
-    @DeleteMapping(path = "delete-user")
+    @DeleteMapping(path = "/delete-user")
     public String deleteUser(Model model, @RequestParam Long id) {
-
-        return "redirect:profile/get-all-users";
+        userRepo.deleteById(id);
+        return "redirect:profile/get_all_users";
     }
 
 
-    @GetMapping(path = "clear-base")
-    public void clearBaseUser(HttpServletResponse response) {
-        userRepo.deleteAll();
-        try {
-            response.getWriter().println("hello");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @GetMapping(path = "clear-base")
+//    public String clearBaseUser() {
+//        userRepo.deleteAll();
+//        return "redirect:profile/get";
+//    }
 }
