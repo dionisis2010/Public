@@ -23,7 +23,7 @@
                         data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Переключить навигацию</span>
                     <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="image/download.gif" alt="Logo"></a>
+                <a class="navbar-brand" href="#"><img src="../static/image/download.gif" alt="Logo"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -78,15 +78,19 @@
                         </h3>
                         <hr>
                     </div>
-                    <div class="user-image293"><img src="image/images.png" alt="Image"></div>
+                    <div class="user-image293"><img src="../static/image/images.png" alt="Image"></div>
                     <div class="user-list10039">
                         <div class="ul-list-user-left29">
                             <ul>
-                                <li><i class="fa fa-plus" aria-hidden="true"></i> <strong>Вход в онлайн:</strong>
-                                    Декабрь 4, 2019
+                                <li><i class="fa fa-plus" aria-hidden="true"
+                                       th:text="'LastLogInTime: ' + ${user.getLastLogIn()}"></i>
+<!--                                    <strong>Вход в онлайн:</strong>Декабрь 4, 2019-->
                                 </li>
 
-                                <li><i class="fa fa-heart" aria-hidden="true"></i> <strong>Возраст:</strong> 27</li>
+                                <li><i class="fa fa-heart" aria-hidden="true"
+                                th:text="'Age: ' + ${user.getAge()}"></i>
+<!--                                    <strong>Возраст:</strong> 27-->
+                                </li>
                                 <li><i class="fa fa-user" aria-hidden="true"></i> <strong>Пол: </strong>Мужской</li>
 
 
@@ -195,9 +199,9 @@
                 </div>
             </section>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="js/jquery-3.1.1.min.js"></script>
-            <script src="js/bootstrap.min.js"></script>
-            <script src="js/editor.js"></script>
+            <script src="../static/js/jquery-3.1.1.min.js"></script>
+            <script src="../static/js/bootstrap.min.js"></script>
+            <script src="../static/js/editor.js"></script>
             <script>
                 $(document).ready(function () {
                     $("#txtEditor").Editor();

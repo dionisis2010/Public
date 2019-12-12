@@ -18,11 +18,12 @@
         <div class="modal-body modal-body-step-1 is-showing">
             <div class="title">Зарегистрируйтесь</div>
             <div class="description">Заполните форму</div>
-            <form>
-                <input type="text" placeholder="Логин*"/>
-                <input type="email" placeholder="E-Mail*"/>
-                <input type="password" placeholder="Пароль*"/>
-                <input type="con-password" placeholder="Повторите пароль*"/>
+
+            <form method="post" th:action="registration">
+                <input type="text" name="username" placeholder="Логин*"/>
+<!--                <input type="email" placeholder="E-Mail*"/>-->
+                <input type="password" name="password" placeholder="Пароль*"/>
+                <input type="password" name="confirm_password" placeholder="Повторите пароль*"/>
                 <div class="col-md-4">
                     <!--            Google and Facebook register form
                                             <div class="row text-center sign-with">
@@ -39,7 +40,8 @@
                     -->
                 </div>
                 <div class="text-center">
-                    <div class="button">Регистрация</div>
+<!--                    <div class="button">Регистрация</div>-->
+                    <button type="submit">registration</button>
 
                 </div>
             </form>
