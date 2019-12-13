@@ -8,7 +8,7 @@ public enum Views {
     INDEX("index"),
     LOGIN_PAGE("login_page"),
     REGISTRATION_PAGE("registration"),
-    USER_UNFO("user_info"),
+    USER_INFO("user_info"),
     ALL_USERS("all_users");
 
     private String nameView;
@@ -20,6 +20,10 @@ public enum Views {
 
     @Override
     public String toString() {
+        return nameView;
+    }
+
+    public String getNameView() {
         return nameView;
     }
 }
