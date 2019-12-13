@@ -2,7 +2,9 @@ package ru.dedateam.innorumors.data.entities.profiles;
 
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.WhereJoinTable;
 import ru.dedateam.innorumors.data.entities.content.Comment;
 import ru.dedateam.innorumors.data.entities.content.Post;
@@ -13,7 +15,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
 
@@ -30,34 +34,33 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
-    private Role role;
-
     @Column(name = "last_login", nullable = false)
     private LocalDateTime lastLogIn;
 
     @Column(name = "registration_time", nullable = false)
     private LocalDateTime registrationTime; //время реги
 
-    @Column(name = "gender", nullable = false)
-    private boolean gender;
+    @Column(name = "gender", nullable = true)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
-    @Column(name = "age", nullable = false)
-    private Integer age;
+    @Column(name = "birth_day", nullable = true)
+    private LocalDateTime birthDay;
 
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
-    public User(String username, String password, Boolean gender, Integer age) {
-        this.username = username;
-        this.password = password;
-        this.gender = gender;
-        this.age = age;
-        this.registrationTime = LocalDateTime.now();
-        this.lastLogIn = LocalDateTime.now();
-        this.rating = 0;
+    @Override
+    public String toString() {
+        return "\nid       : " + getId()
+                + "\nusername: " + getUsername()
+                + "\npassword: " + getPassword()
+                + "\ngender  : " + getGender()
+                + "\nage     : " + getBirthDay()
+                + "\nregistrationTime: " + getRegistrationTime()
+                + "\nlastLogIn       : " + getLastLogIn()
+                + "\nrating  : " + getRating();
     }
-
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private Set<Post> posts;           // выложенные посты

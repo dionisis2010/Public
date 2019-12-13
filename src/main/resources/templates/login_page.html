@@ -18,12 +18,13 @@
         <div class="modal-body modal-body-step-1 is-showing">
             <div class="title">Вход</div>
             <div class="description">Войдите в личный кабинет</div>
-            <form>
+            <form method="post" action="/login_page">
                 <input type="text" placeholder="Логин"/>
-                <input type="email" placeholder="Пароль"/>
+                <input type="password" placeholder="Пароль"/>
                 <div class="text-center">
                     <div class="button">Вход</div>
-                    <a href="signup.html" target="_blank"><div class="button">Регистрация</div></a>
+                    <a href="registration.html" target="_blank"><div class="button">Регистрация</div></a>
+                    <button class="button" type="submit" name="login">LogIn</button>
                 </div>
             </form>
         </div>

@@ -20,25 +20,36 @@
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Переключить навигацию</span>
-                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Переключить навигацию</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><img src="../static/image/download.gif" alt="Logo"></a>
+                <a class="navbar-brand" th:href="@{/}">
+                    <img th:src="@{/image/download.gif}" alt="Logo">
+                </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav"></ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div class="row">
+
+                        <!--                        regButton-->
                         <div class="col-md-6">
                             <div class="navbar-menu-left-side239">
                                 <ul>
-
-                                    <li><a href="logIn.html"><i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
+                                    <li>
+                                        <a href="login.html">
+                                            <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+
+                        <!--                        Search-->
                         <div class="col-md-6">
                             <div class="navbar-serch-right-side">
                                 <form class="navbar-form" role="search">
@@ -52,8 +63,8 @@
                                     </div>
                                 </form>
                             </div>
-
                         </div>
+
                     </div>
 
                 </ul>
@@ -72,37 +83,41 @@
             <div class="col-md-9">
                 <div class="about-user2039">
                     <div class="user-title3930">
-                        <h3>Информация: <a href="#">Сириус Блэк</a>
-
-
-                        </h3>
+                        <h3 th:text="'Информация: ' + ${user.getUsername()}"></h3>
                         <hr>
                     </div>
-                    <div class="user-image293"><img src="../static/image/images.png" alt="Image"></div>
+                    <div class="user-image293"><img th:src="@{/image/images.png}" alt="Image"></div>
+
+                    <!--                    profile-->
                     <div class="user-list10039">
                         <div class="ul-list-user-left29">
                             <ul>
-                                <li><i class="fa fa-plus" aria-hidden="true"
-                                       th:text="'LastLogInTime: ' + ${user.getLastLogIn()}"></i>
-<!--                                    <strong>Вход в онлайн:</strong>Декабрь 4, 2019-->
+                                <li>
+                                    <i class="fa fa-plus" aria-hidden="true"
+                                       th:text="'Вход в онлайн: ' + ${user.getLastLogIn()}"></i>
                                 </li>
-
-                                <li><i class="fa fa-heart" aria-hidden="true"
-                                th:text="'Age: ' + ${user.getAge()}"></i>
-<!--                                    <strong>Возраст:</strong> 27-->
+                                <li>
+                                    <i class="fa fa-heart" aria-hidden="true"
+                                       th:text="'Дата рождения: ' + ${user.getBirthDay()}"></i>
                                 </li>
-                                <li><i class="fa fa-user" aria-hidden="true"></i> <strong>Пол: </strong>Мужской</li>
-
-
+                                <li>
+                                    <i class="fa fa-user" aria-hidden="true"
+                                       th:text="'Пол: ' + ${user.getGender().toString()}"></i>
+                                </li>
                             </ul>
                         </div>
+
                         <div class="ul-list-user-right29">
                             <ul>
-                                <li><i class="fa fa-globe" aria-hidden="true"></i> <strong>Рейтинг:</strong> 1</li>
-                                <li><i class="fa fa-globe" aria-hidden="true"></i> <strong>Посты пользователя:</strong>
-                                    1
-                                </li>
 
+                                <li>
+                                    <i class="fa fa-globe" aria-hidden="true"
+                                       th:text="'Рейтинг: ' + ${user.getId()}"></i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-globe" aria-hidden="true"
+                                       th:text="'Посты пользователя: ' + ${user.getPosts().size()}"></i>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -123,7 +138,7 @@
                     <hr>
                     <li><a href="category.html" target="_blank">Мои посты</a></li>
                     <hr>
-                    <li><a href="user.html" target="_blank">Пользователи</a></li>
+                    <li><a href="all_users.html" target="_blank">Пользователи</a></li>
                     <hr>
                     <li><a href="property.html" target="_blank"> Настройки </a></li>
                     <hr>
@@ -132,13 +147,13 @@
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                             aria-haspopup="true" aria-expanded="false">Test <span class="caret"></span></a>
                         <ul class="dropdown-menu animated zoomIn">
-                            <li><a href="logIn.html" target="_blank">Вход</a></li>
-                            <li><a href="signup.html" target="_blank">Регистрация</a></li>
+                            <li><a href="login.html" target="_blank">Вход</a></li>
+                            <li><a href="registration.html" target="_blank">Регистрация</a></li>
                             <li><a href="contact_us.html" target="_blank"> Contact Us</a></li>
                             <li><a href="ask_question.html" target="_blank"> Новый пост </a></li>
                             <li><a href="category.html" target="_blank"> allMyPost </a></li>
                             <li><a href="property.html" target="_blank"> Настройки </a></li>
-                            <li><a href="user.html" target="_blank"> allUsers</a></li>
+                            <li><a href="all_users.html" target="_blank"> allUsers</a></li>
                             <li><a href="user_question.html" target="_blank"> infoAboutUsers </a></li>
                             <li><a href="blog.html" target="_blank">someBlogDetails</a></li>
                             <li><a href="index.html" target="_blank"> Main </a></li>
@@ -199,9 +214,9 @@
                 </div>
             </section>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <script src="../static/js/jquery-3.1.1.min.js"></script>
-            <script src="../static/js/bootstrap.min.js"></script>
-            <script src="../static/js/editor.js"></script>
+            <script src="js/jquery-3.1.1.min.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="js/editor.js"></script>
             <script>
                 $(document).ready(function () {
                     $("#txtEditor").Editor();

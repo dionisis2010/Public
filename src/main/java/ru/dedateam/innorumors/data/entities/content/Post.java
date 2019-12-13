@@ -46,5 +46,10 @@ public class Post {
         this.body = body;
         this.isAnonymous = isAnonymous;
         this.postedTime = LocalDateTime.now();
+
+    }
+
+    public User getAuthor() {
+        return author;
     }
 }
