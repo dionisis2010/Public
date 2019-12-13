@@ -29,28 +29,31 @@ public class ProfileController {
                               Model model) {
         Optional<User> user = userRepo.findById(id);
         model.addAttribute("user", user.get());
-        return Views.USER_UNFO.getNameView();
+//        return Views.USER_INFO.getNameView();
+        return "user_info";
     }
 
     @PostMapping(path = "/add")
-    public void addUser(@RequestParam(name = "username") String username,
+    public String addUser(@RequestParam(name = "username") String username,
                         @RequestParam(name = "password") String password,
                         @RequestParam(name = "confirm_password") String confirm_password,
                         Model model) {
-//        if (password.equals(confirm_password)){
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setGender(Gender.MALE);
-        user.setBirthDay(LocalDateTime.now());
-        user.setRegistrationTime(LocalDateTime.now());
-        user.setLastLogIn(LocalDateTime.now());
-        user.setRating(0);
-        userRepo.save(user);
-        System.out.println("USPEH");
-//        }
+        if (password.equals(confirm_password)) {
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setGender(Gender.MALE);
+            user.setBirthDay(LocalDateTime.now());
+            user.setRegistrationTime(LocalDateTime.now());
+            user.setLastLogIn(LocalDateTime.now());
+            user.setRating(0);
+            userRepo.save(user);
+            System.out.println("USPEH");
+            return "all_users";
+        } else {
+            return "error";
+        }
 //        model.addAttribute("users", userRepo.findAll());
-//        return "all_users";
     }
 
     @GetMapping(path = "/all")
@@ -62,7 +65,7 @@ public class ProfileController {
     @PostMapping(path = "/update")
     public String updateUser(User user,
                              Model model) {
-        return Views.USER_UNFO.getNameView();
+        return Views.USER_INFO.getNameView();
     }
 
 }
