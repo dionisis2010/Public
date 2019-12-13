@@ -5,51 +5,43 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Innorumors | Главная</title>
+    <title>Innorumors | Пользователи</title>
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/editor.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
-<!-- ==========header mega navbar=======-->
 <div class="top-menu-bottom932">
     <nav class="navbar navbar-default">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Переключить навигацию</span>
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Переключить навигацию</span>
+                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/image/download.gif}" alt="Logo">
-                </a>
+                <a class="navbar-brand" href="#"><img src="../static/image/download.gif" alt="Logo"></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav"></ul>
                 <ul class="nav navbar-nav navbar-right">
                     <div class="row">
-
-                        <!--                        regButton-->
                         <div class="col-md-6">
                             <div class="navbar-menu-left-side239">
                                 <ul>
-                                    <li>
-                                        <a th:href="@{/login}" >
-                                            <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация
-                                        </a>
+
+                                    <li><a href="login.html"><i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-
-                        <!--                        Search-->
                         <div class="col-md-6">
                             <div class="navbar-serch-right-side">
-                                <form class="navbar-form" role="search" method="post" th:action="@{/search}">
+                                <form class="navbar-form" role="search">
                                     <div class="input-group add-on">
                                         <input class="form-control form-control222" placeholder="Поиск" name="srch-term"
                                                id="srch-term" type="text">
@@ -60,9 +52,10 @@
                                     </div>
                                 </form>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -70,94 +63,57 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
+<!-- ======breadcrumb ======-->
 
-
-<!--======= welcome section on top background=====-->
-
-<!-- ======content section/body=====-->
 <section class="main-content920">
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
 
-                <div class="container">
+            <!--            list users-->
+            <div class="col-md-9 user-profile328903">
+
+                <!--                user_info-->
+                <div class="about-user2039" th:each="user : ${users}">
                     <div class="row">
-                        <div class="col-md-9 blog--top-part2892">
-                            <div class="blog-part3903">
-                                <!--                       <img th:src="@{/image/blog-2-806x440.png}" alt="Image" class="img-responsive">-->
-                                <div class="blog-details3902">
-                                    <h3><span><i class="fa fa-picture-o" aria-hidden="true"></i></span> Использование
-                                        имени вторичного ключа FK</h3>
-                                    <hr>
-                                    <div class="ques-icon-info2933"><a href="#"><i class="fa fa-user"
-                                                                                   aria-hidden="true"> Виталий
-                                        Иванов</i></a>
-                                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21,
-                                            2019</i></a>
-                                        <!--                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a>-->
-                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии: 2 </i></a>
-                                        <!--                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a> -->
-                                        <div class="l-rightside39">
-                                            <button type="button" class="tolltip-button thumbs-up2"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                    class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                            <button type="button" class="tolltip-button  thumbs-down2"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                    class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                            <span class="single-question-vote-result">+22</span></div>
-                                    </div>
-                                    <p>Имена внешних ключей в MySQL по умолчанию другие (для InnoDB
-                                        имя-таблицы_ibfk_номер-ключа). Значит ваши имена сгенерированы не mysql, а
-                                        кем-то ещё. И вам надо бы узнать, кто создал эти ключи. Например...</p>
-                                    <div class="continue-deatils738"><a href="post_user.html"><i class="fa fa-plus"
-                                                                                                 aria-hidden="true">
-                                        Показать полностью</i></a></div>
-                                </div>
-                            </div>
-
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <li>
-                                        <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
-                                    </li>
-                                    <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <div class="col-md-1">
+                            <div class="user-image2939303"><img th:src="@{/image/images.png}" alt="Image"></div>
                         </div>
-                        <!--                end of col-md-9 -->
-                        <!--           strart col-md-3 (side bar)-->
-
-                    </div>
-
-                </div>
-                <div class="container">
-                    <div class="welcome-demop102 text-center">
-
-                        <p><a href="new_post.html"><img th:src="@{/image/pro1.jpg}" width="800" height="267" alt="Image"
-                                                        class="img-responsive"></a></p>
-
+                        <div class="col-md-11">
+                            <div class="user-description3903">
+                                <a th:href="@{/user/${user.getId()}}" target="_blank"
+                                   th:text="${user.getUsername()}"></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
+                <!--                index pagest-->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>
+                        </li>
+                    </ul>
+
+                </nav>
             </div>
-            <!--end of col-md-9 -->
+            <!--            end list users-->
 
-            <!--strart col-md-3 (side bar)-->
+
+            <!--           strart col-md-3 (side bar)-->
             <aside class="col-md-3 sidebar97239">
-
-
-                <!--              highest part-->
                 <div class="status-part3821">
                     <h4>Меню</h4>
 
-                    <li><a href="index.html">Главная</a></li>
+                    <li><a th:href="@{/}">Главная</a></li>
                     <hr>
                     <li><a href="new_post.html" target="_blank">Новый пост</a></li>
                     <hr>
@@ -167,6 +123,7 @@
                     <hr>
                     <li><a href="property.html" target="_blank"> Настройки </a></li>
                     <hr>
+
 
                     <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                             aria-haspopup="true" aria-expanded="false">Test <span class="caret"></span></a>
@@ -188,7 +145,6 @@
                     <li><a href="contact_us.html" target="_blank">Контакты</a></li>
 
                 </div>
-
 
                 <!--               end of Highest points -->
 
@@ -214,6 +170,7 @@
                 </div>
             </div>
 
+
         </div>
     </div>
 </section>
@@ -235,10 +192,15 @@
         </div>
     </div>
 </section>
-<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
-<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{js/npm.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../static/js/jquery-3.1.1.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/editor.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#txtEditor").Editor();
+    });
+</script>
 </body>
 
 </html>

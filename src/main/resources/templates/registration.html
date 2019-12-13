@@ -15,13 +15,15 @@
 <div class="modal-wrap">
 
     <div class="modal-bodies">
+
+        <!--            registration form-->
         <div class="modal-body modal-body-step-1 is-showing">
+
             <div class="title">Зарегистрируйтесь</div>
             <div class="description">Заполните форму</div>
 
-            <form method="post" th:action="registration">
+            <form method="post" th:action="@{/user/add}">
                 <input type="text" name="username" placeholder="Логин*"/>
-<!--                <input type="email" placeholder="E-Mail*"/>-->
                 <input type="password" name="password" placeholder="Пароль*"/>
                 <input type="password" name="confirm_password" placeholder="Повторите пароль*"/>
                 <div class="col-md-4">
@@ -40,13 +42,12 @@
                     -->
                 </div>
                 <div class="text-center">
-<!--                    <div class="button">Регистрация</div>-->
+                    <!--                    <div class="button" onclick="">Регистрация</div>-->
                     <button type="submit">registration</button>
-
                 </div>
             </form>
-        </div>
 
+        </div>
 
     </div>
 </div>

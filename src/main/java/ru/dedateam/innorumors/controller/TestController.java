@@ -1,68 +1,47 @@
 package ru.dedateam.innorumors.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.dedateam.innorumors.data.entities.profiles.Gender;
+import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.data.repositories.UserRepo;
+
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/test")
 public class TestController {
 
+    private UserRepo userRepo;
 
-//    @GetMapping(path = "/404")
-//    public String get404() {
-//        return "/404";
-//    }
-//
-//    @GetMapping(path = "/contact_us")
-//    public String getContact_us() {
-//        return "/contact_us";
-//    }
-//
-//    @GetMapping(path = "/index")
-//    public String getIndex() {
-//        return "/index";
-//    }
-//
-    @GetMapping(path = "/logIn")
-    public String getLogin() {
-        System.out.println(123);
-        return "/logIn";
+    @Autowired
+    public TestController(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
-//
-//    @GetMapping(path = "/my_post")
-//    public String getMy_post() {
-//        return "/my_post";
-//    }
-//
-//    @GetMapping(path = "/new_post")
-//    public String getNew_post() {
-//        return "/new_post";
-//    }
-//
-//    @GetMapping(path = "/post_user")
-//    public String getPost_user() {
-//        return "/post_user";
-//    }
-//
-//    @GetMapping(path = "/property")
-//    public String getProperty() {
-//        return "/property";
-//    }
-//
-//    @GetMapping(path = "/singup")
-//    public String getSingup() {
-//        return "/signup";
-//    }
-//
-//    @GetMapping(path = "/user")
-//    public String getUser() {
-//        return "/user";
-//    }
-//
-//    @GetMapping(path = "/user_info")
-//    public String getUser_info() {
-//        return "/user_info";
-//    }
+
+    @GetMapping(path = "/form")
+    public String getForm() {
+        return "test/add_user";
+    }
+
+    @PostMapping(path = "/form")
+    public String getForm(User user,
+                          Model model) {
+
+        user.setId(15L);
+        user.setGender(Gender.MALE);
+        user.setLastLogIn(LocalDateTime.now());
+        user.setRegistrationTime(LocalDateTime.now());
+        user.setRating(150);
+
+        model.addAttribute("user", user);
+        return "test/user";
+    }
+
 }
