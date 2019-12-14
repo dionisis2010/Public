@@ -2,19 +2,17 @@ package ru.dedateam.innorumors.data.entities.profiles;
 
 import lombok.Getter;
 
-public enum Gender {
+@Getter
+public enum Role {
+    USER("user"),
+    ADMIN("admin");
 
-    NON(" "),
-    MALE("мужской"),
-    FEMALE("женский");
-
-    private Boolean gender;
     private String name;
 
-
-    Gender(String name) {
+    Role(String name) {
         this.name = name;
     }
+
 
     @Override
     public String toString() {

@@ -22,28 +22,12 @@
             <div class="title">Зарегистрируйтесь</div>
             <div class="description">Заполните форму</div>
 
-            <form method="post" th:action="@{/user/add}">
+            <form name="registration" method="post" th:action="@{/user/add}">
                 <input type="text" name="username" placeholder="Логин*"/>
                 <input type="password" name="password" placeholder="Пароль*"/>
                 <input type="password" name="confirm_password" placeholder="Повторите пароль*"/>
-                <div class="col-md-4">
-                    <!--            Google and Facebook register form
-                                            <div class="row text-center sign-with">
-                                                <div class="col-md-12">
-                                                    <h3>Войдите через</h3>
-                                                </div>
-                                                <div class="col-md-12 sign-in28912">
-                                                    <div class="btn-group btn-group-justified">
-                                    <a href="#" class="btn btn-primary btn-primary3838">Facebook</a> <a href="#" class="btn btn-danger btn-danger37883">
-                                                            Google</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                    -->
-                </div>
                 <div class="text-center">
-                    <!--                    <div class="button" onclick="">Регистрация</div>-->
-                    <button type="submit">registration</button>
+                    <button class="button" type="submit">Регистрация</button>
                 </div>
             </form>
 

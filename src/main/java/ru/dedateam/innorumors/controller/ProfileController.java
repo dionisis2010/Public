@@ -6,10 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.dedateam.innorumors.data.Views;
 import ru.dedateam.innorumors.data.entities.profiles.Gender;
+import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.data.repositories.CommentRepo;
+import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
-import javax.swing.text.View;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,10 +20,14 @@ import java.util.Optional;
 public class ProfileController {
 
     private UserRepo userRepo;
+    private PostRepo postRepo;
+    private CommentRepo commentRepo;
 
     @Autowired
-    public ProfileController(UserRepo userRepo) {
+    public ProfileController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
         this.userRepo = userRepo;
+        this.postRepo = postRepo;
+        this.commentRepo = commentRepo;
     }
 
     @GetMapping(path = "/{id}")
@@ -29,37 +35,45 @@ public class ProfileController {
                               Model model) {
         Optional<User> user = userRepo.findById(id);
         model.addAttribute("user", user.get());
-//        return Views.USER_INFO.getNameView();
         return "user_info";
     }
 
     @PostMapping(path = "/add")
     public String addUser(@RequestParam(name = "username") String username,
-                        @RequestParam(name = "password") String password,
-                        @RequestParam(name = "confirm_password") String confirm_password,
-                        Model model) {
+                          @RequestParam(name = "password") String password,
+                          @RequestParam(name = "confirm_password") String confirm_password,
+//                          @RequestParam(name = "gender", required = false, defaultValue = "non") Gender gender,
+                          Model model) {
         if (password.equals(confirm_password)) {
             User user = new User();
             user.setUsername(username);
             user.setPassword(password);
-            user.setGender(Gender.MALE);
-            user.setBirthDay(LocalDateTime.now());
-            user.setRegistrationTime(LocalDateTime.now());
-            user.setLastLogIn(LocalDateTime.now());
-            user.setRating(0);
+
             userRepo.save(user);
-            System.out.println("USPEH");
-            return "all_users";
+            model.addAttribute("users", user);
+            return "index";
         } else {
-            return "error";
+            model.addAttribute("errorTitle", "Ошибка рагистрации");
+            model.addAttribute("errorDescription", "Пароли не совпадают");
+            return "error_page" ;
         }
-//        model.addAttribute("users", userRepo.findAll());
     }
 
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
         model.addAttribute("users", userRepo.findAll());
-        return Views.ALL_USERS.getNameView();
+        return "all_users";
+    }
+
+    @GetMapping(path = "/my_posts")
+    public String getMyPosts(Model model) {
+        model.addAttribute("users", userRepo.findAll());
+        return "my_posts";
+    }
+
+    @GetMapping(path = "/properties")
+    public String getPropertiesPage() {
+        return "property";
     }
 
     @PostMapping(path = "/update")

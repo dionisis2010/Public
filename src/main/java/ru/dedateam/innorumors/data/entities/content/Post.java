@@ -15,7 +15,6 @@ import java.util.Set;
 public class Post {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "posts_seq")
     @SequenceGenerator(name = "posts_seq", sequenceName = "posts_id_seq", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
@@ -34,7 +33,7 @@ public class Post {
     @Column(name = "body", nullable = false)
     private String body;
 
-    @Column(name = "posted_time", nullable = true)
+    @Column(name = "posted_time", nullable = false)
     private LocalDateTime postedTime;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
@@ -46,7 +45,6 @@ public class Post {
         this.body = body;
         this.isAnonymous = isAnonymous;
         this.postedTime = LocalDateTime.now();
-
     }
 
     public User getAuthor() {

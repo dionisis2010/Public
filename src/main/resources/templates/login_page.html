@@ -18,13 +18,14 @@
         <div class="modal-body modal-body-step-1 is-showing">
             <div class="title">Вход</div>
             <div class="description">Войдите в личный кабинет</div>
-            <form method="post" action="/login_page">
-                <input type="text" placeholder="Логин"/>
-                <input type="password" placeholder="Пароль"/>
+            <form method="post" th:action="@{/login}">
+                <input name="username" type="text" placeholder="Логин"/>
+                <input name="password" type="password" placeholder="Пароль"/>
                 <div class="text-center">
-                    <div class="button">Вход</div>
-                    <a href="registration.html" target="_blank"><div class="button">Регистрация</div></a>
-                    <button class="button" type="submit" name="login">LogIn</button>
+                    <button class="button" type="submit">Вход</button>
+                    <a th:href="@{/registration}" >
+                        <button class="button" type="button" th:href="@{/registration}">Регистрация</button>
+                    </a>
                 </div>
             </form>
         </div>

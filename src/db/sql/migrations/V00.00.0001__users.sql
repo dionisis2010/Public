@@ -9,6 +9,7 @@ CREATE TABLE "public"."users"
     "id"                bigint DEFAULT nextval('users_id_seq') NOT NULL,
     "username"          character varying                      NOT NULL,
     "password"          character(32)                          NOT NULL,
+    "role"            character varying,
     "last_login"        timestamp                              NOT NULL,
     "registration_time" timestamp                              NOT NULL,
     "birth_day"         timestamp,
