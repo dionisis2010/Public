@@ -1,7 +1,6 @@
 package ru.dedateam.innorumors.data.entities.profiles;
 
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,14 +14,11 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-//@Data
 @Getter
 @Setter
-@NoArgsConstructor
 public class User {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
     @SequenceGenerator(name = "users_seq", sequenceName = "users_id_seq", allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
@@ -33,6 +29,10 @@ public class User {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "last_login", nullable = false)
     private LocalDateTime lastLogIn;
@@ -49,6 +49,15 @@ public class User {
 
     @Column(name = "rating", nullable = false)
     private Integer rating;
+
+    public User() {
+        this.role = Role.USER;
+        this.registrationTime = LocalDateTime.now();
+        this.lastLogIn = LocalDateTime.now();
+        this.birthDay = LocalDateTime.now();
+        this.gender = Gender.NON;
+        this.rating = 0;
+    }
 
     @Override
     public String toString() {
@@ -103,4 +112,5 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "post")}
     )
     private Set<Comment> unFavoritesComments;
+
 }

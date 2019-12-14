@@ -4,36 +4,33 @@
     <meta charset="UTF-8">
     <title>Innorumors | Настройки</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}">
-    <link rel="stylesheet" th:href="@{/css/loginstyle.css}">
+    <link th:href="@{/https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css}" rel="stylesheet">
+    <link th:href="@{/css/loginstyle.css}" rel="stylesheet">
 </head>
 
 <body>
-
 <div class="modal-wrap">
 
     <div class="modal-bodies">
         <div class="modal-body modal-body-step-1 is-showing">
             <div class="title">Настройки</div>
-            <form>
+            <form method="post" >
                 <input type="text" placeholder="Имя*"/>
                 <input type="email" placeholder="Фамилия*"/>
                 <input type="password" placeholder="Возраст*"/>
                 <div class="categori49">
-                         <span class="form-description43305">Пол*
-                         </span>
+                         <span class="form-description43305">Пол*</span>
                     <label>
                         <input list="browsers" name="myBrowser" class="list-category53"/></label>
                     <datalist id="browsers">
                         <option value="Мужской">
                         <option value="Женский">
-
                     </datalist>
                 </div>
                 <div class="photo">
                     <span class="photo-description23993">Ваше фото*</span><input type="file" name="ffile"
                                                                                  class="photo1">
-                    <a href="#"><img src="../static/image/images.png" alt="image"> </a>
+                    <a href="#"><img src="image/images.png" alt="image"> </a>
                 </div>
                 <br>
                 <div class="text-center">

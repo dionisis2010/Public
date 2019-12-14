@@ -14,8 +14,8 @@
 
     <div class="modal-bodies">
         <div class="modal-body modal-body-step-1 is-showing">
-            <div class="title">ERROR</div>
-            <div class="description">что-то пошло не так</div>
+            <div class="title" th:text="${errorTitle}"></div>
+            <div class="description" th:text="${errorDescription}"></div>
             <form>
                 <div class="text-center">
                     <a th:href="@{/}">
