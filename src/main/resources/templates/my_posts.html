@@ -14,62 +14,7 @@
 
 <body>
 <!-- ==========header mega navbar=======-->
-<div class="top-menu-bottom932">
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Переключить навигацию</span>
-                </button>
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/image/download.gif}" alt="Logo">
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav"></ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <div class="row">
-
-                        <!--                        regButton-->
-                        <div class="col-md-6">
-                            <div class="navbar-menu-left-side239">
-                                <ul>
-                                    <li>
-                                        <a th:href="@{/login}">
-                                            <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <!--                        Search-->
-                        <div class="col-md-6">
-                            <div class="navbar-serch-right-side">
-                                <form class="navbar-form" role="search" method="post" th:action="@{/search}">
-                                    <div class="input-group add-on">
-                                        <input class="form-control form-control222" placeholder="Поиск" name="srch-term"
-                                               id="srch-term" type="text">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-default btn-default2913" type="submit"><i
-                                                    class="glyphicon glyphicon-search"></i></button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                    </div>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-</div>
+<th:block th:include="parts/header"/>
 
 <!-- ======content section/body=====-->
 <section class="main-content920">
@@ -110,78 +55,20 @@
                                 </div>
                             </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!--strart col-md-3 (side bar)-->
-            <aside class="col-md-3 sidebar97239">
-                <!--              highest part-->
-                <div class="status-part3821">
-                    <h4>Меню</h4>
-                    <li><a th:href="@{/}">Главная</a></li>
-                    <hr>
-                    <li><a th:href="@{/post/create}">Новый пост</a></li>
-                    <hr>
-                    <li><a th:href="@{/user/my_posts}">Мои посты</a></li>
-                    <hr>
-                    <li><a th:href="@{/user/all}">Пользователи</a></li>
-                    <hr>
-                    <li><a th:href="@{/user/properties}"> Настройки </a></li>
-                    <hr>
-                    <li><a th:href="@{/contacts}">Контакты</a></li>
-                </div>
-                <!--               end of Highest points -->
-            </aside>
-
-        </div>
-    </div>
-</section>
-<!--    footer -->
-<div class="footer-search">
-
-</div>
-
-
-<section class="footer-part">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="info-part-one320">
-
-                    <h4>Адрес:</h4>
-                    <p>Иннополис, Университетская ул., 1</p>
-                    <h4>Контакты:</h4>
-                    <p>Телефон поддержки: 8 (495) 587-88-89</p>
-                    <p>Email: bigbase@bk.ru</p>
-                </div>
-            </div>
+            <!--menu-->
+            <th:block th:include="parts/menu"/>
 
         </div>
     </div>
 </section>
 
-
-<section class="footer-social">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p>Права защищены 2019 Innorumors | <strong> Иннополис</strong></p>
-            </div>
-            <div class="col-md-6">
-                <div class="social-right2389">
-                    <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--footter-->
+<th:block th:include="parts/fotter"/>
 
 <script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
 <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
