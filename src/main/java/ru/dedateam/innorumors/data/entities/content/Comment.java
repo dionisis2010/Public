@@ -25,10 +25,10 @@ public class Comment {
 
     @Column(name = "posted_time", nullable = false)
     private LocalDateTime postedTime;
-
-    @OneToOne
-    @JoinColumn(name = "comment")
-    private Comment comment;    // комент на который мы отвчемаем
+//
+//    @OneToOne
+//    @JoinColumn(name = "comment")
+//    private Comment comment;    // комент на который мы отвчемаем
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post")
@@ -38,17 +38,9 @@ public class Comment {
     @JoinColumn(name = "author")
     private User author;
 
-    public Comment(User author, String body, Post post) {
-        this.author = author;
+    public Comment(String body) {
         this.body = body;
-        this.post = post;
         this.postedTime = LocalDateTime.now();
     }
 
-    public Comment(User author, String body, Comment comment) {
-        this.author = author;
-        this.body = body;
-        this.comment = comment;
-        this.postedTime = LocalDateTime.now();
-    }
 }

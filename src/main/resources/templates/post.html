@@ -114,7 +114,7 @@
                         <div class="row">
 
                             <div class="comments-container">
-                                <ul id="comments-list" class="comments-list">
+                                <ul id="comments-list" class="comments-list" th:each="comment: ${comments}">
                                     <li>
                                         <div class="comment-main-level">
                                             <!-- Avatar -->
@@ -149,9 +149,13 @@
                     <h3>Добавить комментарий</h3>
                     <hr>
                     <div class="row">
-                        <div class="post9320-box">
-                            <input type="text" class="comment-input219882" placeholder="Написать комментарий..."></div>
-                        <button type="button" class="pos393-submit">Отправить</button>
+                        <form method="post" th:action="@{/comment/add}">
+                            <div class="post9320-box">
+                                <input type="text" class="comment-input219882"
+                                       name="body" placeholder="Написать комментарий...">
+                            </div>
+                            <button type="submit" class="pos393-submit">Отправить</button>
+                        </form>
                     </div>
                 </div>
             </div>
