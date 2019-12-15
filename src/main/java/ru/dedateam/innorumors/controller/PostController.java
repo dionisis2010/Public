@@ -1,6 +1,8 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +22,14 @@ public class PostController {
     private UserRepo userRepo;
     private PostRepo postRepo;
     private CommentRepo commentRepo;
+    private Authentication authentication;
 
     @Autowired
     public PostController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
         this.commentRepo = commentRepo;
+        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     @GetMapping(path = "/create")

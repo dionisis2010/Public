@@ -1,12 +1,11 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.dedateam.innorumors.data.Views;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
@@ -20,12 +19,14 @@ public class MainController {
     private UserRepo userRepo;
     private PostRepo postRepo;
     private CommentRepo commentRepo;
+    private Authentication authentication;
 
     @Autowired
     public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
         this.commentRepo = commentRepo;
+        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     @GetMapping(path = "/")
@@ -39,21 +40,21 @@ public class MainController {
         return "login_page";
     }
 
-    @PostMapping(path = "/login")
-    public String login(User user, Model model) {
-        return "test/user";
-    }
-
     @GetMapping(path = "/registration")
     public String getRegistrationPage() {
         return "registration";
     }
 
-    @PostMapping(path = "/registration")
+    @PostMapping(path = "/do_registration")
     public String addUser(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
                           Model model) {
+        if (userRepo.findByUsername(username) !=null){
+            model.addAttribute("errorTitle", "Ошибка имени пользователя");
+            model.addAttribute("errorDescription", "Пользователь с таким именем уже существует");
+            return "error_page" ;
+        }
         if (password.equals(confirm_password)) {
             User user = new User(username, password);
 
