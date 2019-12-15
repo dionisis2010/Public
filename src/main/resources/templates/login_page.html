@@ -18,7 +18,7 @@
         <div class="modal-body modal-body-step-1 is-showing">
             <div class="title">Вход</div>
             <div class="description">Войдите в личный кабинет</div>
-            <form method="post" th:action="@{/login}">
+            <form method="post" action="/do_login">
                 <input name="username" type="text" placeholder="Логин"/>
                 <input name="password" type="password" placeholder="Пароль"/>
                 <div class="text-center">
