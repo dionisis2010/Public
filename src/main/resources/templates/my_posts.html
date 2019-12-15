@@ -5,10 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Innorumors | Мои посты</title>
+    <title>Innorumors | Главная</title>
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/editor.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/animate.css}" rel="stylesheet" type="text/css">
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
 </head>
@@ -72,286 +71,122 @@
     </nav>
 </div>
 
-<!--    body content-->
+<!-- ======content section/body=====-->
 <section class="main-content920">
     <div class="container">
         <div class="row">
             <div class="col-md-9">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 blog--top-part2892">
 
-                <div id="main">
-                    <input id="tab1" type="radio" name="tabs" checked>
-                    <label for="tab1">Мои посты</label>
-                    <input id="tab3" type="radio" name="tabs">
-                    <label for="tab3">Мои обсуждаемые посты</label>
-                    <input id="tab5" type="radio" name="tabs">
-                    <!-- <label for="tab5">Мои закладки</label> -->
-
-
-                    <section id="content1">
-                        <!--Recent Question Content Section -->
-                        <div class="question-type2033">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="left-user12923 left-user12923-repeat">
-                                        <a href="#"><img src="../static/image/images.png" alt="image"> </a>
-                                        <!--                                            <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>-->
+                            <!--                            posts-->
+                            <div class="blog-part3903" th:each="post: ${posts}">
+                                <div class="blog-details3902">
+                                    <h3><span><i aria-hidden="true" th:text="${post.getTitle()}"></i>
+                                        </span></h3>
+                                    <hr>
+                                    <div class="ques-icon-info2933">
+                                        <a href="#"><i class="fa fa-user" aria-hidden="true"
+                                                       th:text="${post.getAuthor().getUsername()}"></i></a>
+                                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"
+                                                       th:text="${post.getPostedTime()}"></i></a>
+                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"
+                                                       th:text="'Comments: '"></i></a>
+                                        <div class="l-rightside39">
+                                            <button type="button" class="tolltip-button thumbs-up2"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Like"><i
+                                                    class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
+                                            <button type="button" class="tolltip-button  thumbs-down2"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
+                                                    class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
+                                            <span class="single-question-vote-result">+22</span></div>
                                     </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="right-description893">
-                                        <div id="que-hedder2983">
-                                            <h3><a href="post.html" target="_blank">Jest, Enzyme. Как тестировать
-                                                рефы?</a></h3></div>
-                                        <div class="ques-details10018">
-                                            <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест
-                                                останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo
-                                                is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не
-                                                могу решить эту задачу уже несколько дней.
-
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды
-                                                вызывать setProps, но тогда появляется ошибка "maximum call stack
-                                                size".</p>
-                                        </div>
-                                        <hr>
-                                        <div class="ques-icon-info2933"><a href="#"><i class="fa fa-user"
-                                                                                       aria-hidden="true"> Дамблдор</i></a>
-                                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21,
-                                                2019</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a>-->
-                                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии:
-                                                2</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
-                                            <div class="l-rightside39">
-                                                <button type="button" class="tolltip-button thumbs-up2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                <button type="button" class="tolltip-button  thumbs-down2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                <span class="single-question-vote-result">+22</span></div>
-                                        </div>
+                                    <p th:text="${post.getBody()}"></p>
+                                    <div class="continue-deatils738">
+                                        <a th:href="@{/post/{id}(id=${post.getId()})}">
+                                            <i class="fa fa-plus" aria-hidden="true">Показать полностью</i></a>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                    <!--  End of content-1------>
 
-
-                    <section id="content2">
-                        <!--Most Response Content Section -->
-                        <div class="question-type2033">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="left-user12923 left-user12923-repeat">
-                                        <a href="#"><img src="../static/image/images.png" alt="image"> </a> <a href="#">
-                                        <!--                                            <i class="fa fa-check" aria-hidden="true"></i></a>-->
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="right-description893">
-                                        <div id="que-hedder2983">
-                                            <h3><a href="post.html" target="_blank">Jest, Enzyme. Как тестировать
-                                                рефы?</a></h3></div>
-                                        <div class="ques-details10018">
-                                            <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест
-                                                останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo
-                                                is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не
-                                                могу решить эту задачу уже несколько дней.
-
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды
-                                                вызывать setProps, но тогда появляется ошибка "maximum call stack
-                                                size".</p>
-                                        </div>
-                                        <hr>
-                                        <div class="ques-icon-info2933"><a href="#"><i class="fa fa-user"
-                                                                                       aria-hidden="true"> Дамблдор</i></a>
-                                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21,
-                                                2019</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
-                                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии:
-                                                2</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
-                                            <div class="l-rightside39">
-                                                <button type="button" class="tolltip-button thumbs-up2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                <button type="button" class="tolltip-button  thumbs-down2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                <span class="single-question-vote-result">+22</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!----end of content-2----->
-
-                    <section id="content3">
-                        <!--Recently answered Content Section -->
-                        <div class="question-type2033">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="left-user12923 left-user12923-repeat">
-                                        <a href="#"><img src="../static/image/images.png" alt="image"> </a> <a href="#">
-                                        <!--                                            <i class="fa fa-check" aria-hidden="true"></i></a> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="right-description893">
-                                        <div id="que-hedder2983">
-                                            <h3><a href="post.html" target="_blank">Jest, Enzyme. Как тестировать
-                                                рефы?</a></h3></div>
-                                        <div class="ques-details10018">
-                                            <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест
-                                                останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo
-                                                is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не
-                                                могу решить эту задачу уже несколько дней.
-
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды
-                                                вызывать setProps, но тогда появляется ошибка "maximum call stack
-                                                size".</p>
-                                        </div>
-                                        <hr>
-                                        <div class="ques-icon-info2933"><a href="#"><i class="fa fa-user"
-                                                                                       aria-hidden="true"> Дамблдор</i></a>
-                                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21,
-                                                2019</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
-                                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии:
-                                                2</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
-                                            <div class="l-rightside39">
-                                                <button type="button" class="tolltip-button thumbs-up2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                <button type="button" class="tolltip-button  thumbs-down2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                <span class="single-question-vote-result">+22</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="question-type2033">
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <div class="left-user12923 left-user12923-repeat">
-                                        <a href="#"><img src="../static/image/images.png" alt="image"> </a>
-                                        <!--                                            <a href="#"><i class="fa fa-check" aria-hidden="true"></i></a>-->
-                                    </div>
-                                </div>
-                                <div class="col-md-9">
-                                    <div class="right-description893">
-                                        <div id="question-hedder2983">
-                                            <h3><a href="post.html" target="_blank">Jest, Enzyme. Как тестировать
-                                                рефы?</a></h3></div>
-                                        <div class="ques-details10018">
-                                            <p>Я занимаюсь тестированием метода жизненного цикла componentDidUpdate.Тест
-                                                останавливается на вызове node.scrollTo, выдавая ошибку "node.scrollTo
-                                                is not a function". Кто-нибудь сталкивался с подобными проблемами? Я не
-                                                могу решить эту задачу уже несколько дней.
-
-                                                Я пробовал также использовать shallow за место mount в тесте и дважды
-                                                вызывать setProps, но тогда появляется ошибка "maximum call stack
-                                                size".</p>
-                                        </div>
-                                        <hr>
-                                        <div class="ques-icon-info2933"><a href="#"><i class="fa fa-user"
-                                                                                       aria-hidden="true"> Дамблдор</i></a>
-                                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"> Ноябрь 21,
-                                                2019</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-briefcase" aria-hidden="true"> Web developer</i></a> -->
-                                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"> Комментарии:
-                                                2</i></a>
-                                            <!--                                                <a href="#"><i class="fa fa-star" aria-hidden="true"> В закладки</i></a>-->
-                                            <div class="l-rightside39">
-                                                <button type="button" class="tolltip-button thumbs-up2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                        class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                                <button type="button" class="tolltip-button  thumbs-down2"
-                                                        data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                        class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                                <span class="single-question-vote-result">+22</span></div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </section>
-                    <!--End content-3 -->
-
-                    <!--==== </section>===-->
-
-                    <!--               end of Highest points -->
-
+                    </div>
                 </div>
-
-
             </div>
-        </div>
-        <!-- menu -->
 
-        <!--    footer -->
-        <div class="footer-search">
+            <!--strart col-md-3 (side bar)-->
+            <aside class="col-md-3 sidebar97239">
+                <!--              highest part-->
+                <div class="status-part3821">
+                    <h4>Меню</h4>
+                    <li><a th:href="@{/}">Главная</a></li>
+                    <hr>
+                    <li><a th:href="@{/post/create}">Новый пост</a></li>
+                    <hr>
+                    <li><a th:href="@{/user/my_posts}">Мои посты</a></li>
+                    <hr>
+                    <li><a th:href="@{/user/all}">Пользователи</a></li>
+                    <hr>
+                    <li><a th:href="@{/user/properties}"> Настройки </a></li>
+                    <hr>
+                    <li><a th:href="@{/contacts}">Контакты</a></li>
+                </div>
+                <!--               end of Highest points -->
+            </aside>
 
         </div>
-        <section class="footer-part">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="info-part-one320">
+    </div>
+</section>
+<!--    footer -->
+<div class="footer-search">
 
-                            <h4>Адрес:</h4>
-                            <p>Иннополис, Университетская ул., 1</p>
-                            <h4>Контакты:</h4>
-                            <p>Телефон поддержки: 8 (495) 587-88-89</p>
-                            <p>Email: bigbase@bk.ru</p>
-                        </div>
-                    </div>
+</div>
 
-                </div>
 
-            </div>
-        </section>
-        <section class="footer-social">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>Права защищены 2019 Innorumors | <strong> Иннополис</strong></p>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="social-right2389"><a href="#"><i class="fa fa-twitter-square"
-                                                                     aria-hidden="true"></i></a> <a href="#"><i
-                                class="fa fa-facebook" aria-hidden="true"></i></a> <a href="#"><i
-                                class="fa fa-google-plus" aria-hidden="true"></i></a> <a href="#"><i
-                                class="fa fa-youtube" aria-hidden="true"></i></a> <a href="#"><i class="fa fa-skype"
-                                                                                                 aria-hidden="true"></i></a>
-                            <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> <a href="#"><i
-                                    class="fa fa-rss" aria-hidden="true"></i></a></div>
+<section class="footer-part">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="info-part-one320">
 
-                    </div>
+                    <h4>Адрес:</h4>
+                    <p>Иннополис, Университетская ул., 1</p>
+                    <h4>Контакты:</h4>
+                    <p>Телефон поддержки: 8 (495) 587-88-89</p>
+                    <p>Email: bigbase@bk.ru</p>
                 </div>
             </div>
-        </section>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="../static/js/jquery-3.1.1.min.js"></script>
-        <script src="../static/js/bootstrap.min.js"></script>
-        <script src="../static/js/editor.js"></script>
-        <script>
-            $(document).ready(function () {
-                $("#txtEditor").Editor();
-            });
-        </script>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="footer-social">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>Права защищены 2019 Innorumors | <strong> Иннополис</strong></p>
+            </div>
+            <div class="col-md-6">
+                <div class="social-right2389">
+                    <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-skype" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{js/npm.js}"></script>
+
 </body>
-
 </html>

@@ -1,8 +1,6 @@
 package ru.dedateam.innorumors.controller;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +11,6 @@ import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 @Controller
@@ -41,12 +38,9 @@ public class PostController {
                              @RequestParam(name = "body") String body,
                              @RequestParam(name = "isAnonymous", required = false, defaultValue = "false") Boolean isAnonymous,
                              Model model) {
-        Post post = new Post();
+        Post post = new Post(title, body, isAnonymous);
         post.setAuthor(userRepo.findById(1L).get());
-        post.setTitle(title);
-        post.setBody(body);
-        post.setIsAnonymous(isAnonymous);
-        post.setPostedTime(LocalDateTime.now());
+
         model.addAttribute("post", post);
         post.setComments(new HashSet<Comment>());
 
@@ -58,13 +52,14 @@ public class PostController {
     public String getPostById(@PathVariable(name = "id") Long id,
                               Model model) {
         model.addAttribute("post", postRepo.findById(id).get());
+//        model.addAttribute("comments", comments);
         return "post";
     }
 
     @GetMapping(path = "/all")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
-        return "index";
+        return "all_posts";
     }
 
 }

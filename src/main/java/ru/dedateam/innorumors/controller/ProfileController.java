@@ -42,12 +42,9 @@ public class ProfileController {
     public String addUser(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
-//                          @RequestParam(name = "gender", required = false, defaultValue = "non") Gender gender,
                           Model model) {
         if (password.equals(confirm_password)) {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(password);
+            User user = new User(username, password);
 
             userRepo.save(user);
             model.addAttribute("users", user);
@@ -67,13 +64,20 @@ public class ProfileController {
 
     @GetMapping(path = "/my_posts")
     public String getMyPosts(Model model) {
-        model.addAttribute("users", userRepo.findAll());
+        model.addAttribute("posts", postRepo.findByAuthorId(1L));
         return "my_posts";
     }
 
     @GetMapping(path = "/properties")
     public String getPropertiesPage() {
         return "property";
+    }
+
+    @PostMapping(path = "/properties")
+    public String updateProfile(){
+        User user = userRepo.findById(1L).get();
+
+        return "user_info";
     }
 
     @PostMapping(path = "/update")

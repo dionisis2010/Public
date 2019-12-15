@@ -50,13 +50,16 @@ public class User {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
-    public User() {
+    public User(String username, String password) {
         this.role = Role.USER;
         this.registrationTime = LocalDateTime.now();
         this.lastLogIn = LocalDateTime.now();
         this.birthDay = LocalDateTime.now();
         this.gender = Gender.NON;
         this.rating = 0;
+    }
+
+    public User() {
     }
 
     @Override

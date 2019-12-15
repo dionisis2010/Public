@@ -6,4 +6,5 @@ import ru.dedateam.innorumors.data.entities.content.Post;
 
 @Repository
 public interface PostRepo extends PagingAndSortingRepository<Post, Long> {
+    Iterable<Post> findByAuthorId(Long id);
 }
