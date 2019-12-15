@@ -38,23 +38,7 @@ public class ProfileController {
         return "user_info";
     }
 
-    @PostMapping(path = "/add")
-    public String addUser(@RequestParam(name = "username") String username,
-                          @RequestParam(name = "password") String password,
-                          @RequestParam(name = "confirm_password") String confirm_password,
-                          Model model) {
-        if (password.equals(confirm_password)) {
-            User user = new User(username, password);
 
-            userRepo.save(user);
-            model.addAttribute("users", user);
-            return "index";
-        } else {
-            model.addAttribute("errorTitle", "Ошибка рагистрации");
-            model.addAttribute("errorDescription", "Пароли не совпадают");
-            return "error_page" ;
-        }
-    }
 
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
