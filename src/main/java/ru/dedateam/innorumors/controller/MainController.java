@@ -29,7 +29,6 @@ public class MainController {
         model.addAttribute("posts", postRepo.findAll());
         return "index";
     }
-
     @GetMapping(path = "/deda")
     public String getDeda() {
         return "deda";
