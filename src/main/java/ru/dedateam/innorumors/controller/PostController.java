@@ -36,13 +36,12 @@ public class PostController {
     @PostMapping(path = "/create")
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
-                             @RequestParam(name = "isAnonymous", required = false, defaultValue = "false") Boolean isAnonymous,
                              Model model) {
-        Post post = new Post(title, body, isAnonymous);
-        post.setAuthor(userRepo.findById(1L).get());
+        Post post = new Post(title, body);
+        post.setAuthor(userRepo.findById(5L).get());
 
         model.addAttribute("post", post);
-        post.setComments(new HashSet<Comment>());
+        model.addAttribute("countComments", 0);
 
         postRepo.save(post);
         return "post";
@@ -52,7 +51,8 @@ public class PostController {
     public String getPostById(@PathVariable(name = "id") Long id,
                               Model model) {
         model.addAttribute("post", postRepo.findById(id).get());
-//        model.addAttribute("comments", comments);
+        model.addAttribute("comments", commentRepo.findAllByPostId(id));
+        model.addAttribute("countComments", commentRepo.countAllByPostId(id));
         return "post";
     }
 

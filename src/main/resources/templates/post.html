@@ -29,14 +29,13 @@
                             </span></h3>
                         <hr>
                         <div class="ques-icon-info2933">
-                            <a th:href="@{/user/${post.getAuthor().getId()}}">
+                            <a th:href="@{/user/{id}(id=${post.getAuthor().getId()})}">
                                 <i class="fa fa-user" aria-hidden="true"
                                    th:text="${post.getAuthor().getUsername()}"></i></a>
-                            <a href="#">
-                                <i class="fa fa-calendar" aria-hidden="true" th:text="${post.getPostedTime()}"></i></a>
-                            <a href="#">
-                                <i class="fa fa-comments-o" aria-hidden="true"
-                                   th:text="'Комментарии: ' + ${post.getComments().size()}"></i></a>
+                            <a><i class="fa fa-calendar" aria-hidden="true"
+                                  th:text="${post.getPostedTime()}"></i></a>
+                            <a><i class="fa fa-comments-o" aria-hidden="true"
+                                  th:text="'Комментарии: ' + ${countComments}"></i></a>
                             <div class="l-rightside39">
                                 <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip"
                                         data-placement="bottom" title="Like">
@@ -68,16 +67,15 @@
                                             <!-- Contenedor del Comentario -->
                                             <div class="comment-box">
                                                 <div class="comment-head">
-                                                    <h6 class="comment-name"><a href="#">Северус Снегг</a></h6>
-                                                    <span><i class="fa fa-clock-o"
-                                                             aria-hidden="true"> Ноябрь 21, 2019</i></span>
+                                                    <h6 class="comment-name">
+                                                        <a th:href="@{/user/{id}(id=${comment.getAuthor().getId()})}"
+                                                           th:text="${comment.getAuthor().getUsername()}"></a></h6>
+                                                    <span><i class="fa fa-clock-o" aria-hidden="true"
+                                                             th:text="${comment.getPostedTime()}"></i></span>
                                                     <i class="fa fa-reply"></i>
                                                     <i class="fa fa-heart"></i>
                                                 </div>
-                                                <div class="comment-content"> Возможно, используется какая-то
-                                                    хеш-функция, которой на входе подается длинное сгенерированное имя и
-                                                    она возвращает странность
-                                                </div>
+                                                <div class="comment-content" th:text="${comment.getBody()}"></div>
                                             </div>
                                         </div>
                                     </li>
@@ -94,10 +92,10 @@
                     <h3>Добавить комментарий</h3>
                     <hr>
                     <div class="row">
-                        <form method="post" th:action="@{/comment/add}">
+                        <form method="post" th:action="@{/comment/add/{postId}(postId=${post.getId()})}">
                             <div class="post9320-box">
-                                <input type="text" class="comment-input219882"
-                                       name="body" placeholder="Написать комментарий...">
+                                <input type="text" name="body" class="comment-input219882"
+                                       placeholder="Написать комментарий...">
                             </div>
                             <button type="submit" class="pos393-submit">Отправить</button>
                         </form>
@@ -116,10 +114,10 @@
 <!--footter-->
 <th:block th:include="parts/fotter"/>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="../static/js/jquery-3.1.1.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
-<script src="../static/js/editor.js"></script>
+<script th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js}"></script>
+<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/editor.js}"></script>
 
 <script>
     $(document).ready(function () {

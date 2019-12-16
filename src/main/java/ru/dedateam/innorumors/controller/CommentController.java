@@ -2,6 +2,8 @@ package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,11 +26,15 @@ public class CommentController {
         this.commentRepo = commentRepo;
     }
 
-    @PostMapping(path = "/add")
-    public void addComment(@RequestParam(name = "body") String body){
+    @PostMapping(path = "/add/{postId}")
+    public String addComment(@RequestParam(name = "body") String body,
+                             @PathVariable(name = "postId") Long postId){
         Comment comment = new Comment(body);
-        comment.setAuthor(userRepo.findById(1L).get());
+        comment.setAuthor(userRepo.findById(5L).get());
+        comment.setPost(postRepo.findById(postId).get());
 
         commentRepo.save(comment);
+//        return "forward:/post/"+ postId;
+        return "forward:/post/"+postId;
     }
 }

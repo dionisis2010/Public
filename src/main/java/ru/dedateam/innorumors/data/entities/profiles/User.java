@@ -51,6 +51,8 @@ public class User {
     private Integer rating;
 
     public User(String username, String password) {
+        this.username = username;
+        this.password = password;
         this.role = Role.USER;
         this.registrationTime = LocalDateTime.now();
         this.lastLogIn = LocalDateTime.now();
@@ -74,46 +76,46 @@ public class User {
                 + "\nrating  : " + getRating();
     }
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<Post> posts;           // выложенные посты
-
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private Set<Comment> comments;     // оставленные комментарии
-
-    @WhereJoinTable(clause = "vote = true")
-    @ManyToMany
-    @JoinTable(
-            name = "post_votes",
-            joinColumns = {@JoinColumn(name = "author")},
-            inverseJoinColumns = {@JoinColumn(name = "post")}
-    )
-    private Set<Post> favoritesPosts;       // избранные посты
-
-    @WhereJoinTable(clause = "vote = false")
-    @ManyToMany
-    @JoinTable(
-            name = "post_votes",
-            joinColumns = {@JoinColumn(name = "author")},
-            inverseJoinColumns = {@JoinColumn(name = "post")}
-    )
-    private Set<Post> unFavoritesPosts;
-
-    @WhereJoinTable(clause = "vote = true")
-    @ManyToMany
-    @JoinTable(
-            name = "comment_votes",
-            joinColumns = {@JoinColumn(name = "author")},
-            inverseJoinColumns = {@JoinColumn(name = "post")}
-    )
-    private Set<Comment> favoritesComments; // избранные комменты
-
-    @WhereJoinTable(clause = "vote = false")
-    @ManyToMany
-    @JoinTable(
-            name = "comment_votes",
-            joinColumns = {@JoinColumn(name = "author")},
-            inverseJoinColumns = {@JoinColumn(name = "post")}
-    )
-    private Set<Comment> unFavoritesComments;
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+//    private Set<Post> posts;           // выложенные посты
+//
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+//    private Set<Comment> comments;     // оставленные комментарии
+//
+//    @WhereJoinTable(clause = "vote = true")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "post_votes",
+//            joinColumns = {@JoinColumn(name = "author")},
+//            inverseJoinColumns = {@JoinColumn(name = "post")}
+//    )
+//    private Set<Post> favoritesPosts;       // избранные посты
+//
+//    @WhereJoinTable(clause = "vote = false")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "post_votes",
+//            joinColumns = {@JoinColumn(name = "author")},
+//            inverseJoinColumns = {@JoinColumn(name = "post")}
+//    )
+//    private Set<Post> unFavoritesPosts;
+//
+//    @WhereJoinTable(clause = "vote = true")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "comment_votes",
+//            joinColumns = {@JoinColumn(name = "author")},
+//            inverseJoinColumns = {@JoinColumn(name = "post")}
+//    )
+//    private Set<Comment> favoritesComments; // избранные комменты
+//
+//    @WhereJoinTable(clause = "vote = false")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "comment_votes",
+//            joinColumns = {@JoinColumn(name = "author")},
+//            inverseJoinColumns = {@JoinColumn(name = "post")}
+//    )
+//    private Set<Comment> unFavoritesComments;
 
 }

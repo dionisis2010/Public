@@ -9,4 +9,5 @@ import java.util.Set;
 
 @Repository
 public interface UserRepo extends CrudRepository<User, Long> {
+    Integer countAllById(Long id);
 }
