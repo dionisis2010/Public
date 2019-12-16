@@ -31,7 +31,7 @@ public class MainController {
     @GetMapping(path = "/")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
-        return "all_posts";
+        return "index";
     }
 
     @GetMapping(path = "/login")
@@ -49,7 +49,7 @@ public class MainController {
         return "registration";
     }
 
-    @PostMapping(path = "/registration")
+    @PostMapping(path = "/do_registration")
     public String addUser(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
@@ -58,7 +58,7 @@ public class MainController {
             User user = new User(username, password);
 
             userRepo.save(user);
-            model.addAttribute("users", user);
+            model.addAttribute("posts", postRepo.findAll());
             return "index";
         } else {
             model.addAttribute("errorTitle", "Ошибка рагистрации");

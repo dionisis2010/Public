@@ -35,6 +35,7 @@ public class ProfileController {
                               Model model) {
         Optional<User> user = userRepo.findById(id);
         model.addAttribute("user", user.get());
+        model.addAttribute("countPosts", userRepo.countAllById(id));
         return "user_info";
     }
 
@@ -43,6 +44,7 @@ public class ProfileController {
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
         model.addAttribute("users", userRepo.findAll());
+
         return "all_users";
     }
 
