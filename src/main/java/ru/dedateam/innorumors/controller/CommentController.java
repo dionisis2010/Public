@@ -13,6 +13,7 @@ import ru.dedateam.innorumors.data.repositories.UserRepo;
 @Controller
 @RequestMapping(path = "/comment")
 public class CommentController {
+
     private UserRepo userRepo;
     private PostRepo postRepo;
     private CommentRepo commentRepo;
@@ -24,11 +25,14 @@ public class CommentController {
         this.commentRepo = commentRepo;
     }
 
-    @PostMapping(path = "/add")
-    public void addComment(@RequestParam(name = "body") String body){
+    @PostMapping(path = "/add/")
+    public String addComment(@RequestParam(name = "body") String body,
+                             @RequestParam(name = "postId") Long postId) {
         Comment comment = new Comment(body);
-        comment.setAuthor(userRepo.findById(1L).get());
+        comment.setAuthor(userRepo.findById(5L).get());
+        comment.setPost(postRepo.findById(postId).get());
 
         commentRepo.save(comment);
+        return "redirect:/post/"+ postId;
     }
 }

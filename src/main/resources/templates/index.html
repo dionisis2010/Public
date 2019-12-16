@@ -29,16 +29,17 @@
                             <!--                            posts-->
                             <div class="blog-part3903" th:each="post: ${posts}">
                                 <div class="blog-details3902">
-                                    <h3><span><i aria-hidden="true" th:text="${post.getTitle()}"></i>
+                                    <h3><span><i aria-hidden="true" th:text="${post.getId()} + ' ' +${post.getTitle()}"></i>
                                         </span></h3>
                                     <hr>
                                     <div class="ques-icon-info2933">
-                                        <a href="#"><i class="fa fa-user" aria-hidden="true"
-                                                       th:text="${post.getAuthor().getUsername()}"></i></a>
-                                        <a href="#"><i class="fa fa-calendar" aria-hidden="true"
-                                                       th:text="${post.getPostedTime()}"></i></a>
-                                        <a href="#"><i class="fa fa-comments-o" aria-hidden="true"
-                                                       th:text="'Comments: '"></i></a>
+                                        <a th:href="@{/user/{id}(id=${post.getAuthor().getId()})}">
+                                            <i class="fa fa-user" aria-hidden="true"
+                                               th:text="${post.getAuthor().getUsername()}"></i></a>
+                                        <a><i class="fa fa-calendar" aria-hidden="true"
+                                              th:text="${post.getPostedTime()}"></i></a>
+                                        <a><i class="fa fa-comments-o" aria-hidden="true"
+                                              th:text="'Comments: '"></i></a>
                                         <div class="l-rightside39">
                                             <button type="button" class="tolltip-button thumbs-up2"
                                                     data-toggle="tooltip" data-placement="bottom" title="Like"><i
@@ -55,25 +56,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!--numbers Pages-->
-<!--                            <nav aria-label="Page navigation">-->
-<!--                                <ul class="pagination">-->
-<!--                                    <li>-->
-<!--                                        <a href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> </a>-->
-<!--                                    </li>-->
-<!--                                    <li><a href="#">1</a></li>-->
-<!--                                    <li><a href="#">2</a></li>-->
-<!--                                    <li><a href="#">3</a></li>-->
-<!--                                    <li><a href="#">4</a></li>-->
-<!--                                    <li><a href="#">5</a></li>-->
-<!--                                    <li>-->
-<!--                                        <a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> </a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
-<!--                            </nav>-->
+                            <!--место для циферок навигации-->
                         </div>
-
                     </div>
                 </div>
 

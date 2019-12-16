@@ -1,14 +1,13 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import ru.dedateam.innorumors.data.Views;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.profiles.User;
-import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
@@ -18,26 +17,32 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
-    private CommentRepo commentRepo;
-    private Authentication authentication;
 
     @Autowired
-    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
+    public MainController(UserRepo userRepo, PostRepo postRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
-        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
 
     @GetMapping(path = "/")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
-        return "all_posts";
+        return "index";
+    }
+    @GetMapping(path = "/deda")
+    public String getDeda() {
+        return "deda";
     }
 
     @GetMapping(path = "/login")
     public String getLogInPage() {
         return "login_page";
+    }
+
+    @PostMapping(path = "/login")
+    public String login(Model model) {
+//        user.setLastLogIn(LocalDateTime.now());
+        return "redirect:/";
     }
 
     @GetMapping(path = "/registration")
@@ -50,16 +55,11 @@ public class MainController {
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
                           Model model) {
-        if (userRepo.findByUsername(username) !=null){
-            model.addAttribute("errorTitle", "Ошибка имени пользователя");
-            model.addAttribute("errorDescription", "Пользователь с таким именем уже существует");
-            return "error_page" ;
-        }
         if (password.equals(confirm_password)) {
             User user = new User(username, password);
 
             userRepo.save(user);
-            model.addAttribute("users", user);
+            model.addAttribute("posts", postRepo.findAll());
             return "index";
         } else {
             model.addAttribute("errorTitle", "Ошибка рагистрации");
@@ -75,7 +75,7 @@ public class MainController {
 
     @GetMapping(path = "/search")
     public String search() {
-        return Views.INDEX.getNameView();
+        return "index";
     }
 
 

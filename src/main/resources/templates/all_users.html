@@ -33,7 +33,7 @@
                         <div class="col-md-11">
                             <div class="user-description3903">
                                 <a th:href="@{/user/{id}(id=${user.getId()})}"
-                                   th:text="${user.getUsername()} + ' id:' + ${user.getId()}">
+                                   th:text="'(' + ${user.getId()} + ')' + ${user.getUsername()}">
                                 </a>
                             </div>
                         </div>
