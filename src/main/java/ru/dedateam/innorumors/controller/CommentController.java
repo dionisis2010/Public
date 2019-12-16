@@ -29,7 +29,7 @@ public class CommentController {
     public String addComment(@RequestParam(name = "body") String body,
                              @RequestParam(name = "postId") Long postId) {
         Comment comment = new Comment(body);
-        comment.setAuthor(userRepo.findById(5L).get());
+        comment.setAuthor(userRepo.findById(1L).get());
         comment.setPost(postRepo.findById(postId).get());
 
         commentRepo.save(comment);

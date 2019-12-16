@@ -29,6 +29,7 @@ public class MainController {
         model.addAttribute("posts", postRepo.findAll());
         return "index";
     }
+
     @GetMapping(path = "/deda")
     public String getDeda() {
         return "deda";
@@ -55,16 +56,22 @@ public class MainController {
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
                           Model model) {
-        if (password.equals(confirm_password)) {
-            User user = new User(username, password);
+        if (userRepo.findByUsername(username).isPresent() == false) {
+            if (password.equals(confirm_password)) {
+                User user = new User(username, password);
 
-            userRepo.save(user);
-            model.addAttribute("posts", postRepo.findAll());
-            return "index";
+                userRepo.save(user);
+                model.addAttribute("posts", postRepo.findAll());
+                return "index";
+            } else {
+                model.addAttribute("errorTitle", "Ошибка рагистрации");
+                model.addAttribute("errorDescription", "Пароли не совпадают");
+                return "error_page";
+            }
         } else {
             model.addAttribute("errorTitle", "Ошибка рагистрации");
-            model.addAttribute("errorDescription", "Пароли не совпадают");
-            return "error_page" ;
+            model.addAttribute("errorDescription", "Пользователь с таким именем существует");
+            return "error_page";
         }
     }
 
