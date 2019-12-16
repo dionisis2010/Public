@@ -1,6 +1,8 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +19,23 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
+    private Authentication authentication;
 
     @Autowired
     public MainController(UserRepo userRepo, PostRepo postRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
+        this.authentication = SecurityContextHolder.getContext().getAuthentication();
     }
+
+
 
     @GetMapping(path = "/")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
         return "index";
     }
+
     @GetMapping(path = "/deda")
     public String getDeda() {
         return "deda";
@@ -64,7 +71,7 @@ public class MainController {
         } else {
             model.addAttribute("errorTitle", "Ошибка рагистрации");
             model.addAttribute("errorDescription", "Пароли не совпадают");
-            return "error_page" ;
+            return "error_page";
         }
     }
 
