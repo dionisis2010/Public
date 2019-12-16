@@ -5,9 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post" th:action="@{admin/delete/user}">
-    <input type="number" name="id">
+<h3>Delete user</h3>
+<form method="post" th:action="@{/admin/delete/user}">
+    <input type="number" name="id" placeholder="userId">
     <button type="submit">delete user</button>
+</form>
+
+<h3>Delete post</h3>
+<form method="post" th:action="@{/admin/delete/post}">
+    <input type="number" name="id" placeholder="postId">
+    <button type="submit">delete post</button>
+</form>
+
+<h3>Delete post</h3>
+<form method="post" th:action="@{/admin/delete/comment}">
+    <input type="number" name="id" placeholder="commentId">
+    <button type="submit">delete comment</button>
 </form>
 </body>
 </html>

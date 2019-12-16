@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.dedateam.innorumors.data.Views;
 import ru.dedateam.innorumors.data.entities.profiles.User;
-import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
@@ -19,19 +17,21 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
-    private CommentRepo commentRepo;
 
     @Autowired
-    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
+    public MainController(UserRepo userRepo, PostRepo postRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
     }
 
     @GetMapping(path = "/")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
         return "index";
+    }
+    @GetMapping(path = "/deda")
+    public String getDeda() {
+        return "deda";
     }
 
     @GetMapping(path = "/login")
@@ -40,8 +40,9 @@ public class MainController {
     }
 
     @PostMapping(path = "/login")
-    public String login(User user, Model model) {
-        return "test/user";
+    public String login(Model model) {
+//        user.setLastLogIn(LocalDateTime.now());
+        return "redirect:/";
     }
 
     @GetMapping(path = "/registration")
@@ -74,7 +75,7 @@ public class MainController {
 
     @GetMapping(path = "/search")
     public String search() {
-        return Views.INDEX.getNameView();
+        return "index";
     }
 
 

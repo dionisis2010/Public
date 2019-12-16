@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.dedateam.innorumors.data.Views;
 import ru.dedateam.innorumors.data.entities.profiles.Gender;
-import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
@@ -20,14 +18,10 @@ import java.util.Optional;
 public class ProfileController {
 
     private UserRepo userRepo;
-    private PostRepo postRepo;
-    private CommentRepo commentRepo;
 
     @Autowired
-    public ProfileController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
+    public ProfileController(UserRepo userRepo) {
         this.userRepo = userRepo;
-        this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
     }
 
     @GetMapping(path = "/{id}")
@@ -39,8 +33,6 @@ public class ProfileController {
         return "user_info";
     }
 
-
-
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
         model.addAttribute("users", userRepo.findAll());
@@ -49,8 +41,10 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/my_posts")
-    public String getMyPosts(Model model) {
-        model.addAttribute("posts", postRepo.findByAuthorId(1L));
+    public String getMyPosts(PostRepo postRepo,
+                             Model model) {
+
+        model.addAttribute("posts", postRepo.findByAuthorId(5L));
         return "my_posts";
     }
 
@@ -60,16 +54,18 @@ public class ProfileController {
     }
 
     @PostMapping(path = "/properties")
-    public String updateProfile(){
+    public String updateProfile() {
         User user = userRepo.findById(1L).get();
 
         return "user_info";
     }
 
     @PostMapping(path = "/update")
-    public String updateUser(User user,
+    public String updateUser(@RequestParam(name = "birthDay") LocalDateTime birthDay,
+                             @RequestParam(name = "gender") Gender gender,
+
                              Model model) {
-        return Views.USER_INFO.getNameView();
+        return "user_info";
     }
 
 }
