@@ -17,10 +17,14 @@ import java.util.Optional;
 @RequestMapping(path = "/user")
 public class ProfileController {
 
+    private PostRepo postRepo;
+    private CommentRepo commentRepo;
     private UserRepo userRepo;
 
     @Autowired
-    public ProfileController(UserRepo userRepo) {
+    public ProfileController(PostRepo postRepo, CommentRepo commentRepo, UserRepo userRepo) {
+        this.postRepo = postRepo;
+        this.commentRepo = commentRepo;
         this.userRepo = userRepo;
     }
 
@@ -41,8 +45,7 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/my_posts")
-    public String getMyPosts(PostRepo postRepo,
-                             Model model) {
+    public String getMyPosts(Model model) {
 
         model.addAttribute("posts", postRepo.findByAuthorId(5L));
         return "my_posts";
@@ -65,6 +68,7 @@ public class ProfileController {
                              @RequestParam(name = "gender") Gender gender,
 
                              Model model) {
+
         return "user_info";
     }
 
