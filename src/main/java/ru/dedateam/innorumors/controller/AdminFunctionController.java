@@ -22,7 +22,7 @@ public class AdminFunctionController {
         this.commentRepo = commentRepo;
     }
 
-    @GetMapping(path = "/delete/user")
+    @GetMapping(path = "/delete")
     public String getDeleteUserPage() {
         return "admin/delete";
     }
@@ -31,5 +31,15 @@ public class AdminFunctionController {
     public String deleteUserById(@RequestParam(name = "id") Long id) {
         userRepo.deleteById(id);
         return "all_users";
+    }
+    @PostMapping(path = "/delete/post")
+    public String deletePostById(@RequestParam(name = "id") Long id) {
+        postRepo.deleteById(id);
+        return "deda";
+    }
+    @PostMapping(path = "/delete/comment")
+    public String deleteCommentById(@RequestParam(name = "id") Long id) {
+        commentRepo.deleteById(id);
+        return "deda";
     }
 }

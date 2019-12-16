@@ -29,7 +29,7 @@
                             <!--                            posts-->
                             <div class="blog-part3903" th:each="post: ${posts}">
                                 <div class="blog-details3902">
-                                    <h3><span><i aria-hidden="true" th:text="${post.getTitle()}"></i>
+                                    <h3><span><i aria-hidden="true" th:text="${post.getId()} + ' ' +${post.getTitle()}"></i>
                                         </span></h3>
                                     <hr>
                                     <div class="ques-icon-info2933">

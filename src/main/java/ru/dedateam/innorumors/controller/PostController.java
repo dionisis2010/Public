@@ -4,28 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.dedateam.innorumors.data.entities.content.Comment;
 import ru.dedateam.innorumors.data.entities.content.Post;
+import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
 
 @Controller
 @RequestMapping(path = "/post")
 public class PostController {
 
-    private UserRepo userRepo;
     private PostRepo postRepo;
-    private CommentRepo commentRepo;
 
     @Autowired
-    public PostController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
-        this.userRepo = userRepo;
+    public PostController(PostRepo postRepo) {
         this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
     }
 
     @GetMapping(path = "/create")
@@ -36,6 +29,7 @@ public class PostController {
     @PostMapping(path = "/create")
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
+                             UserRepo userRepo,
                              Model model) {
         Post post = new Post(title, body);
         post.setAuthor(userRepo.findById(5L).get());
@@ -49,7 +43,9 @@ public class PostController {
 
     @GetMapping(path = "/{id}")
     public String getPostById(@PathVariable(name = "id") Long id,
+                              CommentRepo commentRepo,
                               Model model) {
+        model.addAttribute("post", postRepo.findById(id).get());
         model.addAttribute("post", postRepo.findById(id).get());
         model.addAttribute("comments", commentRepo.findAllByPostId(id));
         model.addAttribute("countComments", commentRepo.countAllByPostId(id));
@@ -59,7 +55,7 @@ public class PostController {
     @GetMapping(path = "/all")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
-        return "all_posts";
+        return "index";
     }
 
 }
