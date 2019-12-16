@@ -60,18 +60,20 @@
                             <h3>Комментарии</h3>
                             <hr>
                             <div class="comments-container">
+<!--                                <ul id="comments-list" class="comments-list" th:each="comment: ${comments}">-->
                                 <ul id="comments-list" class="comments-list" th:each="comment: ${comments}">
                                     <li>
                                         <div class="comment-main-level">
                                             <!-- Avatar -->
-                                            <!--                                            <div class="comment-avatar"><img src="../static/image/images.png" alt="">-->
-                                            <!--                                            </div>-->
+                                            <!--<div class="comment-avatar"><img src="../static/image/images.png" alt="">-->
+                                            <!--</div>-->
                                             <!-- Contenedor del Comentario -->
                                             <div class="comment-box">
                                                 <div class="comment-head">
                                                     <h6 class="comment-name">
                                                         <a th:href="@{/user/{id}(id=${comment.getAuthor().getId()})}"
-                                                           th:text="${comment.getId()} + ' ' +${comment.getAuthor().getUsername()}"></a></h6>
+                                                           th:text="${comment.getId()} + ' ' +${comment.getAuthor().getUsername()}"></a>
+                                                    </h6>
                                                     <span><i class="fa fa-clock-o" aria-hidden="true"
                                                              th:text="${comment.getPostedTime()}"></i></span>
                                                     <i class="fa fa-reply"></i>
@@ -89,9 +91,7 @@
                 </div>
 
                 <!-- addComments -->
-
                 <div class="comment289-box">
-
 
                     <div class="row">
                         <form method="post" th:action="@{/comment/add/}">

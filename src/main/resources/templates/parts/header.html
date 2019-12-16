@@ -24,9 +24,12 @@
                                 <div class="navbar-menu-left-side239">
                                     <ul>
                                         <li>
-                                            <a th:href="@{/login}">
-                                                <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация
-                                            </a>
+                                            <div th:switch="${islogin}">
+                                                <a th:href="@{/login}" th:case="false">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
+                                                <a th:href="@{/do_logout}" th:case="true">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>Выйти</a>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>

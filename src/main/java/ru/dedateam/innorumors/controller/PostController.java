@@ -35,7 +35,7 @@ public class PostController {
                              @RequestParam(name = "body") String body,
                              Model model) {
         Post post = new Post(title, body);
-        post.setAuthor(userRepo.findById(5L).get());
+        post.setAuthor(userRepo.findById(1L).get());
 
         model.addAttribute("post", post);
         model.addAttribute("countComments", 0);
