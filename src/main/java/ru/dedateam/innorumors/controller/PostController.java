@@ -15,10 +15,14 @@ import ru.dedateam.innorumors.data.repositories.UserRepo;
 public class PostController {
 
     private PostRepo postRepo;
+    private CommentRepo commentRepo;
+    private UserRepo userRepo;
 
     @Autowired
-    public PostController(PostRepo postRepo) {
+    public PostController(PostRepo postRepo, CommentRepo commentRepo, UserRepo userRepo) {
         this.postRepo = postRepo;
+        this.commentRepo = commentRepo;
+        this.userRepo = userRepo;
     }
 
     @GetMapping(path = "/create")
@@ -29,7 +33,6 @@ public class PostController {
     @PostMapping(path = "/create")
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
-                             UserRepo userRepo,
                              Model model) {
         Post post = new Post(title, body);
         post.setAuthor(userRepo.findById(5L).get());
@@ -43,7 +46,6 @@ public class PostController {
 
     @GetMapping(path = "/{id}")
     public String getPostById(@PathVariable(name = "id") Long id,
-                              CommentRepo commentRepo,
                               Model model) {
         model.addAttribute("post", postRepo.findById(id).get());
         model.addAttribute("post", postRepo.findById(id).get());
