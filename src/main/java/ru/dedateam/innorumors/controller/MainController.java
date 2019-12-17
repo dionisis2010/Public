@@ -14,6 +14,8 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
@@ -34,7 +36,7 @@ public class MainController {
 
     @GetMapping(path = "/home")
     public String getHomePage(Model model) {
-        model.addAttribute("auth", InnoContext.getCurrentUser());
+        InnoContext.putAuth(model);
         model.addAttribute("posts", postRepo.findAll());
         return "home";
     }
@@ -46,14 +48,16 @@ public class MainController {
 
     @GetMapping(path = "/login")
     public String getLogInPage() {
-//        User auth = InnoContext.getCurrentUser();
         return "login_page";
     }
 
     @PostMapping(path = "/login")
     public String login(Model model) {
-//        user.setLastLogIn(LocalDateTime.now());
-        return "redirect:/";
+        InnoContext.putAuth(model);
+        User user = InnoContext.getCurrentUser();
+        user.setLastLogIn(LocalDateTime.now());
+        userRepo.save(user);
+        return "redirect:/home";
     }
 
     @GetMapping(path = "/registration")
@@ -86,14 +90,15 @@ public class MainController {
     }
 
     @GetMapping(path = "/contacts")
-    public String getContactsPage() {
+    public String getContactsPage(Model model) {
+        InnoContext.putAuth(model);
         return "contact_us";
     }
 
-    @GetMapping(path = "/search")
-    public String search() {
-        return "index";
-    }
+//    @GetMapping(path = "/search")
+//    public String search() {
+//        return "index";
+//    }
 
 
 }

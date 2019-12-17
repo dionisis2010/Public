@@ -5,7 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.dedateam.innorumors.config.InnoContext;
 import ru.dedateam.innorumors.data.entities.content.Comment;
+import ru.dedateam.innorumors.data.entities.content.Post;
+import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
@@ -29,7 +32,9 @@ public class CommentController {
     public String addComment(@RequestParam(name = "body") String body,
                              @RequestParam(name = "postId") Long postId) {
         Comment comment = new Comment(body);
-        comment.setAuthor(userRepo.findById(1L).get());
+
+        User author = InnoContext.getCurrentUser();
+        comment.setAuthor(author);
         comment.setPost(postRepo.findById(postId).get());
 
         commentRepo.save(comment);

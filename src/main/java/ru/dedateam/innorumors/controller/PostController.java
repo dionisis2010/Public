@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.dedateam.innorumors.config.InnoContext;
 import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
@@ -34,8 +35,10 @@ public class PostController {
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
                              Model model) {
+        User author = InnoContext.getCurrentUser();
+
         Post post = new Post(title, body);
-        post.setAuthor(userRepo.findById(1L).get());
+        post.setAuthor(author);
 
         model.addAttribute("post", post);
         model.addAttribute("countComments", 0);
@@ -47,10 +50,15 @@ public class PostController {
     @GetMapping(path = "/{id}")
     public String getPostById(@PathVariable(name = "id") Long id,
                               Model model) {
+
+        User user = InnoContext.getCurrentUser();
+        model.addAttribute("auth", user);
+
         model.addAttribute("post", postRepo.findById(id).get());
         model.addAttribute("post", postRepo.findById(id).get());
         model.addAttribute("comments", commentRepo.findAllByPostId(id));
         model.addAttribute("countComments", commentRepo.countAllByPostId(id));
+
         return "post";
     }
 

@@ -33,6 +33,7 @@ public class ProfileController {
     @GetMapping(path = "/{id}")
     public String getUserByID(@PathVariable(name = "id") Long id,
                               Model model) {
+        InnoContext.putAuth(model);
         Optional<User> user = userRepo.findById(id);
         model.addAttribute("user", user.get());
         model.addAttribute("countPosts", userRepo.countAllById(id));
@@ -41,6 +42,7 @@ public class ProfileController {
 
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
+        InnoContext.putAuth(model);
         model.addAttribute("users", userRepo.findAll());
 
         return "all_users";
@@ -48,11 +50,10 @@ public class ProfileController {
 
     @GetMapping(path = "/my_posts")
     public String getMyPosts(Model model) {
-
+        InnoContext.putAuth(model);
         User user = InnoContext.getCurrentUser();
         Iterable<Post> posts = postRepo.findByAuthorId(user.getId());
         model.addAttribute("posts", posts);
-        model.addAttribute("auth", user);
         return "my_posts";
     }
 
