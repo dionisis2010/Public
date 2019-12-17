@@ -26,4 +26,13 @@ public class VotePost {
     @Column(name = "vote", nullable = false)
     @Enumerated(EnumType.STRING)
     private Vote vote;
+
+    public VotePost() {
+    }
+
+    public VotePost(Long authorId, Long postId, Vote vote) {
+        this.authorId = authorId;
+        this.postId = postId;
+        this.vote = vote;
+    }
 }

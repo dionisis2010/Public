@@ -34,7 +34,7 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                     authentication.getPrincipal(), // Юзернейм
                     authentication.getCredentials(), // Пароль
-                    Collections.singletonList(new SimpleGrantedAuthority(byUsername.get().getRole().getName()))
+                    Collections.singletonList(new SimpleGrantedAuthority(byUsername.get().getRole().name()))
             );
             auth.setDetails(byUsername.get());
             return  auth;

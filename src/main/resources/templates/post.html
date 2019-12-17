@@ -36,17 +36,27 @@
                                   th:text="${post.getPostedTime()}"></i></a>
                             <a><i class="fa fa-comments-o" aria-hidden="true"
                                   th:text="'Комментарии: ' + ${countComments}"></i></a>
+
+                            <!-- like/dislike -->
                             <div class="l-rightside39">
-                                <button type="button" class="tolltip-button thumbs-up2" data-toggle="tooltip"
-                                        data-placement="bottom" title="Like">
-                                    <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
-                                </button>
-                                <button type="button" class="tolltip-button  thumbs-down2" data-toggle="tooltip"
-                                        data-placement="bottom" title="Dislike">
-                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                </button>
-                                <span class="single-question-vote-result">+22</span>
+                                <form method="post" action="/rat/likePost">
+                                    <input type="hidden" name="postId" th:value="${post.getId()}">
+                                    <button type="submit" class="tolltip-button thumbs-up2" data-toggle="tooltip"
+                                            data-placement="bottom" title="Like">
+                                        <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                                <form method="post" action="/rat/dislikePost">
+                                    <input type="hidden" name="postId" th:value="${post.getId()}">
+                                    <button type="submit" class="tolltip-button  thumbs-down2" data-toggle="tooltip"
+                                            data-placement="bottom" title="Dislike">
+                                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                                <span class="single-question-vote-result" th:text="${post.getRat()}"></span>
                             </div>
+
+
                         </div>
                         <p th:text="${post.getBody()}"></p>
                     </div>
@@ -60,7 +70,8 @@
                             <h3>Комментарии</h3>
                             <hr>
                             <div class="comments-container">
-<!--                                <ul id="comments-list" class="comments-list" th:each="comment: ${comments}">-->
+
+                                <!-- comments -->
                                 <ul id="comments-list" class="comments-list" th:each="comment: ${comments}">
                                     <li>
                                         <div class="comment-main-level">
@@ -76,15 +87,44 @@
                                                     </h6>
                                                     <span><i class="fa fa-clock-o" aria-hidden="true"
                                                              th:text="${comment.getPostedTime()}"></i></span>
-                                                    <i class="fa fa-reply"></i>
-                                                    <i class="fa fa-heart"></i>
+
+                                                    <!-- like/dislike -->
+                                                    <!--                                                    <i class="fa fa-reply"></i>-->
+                                                    <!--                                                    <i class="fa fa-heart"></i>-->
+                                                    <div class="l-rightside39">
+                                                        <form method="post" action="/rat/likeComment">
+                                                            <input type="hidden" name="commentId"
+                                                                   th:value="${comment.getId()}">
+                                                            <button type="submit" class="tolltip-button thumbs-up2"
+                                                                    data-toggle="tooltip"
+                                                                    data-placement="bottom" title="Like">
+                                                                <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
+                                                        <form method="post" action="/rat/dislikeComment">
+                                                            <input type="hidden" name="commentId"
+                                                                   th:value="${comment.getId()}">
+                                                            <button type="submit" class="tolltip-button  thumbs-down2"
+                                                                    data-toggle="tooltip"
+                                                                    data-placement="bottom" title="Dislike">
+                                                                <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                            </button>
+                                                        </form>
+                                                        <span class="single-question-vote-result"
+                                                              th:text="${comment.getRat()}"></span>
+                                                    </div>
+
+
                                                 </div>
                                                 <div class="comment-content" th:text="${comment.getBody()}"></div>
                                             </div>
                                         </div>
                                     </li>
 
+                                    <br>
                                 </ul>
+                                <!-- end comments-->
+
                             </div>
                         </div>
                     </div>

@@ -4,14 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.dedateam.innorumors.config.InnoContext;
+import ru.dedateam.innorumors.service.InnoContext;
 import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.Gender;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
+import ru.dedateam.innorumors.service.DateFormater;
 
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -52,14 +54,11 @@ public class ProfileController {
     public String getMyPosts(Model model) {
         InnoContext.putAuth(model);
         User user = InnoContext.getCurrentUser();
-        Iterable<Post> posts = postRepo.findByAuthorId(user.getId());
+//        Iterable<Post> posts = postRepo.findByAuthorId(user.getId());
+        Iterable<Post> posts = postRepo.findByAuthorIdOrderByPostedTimeDesc(user.getId());
+
         model.addAttribute("posts", posts);
         return "my_posts";
-    }
-
-    @GetMapping(path = "/properties")
-    public String getPropertiesPage() {
-        return "property";
     }
 
     @PostMapping(path = "/properties")
@@ -69,12 +68,22 @@ public class ProfileController {
         return "user_info";
     }
 
+    @GetMapping(path = "/properties")
+    public String getPropertiesPage(Model model) {
+        InnoContext.putAuth(model);
+        return "property";
+    }
+
     @PostMapping(path = "/update")
-    public String updateUser(@RequestParam(name = "birthDay") LocalDateTime birthDay,
-                             @RequestParam(name = "gender") Gender gender,
+    public String updateUser(@RequestParam(name = "birthDay", required = false) String birthDay,
+                             @RequestParam(name = "gender", required = false) Gender gender,
+                             Model model) throws ParseException {
 
-                             Model model) {
-
+        User user = InnoContext.getCurrentUser();
+//        user.setGender(gender);
+        LocalDateTime b = DateFormater.parse(birthDay);
+        user.setBirthDay(b);
+        System.out.println(user);
         return "user_info";
     }
 

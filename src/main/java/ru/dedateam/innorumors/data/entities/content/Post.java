@@ -35,14 +35,12 @@ public class Post {
 
 //    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
 //    private Set<Comment> comments;
+    @Transient
+    private Integer rat = 0;
 
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
         this.postedTime = LocalDateTime.now();
-    }
-
-    public User getAuthor() {
-        return author;
     }
 }

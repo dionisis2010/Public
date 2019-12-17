@@ -39,14 +39,27 @@
                                               th:text="${post.getPostedTime()}"></i></a>
                                         <a><i class="fa fa-comments-o" aria-hidden="true"
                                               th:text="'Comments: '"></i></a>
+
+                                        <!-- like/dislike -->
                                         <div class="l-rightside39">
-                                            <button type="button" class="tolltip-button thumbs-up2"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Like"><i
-                                                    class="fa fa-thumbs-o-up " aria-hidden="true"></i></button>
-                                            <button type="button" class="tolltip-button  thumbs-down2"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Dislike"><i
-                                                    class="fa fa-thumbs-o-down" aria-hidden="true"></i></button>
-                                            <span class="single-question-vote-result">+22</span></div>
+                                            <form method="post" action="/rat/likePost">
+                                                <input type="hidden" name="postId" th:value="${post.getId()}">
+                                                <button type="submit" class="tolltip-button thumbs-up2" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Like">
+                                                    <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                            <form method="post" action="/rat/dislikePost">
+                                                <input type="hidden" name="postId" th:value="${post.getId()}">
+                                                <button type="submit" class="tolltip-button  thumbs-down2" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Dislike">
+                                                    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                                                </button>
+                                            </form>
+                                            <span class="single-question-vote-result" th:text="${post.getRat()}"></span>
+                                        </div>
+
+
                                     </div>
                                     <p th:text="${post.getBody()}"></p>
                                     <div class="continue-deatils738">
@@ -60,9 +73,10 @@
                     </div>
                 </div>
 
+                <!-- печенька -->
                 <div class="container">
                     <div class="welcome-demop102 text-center">
-                        <p><a th:href="@{/post/all}">
+                        <p><a th:href="@{/post/create}">
                             <img th:src="@{/image/pro1.jpg}" width="800" height="267"
                                  alt="Image" class="img-responsive"></a></p>
                     </div>

@@ -26,4 +26,13 @@ public class VoteComment {
     @Column(name = "vote", nullable = false)
     @Enumerated(EnumType.STRING)
     private Vote vote;
+
+    public VoteComment() {
+    }
+
+    public VoteComment(Long authorId, Long commentId, Vote vote) {
+        this.authorId = authorId;
+        this.commentId = commentId;
+        this.vote = vote;
+    }
 }
