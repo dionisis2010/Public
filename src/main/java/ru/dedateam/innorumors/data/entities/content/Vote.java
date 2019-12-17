@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Vote {
     Like("like", +1),
-    DISLIKE("dislike", - 1);
+    DISLIKE("dislike", -1);
 
     private String name;
     private Integer rat;
