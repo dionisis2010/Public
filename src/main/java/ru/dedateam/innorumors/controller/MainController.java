@@ -1,12 +1,15 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.dedateam.innorumors.config.InnoContext;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
@@ -17,6 +20,7 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
+    private Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
     public MainController(UserRepo userRepo, PostRepo postRepo) {
@@ -26,17 +30,22 @@ public class MainController {
 
     @GetMapping(path = "/")
     public String getAllPosts(Model model) {
+//        User auth = InnoContext.getCurrentUser();
+//        authentication.getAuthorities();
+//        model.addAttribute("auth", auth);
         model.addAttribute("posts", postRepo.findAll());
         return "index";
     }
 
     @GetMapping(path = "/deda")
     public String getDeda() {
+//        User auth = InnoContext.getCurrentUser();
         return "deda";
     }
 
     @GetMapping(path = "/login")
     public String getLogInPage() {
+//        User auth = InnoContext.getCurrentUser();
         return "login_page";
     }
 
@@ -56,7 +65,7 @@ public class MainController {
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
                           Model model) {
-        if (userRepo.findByUsername(username).isPresent() == false) {
+//        if (userRepo.findByUsername(username).isPresent() == false) {
             if (password.equals(confirm_password)) {
                 User user = new User(username, password);
 
@@ -68,11 +77,11 @@ public class MainController {
                 model.addAttribute("errorDescription", "Пароли не совпадают");
                 return "error_page";
             }
-        } else {
-            model.addAttribute("errorTitle", "Ошибка рагистрации");
-            model.addAttribute("errorDescription", "Пользователь с таким именем существует");
-            return "error_page";
-        }
+//        } else {
+//            model.addAttribute("errorTitle", "Ошибка рагистрации");
+//            model.addAttribute("errorDescription", "Пользователь с таким именем существует");
+//            return "error_page";
+//        }
     }
 
     @GetMapping(path = "/contacts")
