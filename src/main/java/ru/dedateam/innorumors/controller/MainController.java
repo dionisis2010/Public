@@ -20,26 +20,27 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
-    private Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
     public MainController(UserRepo userRepo, PostRepo postRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
     }
-
     @GetMapping(path = "/")
-    public String getAllPosts(Model model) {
-//        User auth = InnoContext.getCurrentUser();
-//        authentication.getAuthorities();
-//        model.addAttribute("auth", auth);
+    public String getIndex(Model model) {
         model.addAttribute("posts", postRepo.findAll());
         return "index";
     }
 
+    @GetMapping(path = "/home")
+    public String getHomePage(Model model) {
+        model.addAttribute("auth", InnoContext.getCurrentUser());
+        model.addAttribute("posts", postRepo.findAll());
+        return "home";
+    }
+
     @GetMapping(path = "/deda")
     public String getDeda() {
-//        User auth = InnoContext.getCurrentUser();
         return "deda";
     }
 
@@ -71,7 +72,7 @@ public class MainController {
 
                 userRepo.save(user);
                 model.addAttribute("posts", postRepo.findAll());
-                return "index";
+                return "login_page";
             } else {
                 model.addAttribute("errorTitle", "Ошибка рагистрации");
                 model.addAttribute("errorDescription", "Пароли не совпадают");

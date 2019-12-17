@@ -8,7 +8,7 @@
                             data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Переключить навигацию</span>
                     </button>
-                    <a class="navbar-brand" th:href="@{/}">
+                    <a class="navbar-brand" th:href="@{/home}">
                         <img th:src="@{/image/download.gif}" alt="Logo">
                     </a>
 
@@ -24,33 +24,33 @@
                                 <div class="navbar-menu-left-side239">
                                     <ul>
                                         <li>
-                                            <div th:switch="${islogin}">
-                                                <a th:href="@{/login}" th:case="false">
-                                                    <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
-                                                <a th:href="@{/do_logout}" th:case="true">
-                                                    <i class="fa fa-user" aria-hidden="true"></i>Выйти</a>
-                                            </div>
+                                            <a th:href="@{/user/{id}(id=${auth.getId()})}" >
+                                                <i class="fa fa-user" aria-hidden="true" th:text="${auth.getUsername()}"></i></a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{/do_logout}" >
+                                                <i aria-hidden="true"></i>Выйти</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
 
                             <!--                        Search-->
-                            <div class="col-md-6">
-                                <div class="navbar-serch-right-side">
-                                    <form class="navbar-form" role="search" method="post" th:action="@{/search}">
-                                        <div class="input-group add-on">
-                                            <input class="form-control form-control222" placeholder="Поиск"
-                                                   name="srch-term"
-                                                   id="srch-term" type="text">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-default btn-default2913" type="submit"><i
-                                                        class="glyphicon glyphicon-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+<!--                            <div class="col-md-6">-->
+<!--                                <div class="navbar-serch-right-side">-->
+<!--                                    <form class="navbar-form" role="search" method="post" th:action="@{/search}">-->
+<!--                                        <div class="input-group add-on">-->
+<!--                                            <input class="form-control form-control222" placeholder="Поиск"-->
+<!--                                                   name="srch-term"-->
+<!--                                                   id="srch-term" type="text">-->
+<!--                                            <div class="input-group-btn">-->
+<!--                                                <button class="btn btn-default btn-default2913" type="submit"><i-->
+<!--                                                        class="glyphicon glyphicon-search"></i></button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                         </div>
                     </ul>

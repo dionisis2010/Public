@@ -57,7 +57,7 @@ public class PostController {
     @GetMapping(path = "/all")
     public String getAllPosts(Model model) {
         model.addAttribute("posts", postRepo.findAll());
-        return "index";
+        return "home";
     }
 
 }

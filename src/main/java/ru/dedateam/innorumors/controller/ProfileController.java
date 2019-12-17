@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.dedateam.innorumors.config.InnoContext;
+import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.Gender;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
@@ -47,7 +49,10 @@ public class ProfileController {
     @GetMapping(path = "/my_posts")
     public String getMyPosts(Model model) {
 
-        model.addAttribute("posts", postRepo.findByAuthorId(5L));
+        User user = InnoContext.getCurrentUser();
+        Iterable<Post> posts = postRepo.findByAuthorId(user.getId());
+        model.addAttribute("posts", posts);
+        model.addAttribute("auth", user);
         return "my_posts";
     }
 
@@ -58,7 +63,7 @@ public class ProfileController {
 
     @PostMapping(path = "/properties")
     public String updateProfile() {
-        User user = userRepo.findById(1L).get();
+        User user = userRepo.findById(InnoContext.getCurrentUser().getId()).get();
 
         return "user_info";
     }
