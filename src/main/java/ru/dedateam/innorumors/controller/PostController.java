@@ -27,7 +27,8 @@ public class PostController {
     }
 
     @GetMapping(path = "/create")
-    public String getCreatPostPage() {
+    public String getCreatPostPage(Model model) {
+        InnoContext.putAuth(model);
         return "new_post";
     }
 
@@ -35,6 +36,7 @@ public class PostController {
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
                              Model model) {
+        InnoContext.putAuth(model);
         User author = InnoContext.getCurrentUser();
 
         Post post = new Post(title, body);
