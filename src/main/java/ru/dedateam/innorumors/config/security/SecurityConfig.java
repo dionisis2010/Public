@@ -28,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/do_login")
                 .successHandler(mySuccesHandler)
                 .and()
+                .logout().logoutUrl("/do_logout")
+                .and()
                 .httpBasic().disable()
                 .authorizeRequests()
                 .antMatchers(
