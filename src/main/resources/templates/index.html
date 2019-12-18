@@ -82,24 +82,27 @@
                                               th:text="'Комментарии: ' + ${post.getCountComments()}"></i></a>
 
                                         <!-- like/dislike -->
+                                        <!-- like/dislike -->
                                         <div class="l-rightside39">
-                                            <form method="post" action="/rat/likePost">
-                                                <input type="hidden" name="postId" th:value="${post.getId()}">
-                                                <button type="submit" class="tolltip-button thumbs-up2"
-                                                        data-toggle="tooltip"
-                                                        data-placement="bottom" title="Like">
-                                                    <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
-                                                </button>
-                                            </form>
+                                            <span class="single-question-vote-result" th:text="${post.getRat()}"></span>
+                                        </div>
+                                        <div class="l-rightside39">
                                             <form method="post" action="/rat/dislikePost">
                                                 <input type="hidden" name="postId" th:value="${post.getId()}">
-                                                <button type="submit" class="tolltip-button  thumbs-down2"
-                                                        data-toggle="tooltip"
+                                                <button type="submit" class="tolltip-button  thumbs-down2" data-toggle="tooltip"
                                                         data-placement="bottom" title="Dislike">
                                                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                                 </button>
                                             </form>
-                                            <span class="single-question-vote-result" th:text="${post.getRat()}"></span>
+                                        </div>
+                                        <div class="l-rightside39">
+                                            <form method="post" action="/rat/likePost">
+                                                <input type="hidden" name="postId" th:value="${post.getId()}">
+                                                <button type="submit" class="tolltip-button thumbs-up2" data-toggle="tooltip"
+                                                        data-placement="bottom" title="Like">
+                                                    <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
+                                                </button>
+                                            </form>
                                         </div>
 
 
