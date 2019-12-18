@@ -3,6 +3,7 @@ package ru.dedateam.innorumors.data.entities.content;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.service.DateFormater;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -45,4 +46,7 @@ public class Comment {
         this.postedTime = LocalDateTime.now();
     }
 
+    public String getFormatPostedTime() {
+        return DateFormater.format(postedTime);
+    }
 }

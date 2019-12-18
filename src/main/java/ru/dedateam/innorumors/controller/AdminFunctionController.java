@@ -1,6 +1,7 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
@@ -22,6 +23,7 @@ public class AdminFunctionController {
         this.commentRepo = commentRepo;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(path = "/delete")
     public String getDeleteUserPage() {
         return "admin/delete";

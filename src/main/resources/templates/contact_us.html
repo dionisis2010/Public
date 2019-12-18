@@ -31,11 +31,7 @@
                 <div class="ask-question-input-part032">
                     <h4>Свяжитесь с нами</h4>
                     <hr>
-                    <form>
-                        <div class="username-part940">
-                            <span class="form-description43">User name* </span>
-                            <input type="text" name="fname" class="username029" placeholder="Введите своё имя">
-                        </div>
+                    <form method="post" th:action="">
                         <div class="email-part320">
                             <span class="form-description442">E-Mail* </span>
                             <input type="text" name="fname" class="email30" placeholder="Ваш почтовый адрес">
@@ -46,8 +42,7 @@
                         </div>
                         <div class="question-title39">
                             <span class="form-description43313">Details* </span>
-                            <textarea class="question-details3112" placeholder="Ваше подробное описание">
-                        </textarea>
+                            <input type="text" name="body" placeholder="подробное описание">
                         </div>
                     </form>
 

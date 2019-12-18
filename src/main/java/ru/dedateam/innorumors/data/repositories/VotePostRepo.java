@@ -12,8 +12,13 @@ public interface VotePostRepo extends PagingAndSortingRepository<VotePost, Long>
 
 
     Boolean existsByAuthorIdAndPostId(Long authorId, Long postId);
+
     VotePost findByAuthorIdAndPostId(Long authorId, Long postId);
+
     Integer countVotePostByPostIdAndVote(Long postId, Vote vote);
+
     Iterable<VotePost> findAllByPostId(Long postId);
-    
+
+    Integer countVotePostByAuthorIdAndVote(Long authorId, Vote vote);
+
 }

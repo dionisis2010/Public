@@ -10,7 +10,7 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
-import ru.dedateam.innorumors.service.InnoContext;
+import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.service.RatService;
 
 @Controller
@@ -32,7 +32,7 @@ public class PostController {
 
     @GetMapping(path = "/create")
     public String getCreatPostPage(Model model) {
-        InnoContext.putAuth(model);
+        ModelService.putAuth(model);
         return "new_post";
     }
 
@@ -40,45 +40,49 @@ public class PostController {
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
                              Model model) {
-        InnoContext.putAuth(model);
-        User author = InnoContext.getCurrentUser();
+        ModelService.putAuth(model);
+        User author = ModelService.getCurrentUser();
 
         Post post = new Post(title, body);
         post.setAuthor(author);
 
-        model.addAttribute("post", post);
-        model.addAttribute("countComments", 0);
+//        model.addAttribute("post", post);
+//        model.addAttribute("countComments", 0);
 
         postRepo.save(post);
-        return "post";
+        return "redirect:/home";
     }
 
     @GetMapping(path = "/{id}")
     public String getPostById(@PathVariable(name = "id") Long id,
                               Model model) {
 
-        InnoContext.putAuth(model);
-        User user = InnoContext.getCurrentUser();
+        ModelService.putAuth(model);
 
         Post post = postRepo.findById(id).get();
         post.setRat(ratService.countRatingPost(post.getId()));
         model.addAttribute("post", post);
+        model.addAttribute("countComments", commentRepo.countAllByPostId(id));
 
         Iterable<Comment> comments = commentRepo.findAllByPostId(id);
         ratService.countAllCommentRat(comments);
         model.addAttribute("comments", comments);
-        model.addAttribute("countComments", commentRepo.countAllByPostId(id));
-
-//        model.addAttribute("postRat", ratService.countRatingPost(id));
 
         return "post";
     }
 
-//    @GetMapping(path = "/all")
-//    public String getAllPosts(Model model) {
-//        InnoContext.putAuth(model);
-//        model.addAttribute("posts", postRepo.findAllByOrderByPostedTimeDesc());
-//        return "home";
-//    }
+    @PostMapping(path = "/comment/add/")
+    public String addComment(@RequestParam(name = "body") String body,
+                             @RequestParam(name = "postId") Long postId) {
+        Comment comment = new Comment(body);
+
+        User author = ModelService.getCurrentUser();
+        comment.setAuthor(author);
+        comment.setPost(postRepo.findById(postId).get());
+
+        commentRepo.save(comment);
+        return "redirect:/post/"+ postId;
+    }
+
 
 }

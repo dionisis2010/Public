@@ -3,6 +3,7 @@ package ru.dedateam.innorumors.data.entities.content;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.service.DateFormater;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,14 +34,21 @@ public class Post {
     @Column(name = "posted_time", nullable = false)
     private LocalDateTime postedTime;
 
-//    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    //    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
 //    private Set<Comment> comments;
     @Transient
     private Integer rat = 0;
+
+    @Transient
+    private Integer countComments = 0;
 
     public Post(String title, String body) {
         this.title = title;
         this.body = body;
         this.postedTime = LocalDateTime.now();
+    }
+
+    public String getFormatPostedTime() {
+        return DateFormater.format(postedTime);
     }
 }

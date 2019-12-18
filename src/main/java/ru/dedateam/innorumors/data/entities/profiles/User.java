@@ -2,15 +2,12 @@ package ru.dedateam.innorumors.data.entities.profiles;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.WhereJoinTable;
-import ru.dedateam.innorumors.data.entities.content.Comment;
-import ru.dedateam.innorumors.data.entities.content.Post;
+import ru.dedateam.innorumors.service.DateFormater;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name = "users")
@@ -76,46 +73,11 @@ public class User {
                 + "\nrating  : " + getRating();
     }
 
-//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-//    private Set<Post> posts;           // выложенные посты
-//
-//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-//    private Set<Comment> comments;     // оставленные комментарии
-//
-//    @WhereJoinTable(clause = "vote = true")
-//    @ManyToMany
-//    @JoinTable(
-//            name = "post_votes",
-//            joinColumns = {@JoinColumn(name = "author")},
-//            inverseJoinColumns = {@JoinColumn(name = "post")}
-//    )
-//    private Set<Post> favoritesPosts;       // избранные посты
-//
-//    @WhereJoinTable(clause = "vote = false")
-//    @ManyToMany
-//    @JoinTable(
-//            name = "post_votes",
-//            joinColumns = {@JoinColumn(name = "author")},
-//            inverseJoinColumns = {@JoinColumn(name = "post")}
-//    )
-//    private Set<Post> unFavoritesPosts;
-//
-//    @WhereJoinTable(clause = "vote = true")
-//    @ManyToMany
-//    @JoinTable(
-//            name = "comment_votes",
-//            joinColumns = {@JoinColumn(name = "author")},
-//            inverseJoinColumns = {@JoinColumn(name = "post")}
-//    )
-//    private Set<Comment> favoritesComments; // избранные комменты
-//
-//    @WhereJoinTable(clause = "vote = false")
-//    @ManyToMany
-//    @JoinTable(
-//            name = "comment_votes",
-//            joinColumns = {@JoinColumn(name = "author")},
-//            inverseJoinColumns = {@JoinColumn(name = "post")}
-//    )
-//    private Set<Comment> unFavoritesComments;
+    public String getFormatLastLogIn() {
+        return DateFormater.format(lastLogIn);
+    }
 
+    public String getFormatRegistrationTime() {
+        return DateFormater.format(registrationTime);
+    }
 }

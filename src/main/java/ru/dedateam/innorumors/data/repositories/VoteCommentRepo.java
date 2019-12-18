@@ -12,7 +12,12 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 public interface VoteCommentRepo extends PagingAndSortingRepository<VoteComment, Long> {
 
     Boolean existsByAuthorIdAndCommentId(Long authorId, Long commentId);
+
     VoteComment findByAuthorIdAndCommentId(Long authorId, Long commentId);
-    Integer countVotePostByCommentIdAndVote(Long commentId, Vote vote);
+
+    Integer countVoteCommentsByCommentIdAndVote(Long commentId, Vote vote);
+
+    Integer countVoteCommentByAuthorIdAndVote(Long authorId, Vote vote);
+
     Iterable<VoteComment> findAllByCommentId(Long commentId);
 }

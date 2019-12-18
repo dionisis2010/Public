@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
-import ru.dedateam.innorumors.service.InnoContext;
+import ru.dedateam.innorumors.data.repositories.CommentRepo;
+import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 import ru.dedateam.innorumors.service.RatService;
-
-import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(path = "/")
@@ -22,12 +21,14 @@ public class MainController {
 
     private UserRepo userRepo;
     private PostRepo postRepo;
+    private CommentRepo commentRepo;
     private RatService ratService;
 
     @Autowired
-    public MainController(UserRepo userRepo, PostRepo postRepo, RatService ratService) {
+    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo, RatService ratService) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
+        this.commentRepo = commentRepo;
         this.ratService = ratService;
     }
 
@@ -37,15 +38,22 @@ public class MainController {
     }
     @GetMapping(path = "/")
     public String getIndex(Model model) {
-        model.addAttribute("posts", ratService.countAllPostRat(postRepo.findAllByOrderByPostedTimeDesc()));
+        putPostsInModel(model);
         return "index";
     }
 
     @GetMapping(path = "/home")
     public String getHomePage(Model model) {
-        InnoContext.putAuth(model);
-        model.addAttribute("posts", ratService.countAllPostRat(postRepo.findAllByOrderByPostedTimeDesc()));
+        ModelService.putAuth(model);
+        putPostsInModel(model);
         return "home";
+    }
+
+    private void putPostsInModel(Model model) {
+        Iterable<Post> posts = postRepo.findAllByOrderByPostedTimeDesc();
+        ratService.countAllPostRat(posts);
+        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostId(post.getId())));
+        model.addAttribute("posts", posts);
     }
 
     @GetMapping(path = "/deda")
@@ -58,14 +66,6 @@ public class MainController {
         return "login_page";
     }
 
-    @PostMapping(path = "/login")
-    public String login(Model model) {
-        InnoContext.putAuth(model);
-        User user = InnoContext.getCurrentUser();
-        user.setLastLogIn(LocalDateTime.now());
-        userRepo.save(user);
-        return "redirect:/home";
-    }
 
     @GetMapping(path = "/registration")
     public String getRegistrationPage() {
@@ -98,7 +98,7 @@ public class MainController {
 
     @GetMapping(path = "/contacts")
     public String getContactsPage(Model model) {
-        InnoContext.putAuth(model);
+        ModelService.putAuth(model);
         return "contact_us";
     }
 

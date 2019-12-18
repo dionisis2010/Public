@@ -24,10 +24,12 @@
             <div class="col-md-9">
                 <div class="about-user2039">
                     <div class="user-title3930">
-                        <h3 th:text="${user.getUsername()}"></h3>
+                        <h3 th:text="'(id ' +  ${user.getId()} + ') ' + ${user.getUsername()}"></h3>
                         <hr>
                     </div>
-                    <div class="user-image293"><img th:src="@{/image/images.png}" alt="Image"></div>
+                    <div class="user-image293">
+                        <img th:src="@{/image/images.png}" alt="Image">
+                    </div>
 
                     <!--                    profile-->
                     <div class="user-list10039">
@@ -35,15 +37,11 @@
                             <ul>
                                 <li>
                                     <i class="fa fa-plus" aria-hidden="true"
-                                       th:text="'Вход в онлайн: ' + ${user.getLastLogIn()}"></i>
+                                       th:text="'Дата Регистрации: ' + ${user.getFormatLastLogIn()}"></i>
                                 </li>
                                 <li>
-                                    <i class="fa fa-heart" aria-hidden="true"
-                                       th:text="'Дата рождения: ' + ${user.getBirthDay()}"></i>
-                                </li>
-                                <li>
-                                    <i class="fa fa-user" aria-hidden="true"
-                                       th:text="'Пол: ' + ${user.getGender().toString()}"></i>
+                                    <i class="fa fa-plus" aria-hidden="true"
+                                       th:text="'Вход в онлайн: ' + ${user.getFormatRegistrationTime()}"></i>
                                 </li>
                             </ul>
                         </div>
@@ -52,12 +50,16 @@
                             <ul>
 
                                 <li>
-                                    <i class="fa fa-globe" aria-hidden="true"
+                                    <i class="fa fa-heart" aria-hidden="true"
                                        th:text="'Рейтинг: ' + ${user.getRating()}"></i>
                                 </li>
                                 <li>
-                                    <i class="fa fa-globe" aria-hidden="true"
-                                       th:text="'Посты пользователя: ' + ${countPosts}"></i>
+                                    <i class="fa fa-history" aria-hidden="true"
+                                       th:text="'Кол-во постов: ' + ${countPosts}"></i>
+                                </li>
+                                <li>
+                                    <i class="fa fa-comment" aria-hidden="true"
+                                       th:text="'Кол-во комментариев: ' + ${countComments}"></i>
                                 </li>
                             </ul>
                         </div>
