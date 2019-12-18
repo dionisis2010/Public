@@ -33,19 +33,19 @@ public class ModelService {
     }
 
     public static void putAllPostsWithRatingSortedByTime(Model model){
-        Iterable<Post> posts = postRepo.findAllByOrderByPostedTimeDesc();
+        Iterable<Post> posts = postRepo.findByIsDeletedOrderByPostedTimeDesc(false);
         initRatingInPosts(posts);
         initCountCommentsInPosts(posts);
         model.addAttribute("posts", posts);
     }
 
     public static void putCountCommentsInPost(Model model, Long postId){
-        model.addAttribute("countCommentsInPost", commentRepo.countAllByPostId(postId));
+        model.addAttribute("countCommentsInPost", commentRepo.countAllByPostIdAndIsDeleted(postId, false));
 
     }
 
     public static void initCountCommentsInPosts(Iterable<Post> posts){
-        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostId(post.getId())));
+        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
     }
 
     public static void initRatingInPosts(Iterable<Post> posts){

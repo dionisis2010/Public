@@ -62,9 +62,9 @@ public class PostController {
         Post post = postRepo.findById(id).get();
         post.setRat(ratService.countRatingPost(post.getId()));
         model.addAttribute("post", post);
-        model.addAttribute("countComments", commentRepo.countAllByPostId(id));
+        model.addAttribute("countComments", commentRepo.countAllByPostIdAndIsDeleted(id, false));
 
-        Iterable<Comment> comments = commentRepo.findAllByPostId(id);
+        Iterable<Comment> comments = commentRepo.findAllByPostIdAndIsDeleted(id, false);
         ratService.countAllCommentRat(comments);
         model.addAttribute("comments", comments);
 

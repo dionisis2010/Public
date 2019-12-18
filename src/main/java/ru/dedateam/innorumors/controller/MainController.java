@@ -50,9 +50,9 @@ public class MainController {
     }
 
     private void putPostsInModel(Model model) {
-        Iterable<Post> posts = postRepo.findAllByOrderByPostedTimeDesc();
+        Iterable<Post> posts = postRepo.findByIsDeletedOrderByPostedTimeDesc(false);
         ratService.countAllPostRat(posts);
-        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostId(post.getId())));
+        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
         model.addAttribute("posts", posts);
     }
 

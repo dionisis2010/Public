@@ -36,6 +36,10 @@ public class Post {
 
     //    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
 //    private Set<Comment> comments;
+
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
+
     @Transient
     private Integer rat = 0;
 
@@ -46,6 +50,7 @@ public class Post {
         this.title = title;
         this.body = body;
         this.postedTime = LocalDateTime.now();
+        this.isDeleted = false;
     }
 
     public String getFormatPostedTime() {

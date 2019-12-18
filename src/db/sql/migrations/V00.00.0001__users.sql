@@ -15,5 +15,6 @@ CREATE TABLE "public"."users"
     "birth_day"         timestamp,
     "gender"            character varying,
     "rating"            bigint                                 NOT NULL,
+    "is_deleted"        boolean                                NOT NULL,
     CONSTRAINT "users_id" PRIMARY KEY ("id")
 ) WITH (oids = false);

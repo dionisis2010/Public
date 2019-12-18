@@ -47,6 +47,9 @@ public class User {
     @Column(name = "rating", nullable = false)
     private Integer rating;
 
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;
@@ -56,6 +59,7 @@ public class User {
         this.birthDay = LocalDateTime.now();
         this.gender = Gender.NON;
         this.rating = 0;
+        this.isDeleted = false;
     }
 
     public User() {

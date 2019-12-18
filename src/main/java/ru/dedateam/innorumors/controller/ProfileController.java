@@ -43,14 +43,14 @@ public class ProfileController {
         user.setRating(ratService.countUserRat(user.getId()));
         model.addAttribute("user", user);
         model.addAttribute("countPosts", postRepo.countAllByAuthorId(id));
-        model.addAttribute("countComments", commentRepo.countAllByAuthorId(id));
+        model.addAttribute("countComments", commentRepo.countAllByAuthorIdAndIsDeleted(id, false));
         return "user_info";
     }
 
     @GetMapping(path = "/all")
     public String getUserByID(Model model) {
         ModelService.putAuth(model);
-        model.addAttribute("users", userRepo.findAll());
+        model.addAttribute("users", userRepo.findByIsDeletedOrderByUsername(false));
         return "all_users";
     }
 
@@ -58,9 +58,9 @@ public class ProfileController {
     public String getMyPosts(Model model) {
         ModelService.putAuth(model);
         User user = ModelService.getCurrentUser();
-        Iterable<Post> posts = postRepo.findByAuthorIdOrderByPostedTimeDesc(user.getId());
+        Iterable<Post> posts = postRepo.findByAuthorIdAndIsDeletedOrderByPostedTimeDesc(user.getId(), false);
         ratService.countAllPostRat(posts);
-        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostId(post.getId())));
+        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
         model.addAttribute("posts", posts);
         return "my_posts";
     }

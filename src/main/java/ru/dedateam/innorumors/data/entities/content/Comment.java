@@ -38,12 +38,16 @@ public class Comment {
     @JoinColumn(name = "author")
     private User author;
 
+    @Column(name = "is_deleted", nullable = false)
+    private Boolean isDeleted;
+
     @Transient
     private Integer rat = 0;
 
     public Comment(String body) {
         this.body = body;
         this.postedTime = LocalDateTime.now();
+        this.isDeleted = false;
     }
 
     public String getFormatPostedTime() {
