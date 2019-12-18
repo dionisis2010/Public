@@ -6,7 +6,13 @@
 </head>
 <body>
 <h2><a th:href="@{/admin}">Admin Menu</a></h2>
-<h2>All Comments</h2>
+    <h3>
+        <div th:text="'isDelete: ' + ${post.getIsDeleted()}
+            + ' | author: ' + ${post.getAuthor().getId()} + ' ' + ${post.getAuthor().getUsername()}
+            + ' | id: ' + ${post.getId()}  + ' | title: ' + ${post.getTitle()}"></div>
+    </h3>
+
+<h2>Comments</h2>
 <div th:each="comment : ${comments}">
     <form method="post" action="/admin/delete/comment">
         <input type="hidden" name="id" th:value="${comment.getId()}">

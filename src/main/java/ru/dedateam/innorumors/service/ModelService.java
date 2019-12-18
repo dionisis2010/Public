@@ -49,6 +49,6 @@ public class ModelService {
     }
 
     public static void initRatingInPosts(Iterable<Post> posts){
-        ratService.countAllPostRat(posts);
+        ratService.initPostsRating(posts);
     }
 }

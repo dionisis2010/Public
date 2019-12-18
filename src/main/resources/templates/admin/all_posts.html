@@ -5,22 +5,20 @@
     <title>Title</title>
 </head>
 <body>
-<h3>Delete user</h3>
-<form method="post" th:action="@{/admin/delete/user}">
-    <input type="number" name="id" placeholder="userId">
-    <button type="submit">delete/restore user</button>
-</form>
-
-<h3>Delete post</h3>
-<form method="post" th:action="@{/admin/delete/post}">
-    <input type="number" name="id" placeholder="postId">
-    <button type="submit">delete/restore post</button>
-</form>
-
-<h3>Delete post</h3>
-<form method="post" th:action="@{/admin/delete/comment}">
-    <input type="number" name="id" placeholder="commentId">
-    <button type="submit">delete/restore comment</button>
-</form>
+<h2><a th:href="@{/admin}">Admin Menu</a></h2>
+<h2>All Posts</h2>
+<div th:each="post : ${posts}">
+    <form method="post" action="/admin/delete/post">
+        <input type="hidden" name="id" th:value="${post.getId()}">
+        <h3>
+            <div th:text="'isDelete: ' + ${post.getIsDeleted()}
+            + ' | author: ' + ${post.getAuthor().getId()} + ' ' + ${post.getAuthor().getUsername()}
+            + ' | id: ' + ${post.getId()}  + ' | title: ' + ${post.getTitle()}"></div>
+            <button type="submit">delete/restore</button>
+            <a th:href="@{/admin/post/{id}(id=${post.getId()})}">Details</a>
+            <a th:href="@{/post/{id}(id=${post.getId()})}">InSite</a>
+        </h3>
+    </form>
+</div>
 </body>
 </html>

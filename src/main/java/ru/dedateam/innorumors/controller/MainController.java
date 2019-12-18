@@ -8,35 +8,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
-import ru.dedateam.innorumors.data.repositories.CommentRepo;
-import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.data.entities.profiles.User;
-import ru.dedateam.innorumors.data.repositories.PostRepo;
-import ru.dedateam.innorumors.data.repositories.UserRepo;
+import ru.dedateam.innorumors.service.Data;
+import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.service.RatService;
-import ru.dedateam.innorumors.service.SearchService;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
 
-    private UserRepo userRepo;
-    private PostRepo postRepo;
-    private CommentRepo commentRepo;
     private RatService ratService;
-    private SearchService searchService;
+    private Data data;
 
     @Autowired
-    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo, RatService ratService, SearchService searchService) {
-        this.userRepo = userRepo;
-        this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
+    public MainController(RatService ratService, Data data) {
         this.ratService = ratService;
-        this.searchService = searchService;
+        this.data = data;
     }
 
-
-    @GetMapping(path = "/")
+    @GetMapping
     public String getIndex(Model model) {
         putPostsInModel(model);
         return "index";
@@ -50,9 +43,9 @@ public class MainController {
     }
 
     private void putPostsInModel(Model model) {
-        Iterable<Post> posts = postRepo.findByIsDeletedOrderByPostedTimeDesc(false);
-        ratService.countAllPostRat(posts);
-        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
+        Iterable<Post> posts = data.posts().findByIsDeletedOrderByPostedTimeDesc(false);
+        ratService.initPostsRating(posts);
+        posts.forEach(post -> post.setCountComments(data.comments().countAllByPostIdAndIsDeleted(post.getId(), false)));
         model.addAttribute("posts", posts);
     }
 
@@ -82,7 +75,7 @@ public class MainController {
                     CastomErrorController.ERROR_TITLE_REGISTRATION,
                     "Заполните все поля");
             return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
-        } else if (userRepo.findByUsername(username).isPresent()) {
+        } else if (data.users().findByUsername(username).isPresent()) {
             CastomErrorController.setErrorDescription(model,
                     CastomErrorController.ERROR_TITLE_REGISTRATION,
                     "Пользователь с таким именем уже существует");
@@ -91,8 +84,8 @@ public class MainController {
             if (password.equals(confirm_password)) {
                 User user = new User(username, password);
 
-                userRepo.save(user);
-                model.addAttribute("posts", postRepo.findAll());
+                data.users().save(user);
+                model.addAttribute("posts", data.posts().findAll());
                 return "login_page";
             } else {
                 CastomErrorController.setErrorDescription(model,
@@ -112,11 +105,14 @@ public class MainController {
     @PostMapping(path = "/search")
     public String search(@RequestParam(name = "word") String word,
                          Model model) {
-        Iterable<Post> posts = searchService.searchByTitle(word);
-
-        model.addAttribute("posts", searchService.searchByTitle(word));
-        ratService.countAllPostRat(posts);
-        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
+        List<Post> posts = new LinkedList<>();
+        data.posts().findByIsDeletedOrderByPostedTimeDesc(false).forEach(post -> {
+            if (post.getTitle().contains(word)) {
+                posts.add(post);
+            }
+        });
+        ratService.initPostsRating(posts);
+        posts.forEach(post -> post.setCountComments(data.comments().countAllByPostIdAndIsDeleted(post.getId(), false)));
         model.addAttribute("posts", posts);
         ModelService.putAuth(model);
         return "home";

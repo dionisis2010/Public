@@ -37,7 +37,7 @@ public class Data {
         return votePostRepo;
     }
 
-    public VoteCommentRepo CommentVotes() {
+    public VoteCommentRepo commentVotes() {
         return voteCommentRepo;
     }
 }

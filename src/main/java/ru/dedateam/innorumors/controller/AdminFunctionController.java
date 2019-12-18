@@ -12,103 +12,127 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
+import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
+import ru.dedateam.innorumors.service.RatService;
+
+import java.util.List;
 
 @Controller
-@RequestMapping(path = "/admin")
+@RequestMapping(path = "admin")
 public class AdminFunctionController {
 
-    private UserRepo userRepo;
-    private PostRepo postRepo;
-    private CommentRepo commentRepo;
+    private Data data;
 
     @Autowired
-    public AdminFunctionController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo) {
-        this.userRepo = userRepo;
-        this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
+    public AdminFunctionController(Data data) {
+        this.data = data;
     }
 
-    @GetMapping(path = "/delete")
-    public String getDeleteUserPage(Model model) {
+    @GetMapping
+    public String getAdminPage(Model model) {
         if (checkAccess()) {
-            return "admin/delete";
+            model.addAttribute("countUsers", data.users().count());
+            model.addAttribute("countAliveUsers", data.users().countByIsDeleted(false));
+            model.addAttribute("countDeletedUsers", data.users().countByIsDeleted(true));
+            model.addAttribute("countPosts", data.posts().count());
+            model.addAttribute("countAlivePosts", data.posts().countByIsDeleted(false));
+            model.addAttribute("countDeletedPosts", data.posts().countByIsDeleted(true));
+            model.addAttribute("countComments", data.comments().count());
+            model.addAttribute("countAliveComments", data.comments().countByIsDeleted(false));
+            model.addAttribute("countDeletedComments", data.comments().countByIsDeleted(true));
+            return "admin/admin";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
-    @GetMapping(path = "/users")
-    public String getAllUsers(Model model){
-        if (checkAccess()) {
 
+    @GetMapping(path = "users")
+    public String getAllUsers(Model model) {
+        if (checkAccess()) {
+            model.addAttribute("users", data.users().findAllByOrderById());
             return "admin/all_users";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
-    @GetMapping(path = "/posts")
-    public String getAllPosts(){
+
+    @GetMapping(path = "posts")
+    public String getAllPosts(Model model) {
         if (checkAccess()) {
+            model.addAttribute("posts", data.posts().findAllByOrderByPostedTimeDesc());
             return "admin/all_posts";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
+        }
+    }
+    @GetMapping(path = "post/{id}")
+    public String getPostWithComments(@PathVariable(name = "id") Long posId,
+                                      Model model) {
+        if (checkAccess()) {
+            model.addAttribute("post", data.posts().findById(posId).get());
+            model.addAttribute("comments", data.comments().findByPostIdOrderByPostedTimeDesc(posId));
+            return "admin/post_comments";
+        } else {
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
 
-    @GetMapping(path = "/comments")
-    public String getAllComments(){
+    @GetMapping(path = "comments")
+    public String getAllComments(Model model) {
         if (checkAccess()) {
+            model.addAttribute("comments", data.comments().findAllByOrderByPostedTimeDesc());
             return "admin/all_comments";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
 
-    @PostMapping(path = "/delete/user")
+    @PostMapping(path = "delete/user")
     public String deleteUserById(@RequestParam(name = "id") Long id) {
         if (checkAccess()) {
-            User user = userRepo.findById(id).get();
+            User user = data.users().findById(id).get();
             if (user.getIsDeleted()) {
                 user.setIsDeleted(false);
             } else {
                 user.setIsDeleted(true);
             }
-            userRepo.save(user);
-            return "all_users";
+            data.users().save(user);
+            return "redirect:/admin/users";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
 
-    @PostMapping(path = "/delete/post")
+    @PostMapping(path = "delete/post")
     public String deletePostById(@RequestParam(name = "id") Long id) {
         if (checkAccess()) {
-            Post post = postRepo.findById(id).get();
+            Post post = data.posts().findById(id).get();
             if (post.getIsDeleted()) {
                 post.setIsDeleted(false);
             } else {
                 post.setIsDeleted(true);
             }
-            postRepo.save(post);
-            return "deda";
+            data.posts().save(post);
+            return "redirect:/admin/posts";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
 
-    @PostMapping(path = "/delete/comment")
+    @PostMapping(path = "delete/comment")
     public String deleteCommentById(@RequestParam(name = "id") Long id) {
         if (checkAccess()) {
-            Comment comment = commentRepo.findById(id).get();
+            Comment comment = data.comments().findById(id).get();
             if (comment.getIsDeleted()) {
                 comment.setIsDeleted(false);
             } else {
                 comment.setIsDeleted(true);
             }
-            commentRepo.save(comment);
-            return "deda";
+            data.comments().save(comment);
+            return "redirect:/admin/comments";
         } else {
-            return "errors/error-with_description";
+            return CastomErrorController.ERROR_ACCESS;
         }
     }
 

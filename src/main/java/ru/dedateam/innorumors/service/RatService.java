@@ -3,35 +3,24 @@ package ru.dedateam.innorumors.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.dedateam.innorumors.data.entities.content.*;
-import ru.dedateam.innorumors.data.repositories.CommentRepo;
-import ru.dedateam.innorumors.data.repositories.PostRepo;
-import ru.dedateam.innorumors.data.repositories.VoteCommentRepo;
-import ru.dedateam.innorumors.data.repositories.VotePostRepo;
-
-import java.util.stream.Stream;
+import ru.dedateam.innorumors.data.entities.profiles.User;
 
 @Service
 public class RatService {
 
-    private PostRepo postRepo;
-    private CommentRepo commentRepo;
-    private VotePostRepo votePostRepo;
-    private VoteCommentRepo voteCommentRepo;
+    private Data data;
 
     @Autowired
-    public RatService(PostRepo postRepo, CommentRepo commentRepo, VotePostRepo votePostRepo, VoteCommentRepo voteCommentRepo) {
-        this.postRepo = postRepo;
-        this.commentRepo = commentRepo;
-        this.votePostRepo = votePostRepo;
-        this.voteCommentRepo = voteCommentRepo;
+    public RatService(Data data) {
+        this.data = data;
     }
 
     public Integer countLikesPost(Long postId) {
-        return votePostRepo.countVotePostByPostIdAndVote(postId, Vote.LIKE);
+        return data.postVotes().countVotePostByPostIdAndVote(postId, Vote.LIKE);
     }
 
     public Integer countDisLikesPost(Long postId) {
-        return votePostRepo.countVotePostByPostIdAndVote(postId, Vote.DISLIKE);
+        return data.postVotes().countVotePostByPostIdAndVote(postId, Vote.DISLIKE);
     }
 
     public Integer countRatingPost(Long postId) {
@@ -40,48 +29,49 @@ public class RatService {
 
 
     public Integer countLikesComment(Long commentId) {
-        return voteCommentRepo.countVoteCommentsByCommentIdAndVote(commentId, Vote.LIKE);
+        return data.commentVotes().countVoteCommentsByCommentIdAndVote(commentId, Vote.LIKE);
     }
 
     public Integer countDisLikesComment(Long commentId) {
-        return voteCommentRepo.countVoteCommentsByCommentIdAndVote(commentId, Vote.DISLIKE);
+        return data.commentVotes().countVoteCommentsByCommentIdAndVote(commentId, Vote.DISLIKE);
     }
 
     public Integer countRatingComments(Long postId) {
         return countLikesComment(postId) - countDisLikesComment(postId);
     }
 
-    public Iterable<Post> countAllPostRat(Iterable<Post> posts) {
+    public Iterable<Post> initPostsRating(Iterable<Post> posts) {
         posts.forEach(post -> post.setRat(countRatingPost(post.getId())));
         return posts;
     }
 
-    public Iterable<Comment> countAllCommentRat(Iterable<Comment> comments) {
+    public Iterable<Comment> initCommentsRating(Iterable<Comment> comments) {
         comments.forEach(comment -> comment.setRat(countRatingComments(comment.getId())));
         return comments;
     }
 
-    public Integer countUserRat(Long userId) {
+    public Integer countUserRating(Long userId) {
         int postRating = 0;
 
-        Iterable<Post> posts = postRepo.findAllByAuthorId((userId));
+        Iterable<Post> posts = data.posts().findAllByAuthorId((userId));
         for (Post post : posts) {
-            for (VotePost votePost : votePostRepo.findAllByPostId(post.getId())) {
+            for (VotePost votePost : data.postVotes().findAllByPostId(post.getId())) {
                 postRating += votePost.getVote().getRat();
             }
         }
         int commentRating = 0;
-        Iterable<Comment> comments = commentRepo.findAllByAuthorId(userId);
+        Iterable<Comment> comments = data.comments().findAllByAuthorId(userId);
         for (Comment comment : comments) {
-            for (VoteComment voteComment : voteCommentRepo.findAllByCommentId(comment.getId())) {
+            for (VoteComment voteComment : data.commentVotes().findAllByCommentId(comment.getId())) {
                 commentRating += voteComment.getVote().getRat();
             }
         }
-        return postRating + commentRating / 2;
-
-//        return votePostRepo.countVotePostByAuthorIdAndVote(userId, Vote.LIKE)
-//                - votePostRepo.countVotePostByAuthorIdAndVote(userId, Vote.DISLIKE) / 2
-//                + voteCommentRepo.countVoteCommentByAuthorIdAndVote(userId, Vote.LIKE)
-//                - voteCommentRepo.countVoteCommentByAuthorIdAndVote(userId, Vote.DISLIKE) / 2;
+        return postRating + commentRating;
     }
+
+    public Iterable<User> initUsersRating(Iterable<User> users) {
+        users.forEach(user -> user.setRating(countUserRating(user.getId())));
+        return users;
+    }
+
 }

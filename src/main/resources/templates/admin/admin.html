@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Innorumors | Admin</title>
+</head>
+<body>
+<h2><a th:href="@{/admin}">Admin Menu</a></h2>
+
+<a th:href="@{/admin/users}"><h2>Users</h2></a>
+<p th:text="'Total users: ' + ${countUsers}"></p>
+<p th:text="'Alive users: ' + ${countAliveUsers}"></p>
+<p th:text="'Deleted users: ' + ${countDeletedUsers}"></p>
+
+<a th:href="@{/admin/posts}"><h2 th:href="@{/admin/posts}">Posts</h2></a>
+<p th:text="'Total posts: ' + ${countPosts}"></p>
+<p th:text="'Alive posts: ' + ${countAlivePosts}"></p>
+<p th:text="'Deleted posts: ' + ${countDeletedPosts}"></p>
+
+<a th:href="@{/admin/comments}"><h2>Comments</h2></a>
+<p th:text="'Total commetns: ' + ${countComments}"></p>
+<p th:text="'Alive commetns: ' + ${countAliveComments}"></p>
+<p th:text="'Deleted commetns: ' + ${countDeletedComments}"></p>
+</body>
+</html>

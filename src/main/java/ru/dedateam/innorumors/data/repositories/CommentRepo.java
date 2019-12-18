@@ -6,6 +6,13 @@ import ru.dedateam.innorumors.data.entities.content.Comment;
 
 @Repository
 public interface CommentRepo extends CrudRepository<Comment, Long> {
+
+    Integer countByIsDeleted(Boolean isDeleted);
+
+    Iterable<Comment> findAllByOrderByPostedTimeDesc();
+
+    Iterable<Comment> findByPostIdOrderByPostedTimeDesc(Long commentId);
+
     Iterable<Comment> findAllByPostId(Long id);
 
     Integer countAllByPostId(Long id);

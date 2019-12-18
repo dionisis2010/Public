@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 public class CastomErrorController implements ErrorController {
 
     public static final String ERROR_PAGE_WITH_DESCRIPTION = "errors/error-with_description";
+    public static final String ERROR_ACCESS = "errors/error-not_access";
 
     public static final String ERROR_TITLE_REGISTRATION = "ОШИБКА РЕГИСТРАЦИИ";
     public static final String ERROR_TITLE_CREATE_POST = "ОШИБКА СОЗДАНИЯ ПОСТА";

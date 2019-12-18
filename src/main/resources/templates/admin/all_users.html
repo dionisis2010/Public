@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<h2><a th:href="@{/admin}">Admin Menu</a></h2>
+<h2>All Users</h2>
+<div th:each="user : ${users}">
+    <form method="post" action="/admin/delete/user">
+        <input type="hidden" name="id" th:value="${user.getId()}">
+        <h3>
+            <div th:text="'isDelete: ' + ${user.getIsDeleted()} + ' | id: ' + ${user.getId()}
+            + ' | name: ' + ${user.getUsername()}"></div>
+            <button type="submit">delete/restore</button>
+            <a th:href="@{/user/{id}(id=${user.getId()})}">InSite</a>
+        </h3>
+    </form>
+</div>
 
 </body>
 </html>

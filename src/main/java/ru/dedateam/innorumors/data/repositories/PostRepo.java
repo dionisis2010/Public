@@ -10,6 +10,10 @@ import ru.dedateam.innorumors.data.entities.content.Post;
 public interface PostRepo extends PagingAndSortingRepository<Post, Long> {
 
 
+    Integer countByIsDeleted(Boolean isDeleted);
+
+    Iterable<Post> findAllByOrderById();
+
     Iterable<Post> findByAuthorIdOrderByPostedTimeDesc(Long id);
 
     Iterable<Post> findAllByOrderByPostedTimeDesc();
