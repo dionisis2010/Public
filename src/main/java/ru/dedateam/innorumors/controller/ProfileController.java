@@ -40,7 +40,7 @@ public class ProfileController {
                               Model model) {
         ModelService.putAuth(model);
         User user = userRepo.findById(id).get();
-        user.setRating(ratService.countUserRat(user.getId()));
+        user.setRating(ratService.countUserRat(id));
         model.addAttribute("user", user);
         model.addAttribute("countPosts", postRepo.countAllByAuthorId(id));
         model.addAttribute("countComments", commentRepo.countAllByAuthorIdAndIsDeleted(id, false));

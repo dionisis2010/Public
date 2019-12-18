@@ -34,8 +34,7 @@ public class RatController {
     }
 
     @PostMapping(path = "likePost")
-    public String likePost(@RequestParam(name = "postId") Long postId,
-                           HttpServletRequest request) {
+    public String likePost(@RequestParam(name = "postId") Long postId) {
         User user = ModelService.getCurrentUser();
         VotePost vote = votePostRepo.findByAuthorIdAndPostId(user.getId(), postId);
         if (vote == null) {

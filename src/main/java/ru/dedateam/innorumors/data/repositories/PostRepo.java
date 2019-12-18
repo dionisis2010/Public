@@ -17,7 +17,10 @@ public interface PostRepo extends PagingAndSortingRepository<Post, Long> {
     Iterable<Post> findByIsDeletedOrderByPostedTimeDesc(Boolean isDeleted);
 
     Iterable<Post> findByAuthorIdAndIsDeletedOrderByPostedTimeDesc(Long id, Boolean isDeleted);
+
     Integer countAllByAuthorId(Long id);
+
+    Iterable<Post> findAllByAuthorId(Long authorId);
 
 
 

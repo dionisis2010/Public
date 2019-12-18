@@ -12,6 +12,8 @@ public interface CommentRepo extends CrudRepository<Comment, Long> {
 
     Integer countAllByAuthorId(Long id);
 
+    Iterable<Comment> findAllByAuthorId(Long authorId);
+
     Iterable<Comment> findAllByPostIdAndIsDeleted(Long id, Boolean isDeleted);
 
     Integer countAllByPostIdAndIsDeleted(Long id, Boolean isDeleted);

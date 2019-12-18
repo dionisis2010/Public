@@ -11,7 +11,6 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 public interface VotePostRepo extends PagingAndSortingRepository<VotePost, Long> {
 
 
-    Boolean existsByAuthorIdAndPostId(Long authorId, Long postId);
 
     VotePost findByAuthorIdAndPostId(Long authorId, Long postId);
 
@@ -20,5 +19,7 @@ public interface VotePostRepo extends PagingAndSortingRepository<VotePost, Long>
     Iterable<VotePost> findAllByPostId(Long postId);
 
     Integer countVotePostByAuthorIdAndVote(Long authorId, Vote vote);
+
+    Integer countVotePostByPostId(Long postId);
 
 }
