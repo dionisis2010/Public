@@ -9,6 +9,7 @@ import ru.dedateam.innorumors.data.entities.content.Comment;
 import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.data.entities.review.Review;
 import ru.dedateam.innorumors.data.repositories.CommentRepo;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
@@ -41,6 +42,8 @@ public class AdminFunctionController {
             model.addAttribute("countComments", data.comments().count());
             model.addAttribute("countAliveComments", data.comments().countByIsDeleted(false));
             model.addAttribute("countDeletedComments", data.comments().countByIsDeleted(true));
+            model.addAttribute("countReviews", data.reviews().count());
+
             return "admin/admin";
         } else {
             return CastomErrorController.ERROR_ACCESS;
@@ -66,6 +69,7 @@ public class AdminFunctionController {
             return CastomErrorController.ERROR_ACCESS;
         }
     }
+
     @GetMapping(path = "post/{id}")
     public String getPostWithComments(@PathVariable(name = "id") Long posId,
                                       Model model) {
@@ -131,6 +135,28 @@ public class AdminFunctionController {
             }
             data.comments().save(comment);
             return "redirect:/admin/comments";
+        } else {
+            return CastomErrorController.ERROR_ACCESS;
+        }
+    }
+
+    @GetMapping(path = "review")
+    public String getReviews(Model model) {
+        if (checkAccess()) {
+            model.addAttribute("reviews", data.reviews().findAllByIsDeletedOrderByPostedTime(false));
+            return "admin/all_reviews";
+        } else {
+            return CastomErrorController.ERROR_ACCESS;
+        }
+    }
+
+    @PostMapping(path = "delete/review")
+    public String deleteReview(@RequestParam(name = "id") Long id) {
+        if (checkAccess()) {
+            Review review = data.reviews().findById(id).get();
+            review.setIsDeleted(true);
+            data.reviews().save(review);
+            return "redirect:/admin/review";
         } else {
             return CastomErrorController.ERROR_ACCESS;
         }

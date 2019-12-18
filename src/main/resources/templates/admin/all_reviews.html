@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2><a th:href="@{/admin}">Admin Menu</a></h2>
+<h2>Reviews</h2>
+<div th:each="review : ${reviews}">
+    <form method="post" action="/admin/delete/review">
+        <input type="hidden" name="id" th:value="${review.getId()}">
+        <h3>
+            <div th:text="'author: ' + ${review.getAuthor().getId()} + ' ' + ${review.getAuthor().getUsername()}
+            + ' | id: ' + ${review.getId()}  + ' | title: ' + ${review.getTitle()}"></div>
+            <h4 th:text="${review.getBody()}"></h4>
+            <button type="submit">delete</button>
+        </h3>
+    </form>
+</div>
+</body>
+</html>

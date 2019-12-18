@@ -11,14 +11,17 @@ public class Data {
     private CommentRepo commentRepo;
     private VotePostRepo votePostRepo;
     private VoteCommentRepo voteCommentRepo;
+    private ReviewsRepo reviewsRepo;
 
     @Autowired
-    public Data(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo, VotePostRepo votePostRepo, VoteCommentRepo voteCommentRepo) {
+    public Data(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo,
+                VotePostRepo votePostRepo, VoteCommentRepo voteCommentRepo, ReviewsRepo reviewsRepo) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
         this.commentRepo = commentRepo;
         this.votePostRepo = votePostRepo;
         this.voteCommentRepo = voteCommentRepo;
+        this.reviewsRepo = reviewsRepo;
     }
 
     public UserRepo users() {
@@ -39,5 +42,9 @@ public class Data {
 
     public VoteCommentRepo commentVotes() {
         return voteCommentRepo;
+    }
+
+    public ReviewsRepo reviews() {
+        return reviewsRepo;
     }
 }

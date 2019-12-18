@@ -1,5 +1,6 @@
 package ru.dedateam.innorumors.controller;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.data.entities.review.Review;
+import ru.dedateam.innorumors.data.repositories.ReviewsRepo;
 import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.service.RatService;
@@ -116,6 +119,24 @@ public class MainController {
         model.addAttribute("posts", posts);
         ModelService.putAuth(model);
         return "home";
+    }
+
+    @PostMapping(path = "review")
+    public String review(@RequestParam(name = "email") String email,
+                         @RequestParam(name = "title") String title,
+                         @RequestParam(name = "body") String body,
+                         Model model) {
+
+        if (email.equals("") || title.equals("") || body.equals("")) {
+            CastomErrorController.setErrorDescription(model,
+                    "ОШИБКА СОЗДАНИЯ СООБЩЕНИЯ",
+                    "Заполните все поля");
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else {
+            Review review = new Review(ModelService.getCurrentUser(), email, title, body);
+            data.reviews().save(review);
+            return "deda";
+        }
     }
 
 
