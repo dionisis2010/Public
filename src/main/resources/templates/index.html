@@ -39,7 +39,7 @@
                             <div class="navbar-menu-left-side239">
                                 <ul>
                                     <li>
-                                        <a th:href="@{/login}" >
+                                        <a th:href="@{/login}">
                                             <i class="fa fa-user" aria-hidden="true"></i>Вход/регистрация</a>
                                     </li>
                                 </ul>
@@ -89,7 +89,8 @@
                                         <div class="l-rightside39">
                                             <form method="post" action="/rat/dislikePost">
                                                 <input type="hidden" name="postId" th:value="${post.getId()}">
-                                                <button type="submit" class="tolltip-button  thumbs-down2" data-toggle="tooltip"
+                                                <button type="submit" class="tolltip-button  thumbs-down2"
+                                                        data-toggle="tooltip"
                                                         data-placement="bottom" title="Dislike">
                                                     <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                                 </button>
@@ -98,7 +99,8 @@
                                         <div class="l-rightside39">
                                             <form method="post" action="/rat/likePost">
                                                 <input type="hidden" name="postId" th:value="${post.getId()}">
-                                                <button type="submit" class="tolltip-button thumbs-up2" data-toggle="tooltip"
+                                                <button type="submit" class="tolltip-button thumbs-up2"
+                                                        data-toggle="tooltip"
                                                         data-placement="bottom" title="Like">
                                                     <i class="fa fa-thumbs-o-up " aria-hidden="true"></i>
                                                 </button>

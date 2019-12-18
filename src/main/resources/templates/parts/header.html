@@ -24,11 +24,12 @@
                                 <div class="navbar-menu-left-side239">
                                     <ul>
                                         <li>
-                                            <a th:href="@{/user/{id}(id=${auth.getId()})}" >
-                                                <i class="fa fa-user" aria-hidden="true" th:text="${auth.getUsername()}"></i></a>
+                                            <a th:href="@{/user/{id}(id=${auth.getId()})}">
+                                                <i class="fa fa-user" aria-hidden="true"
+                                                   th:text="${auth.getUsername()}"></i></a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/do_logout}" >
+                                            <a th:href="@{/do_logout}">
                                                 <i aria-hidden="true"></i>Выйти</a>
                                         </li>
                                     </ul>
@@ -38,17 +39,23 @@
                             <!--                        Search-->
                             <div class="col-md-6">
                                 <div class="navbar-serch-right-side">
-                                    <form class="navbar-form" role="search" method="post" th:action="@{/search}">
-                                        <div class="input-group add-on">
-                                            <input class="form-control form-control222" placeholder="Поиск"
-                                                   name="srch-term"
-                                                   id="srch-term" type="text">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-default btn-default2913" type="submit"><i
-                                                        class="glyphicon glyphicon-search"></i></button>
+                                    <div class="navbar-form">
+                                        <form method="post" action="/search">
+                                            <div class="input-group add-on">
+                                                <input class="form-control form-control222" placeholder="Поиск"
+                                                       name="word"
+                                                       id="srch-term" type="text">
+                                                <div class="input-group-btn">
+                                                    <button class="btn btn-default btn-default2913" type="submit"><i
+                                                            class="glyphicon glyphicon-search"></i></button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+<!--                                        <form method="post" action="/search">-->
+<!--                                            <input type="text" name="word" placeholder="поиск">-->
+<!--                                            <button type="submit">Search</button>-->
+<!--                                        </form>-->
+                                    </div>
                                 </div>
                             </div>
 

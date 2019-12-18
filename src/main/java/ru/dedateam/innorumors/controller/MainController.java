@@ -14,6 +14,7 @@ import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.repositories.PostRepo;
 import ru.dedateam.innorumors.data.repositories.UserRepo;
 import ru.dedateam.innorumors.service.RatService;
+import ru.dedateam.innorumors.service.SearchService;
 
 @Controller
 @RequestMapping(path = "/")
@@ -23,19 +24,18 @@ public class MainController {
     private PostRepo postRepo;
     private CommentRepo commentRepo;
     private RatService ratService;
+    private SearchService searchService;
 
     @Autowired
-    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo, RatService ratService) {
+    public MainController(UserRepo userRepo, PostRepo postRepo, CommentRepo commentRepo, RatService ratService, SearchService searchService) {
         this.userRepo = userRepo;
         this.postRepo = postRepo;
         this.commentRepo = commentRepo;
         this.ratService = ratService;
+        this.searchService = searchService;
     }
 
-    public MainController(UserRepo userRepo, PostRepo postRepo) {
-        this.userRepo = userRepo;
-        this.postRepo = postRepo;
-    }
+
     @GetMapping(path = "/")
     public String getIndex(Model model) {
         putPostsInModel(model);
@@ -77,7 +77,17 @@ public class MainController {
                           @RequestParam(name = "password") String password,
                           @RequestParam(name = "confirm_password") String confirm_password,
                           Model model) {
-//        if (userRepo.findByUsername(username).isPresent() == false) {
+        if (username.equals("") || password.equals("") || confirm_password.equals("")) {
+            CastomErrorController.setErrorDescription(model,
+                    CastomErrorController.ERROR_TITLE_REGISTRATION,
+                    "Заполните все поля");
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else if (userRepo.findByUsername(username).isPresent()) {
+            CastomErrorController.setErrorDescription(model,
+                    CastomErrorController.ERROR_TITLE_REGISTRATION,
+                    "Пользователь с таким именем уже существует");
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else {
             if (password.equals(confirm_password)) {
                 User user = new User(username, password);
 
@@ -85,15 +95,12 @@ public class MainController {
                 model.addAttribute("posts", postRepo.findAll());
                 return "login_page";
             } else {
-                model.addAttribute("errorTitle", "Ошибка рагистрации");
-                model.addAttribute("errorDescription", "Пароли не совпадают");
-                return "error_page";
+                CastomErrorController.setErrorDescription(model,
+                        CastomErrorController.ERROR_TITLE_REGISTRATION,
+                        "Пароли не совпадают");
+                return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
             }
-//        } else {
-//            model.addAttribute("errorTitle", "Ошибка рагистрации");
-//            model.addAttribute("errorDescription", "Пользователь с таким именем существует");
-//            return "error_page";
-//        }
+        }
     }
 
     @GetMapping(path = "/contacts")
@@ -102,10 +109,18 @@ public class MainController {
         return "contact_us";
     }
 
-//    @GetMapping(path = "/search")
-//    public String search() {
-//        return "index";
-//    }
+    @PostMapping(path = "/search")
+    public String search(@RequestParam(name = "word") String word,
+                         Model model) {
+        Iterable<Post> posts = searchService.searchByTitle(word);
+
+        model.addAttribute("posts", searchService.searchByTitle(word));
+        ratService.countAllPostRat(posts);
+        posts.forEach(post -> post.setCountComments(commentRepo.countAllByPostIdAndIsDeleted(post.getId(), false)));
+        model.addAttribute("posts", posts);
+        ModelService.putAuth(model);
+        return "home";
+    }
 
 
 }

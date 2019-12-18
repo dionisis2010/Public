@@ -40,17 +40,20 @@ public class PostController {
     public String createPost(@RequestParam(name = "title") String title,
                              @RequestParam(name = "body") String body,
                              Model model) {
-        ModelService.putAuth(model);
-        User author = ModelService.getCurrentUser();
+        if (title.equals("") || body.equals("")) {
+            CastomErrorController.setErrorDescription(model,
+                    CastomErrorController.ERROR_TITLE_CREATE_POST,
+                    CastomErrorController.ERROR_DESCRIPTION_EMPTY_FIELD);
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else {
+            Post post = new Post(title, body);
+            post.setAuthor(ModelService.getCurrentUser());
 
-        Post post = new Post(title, body);
-        post.setAuthor(author);
+            postRepo.save(post);
 
-//        model.addAttribute("post", post);
-//        model.addAttribute("countComments", 0);
-
-        postRepo.save(post);
-        return "redirect:/home";
+            ModelService.putAuth(model);
+            return "redirect:/home";
+        }
     }
 
     @GetMapping(path = "/{id}")
@@ -73,15 +76,23 @@ public class PostController {
 
     @PostMapping(path = "/comment/add/")
     public String addComment(@RequestParam(name = "body") String body,
-                             @RequestParam(name = "postId") Long postId) {
-        Comment comment = new Comment(body);
+                             @RequestParam(name = "postId") Long postId,
+                             Model model) {
+        if (body.equals("")) {
+            CastomErrorController.setErrorDescription(model,
+                    CastomErrorController.ERROR_TITLE_CREATE_COMMENT,
+                    CastomErrorController.ERROR_DESCRIPTION_EMPTY_FIELD);
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else {
+            Comment comment = new Comment(body);
 
-        User author = ModelService.getCurrentUser();
-        comment.setAuthor(author);
-        comment.setPost(postRepo.findById(postId).get());
+            User author = ModelService.getCurrentUser();
+            comment.setAuthor(author);
+            comment.setPost(postRepo.findById(postId).get());
 
-        commentRepo.save(comment);
-        return "redirect:/post/"+ postId;
+            commentRepo.save(comment);
+            return "redirect:/post/" + postId;
+        }
     }
 
 
