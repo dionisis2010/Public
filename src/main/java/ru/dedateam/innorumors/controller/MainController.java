@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
+import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.entities.review.Review;
 import ru.dedateam.innorumors.service.Data;
@@ -141,5 +142,20 @@ public class MainController {
         }
     }
 
+    @GetMapping(path = "become_admin")
+    public String getBecomeAdminPage(String password) {
+        return "admin/admin_become";
+    }
 
+    @PostMapping(path = "become_admin")
+    public String becomeAdmin(@RequestParam(name ="admin_password") String password) {
+        if (password.equals(AdminFunctionController.ADMIN_PASSWORD)) {
+            User user = ModelService.getCurrentUser();
+            user.setRole(Role.ADMIN);
+            data.users().save(user);
+            return "redirect:/admin";
+        } else {
+            return CastomErrorController.ERROR;
+        }
+    }
 }

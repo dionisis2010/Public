@@ -16,6 +16,7 @@ import ru.dedateam.innorumors.service.ModelService;
 @RequestMapping(path = "admin")
 public class AdminFunctionController {
 
+    static final String ADMIN_PASSWORD = "1jXi5-DAuVQ-ws1fL-XD5ob-J3qap-xucuD-4Xzv3-ZuMZd";
     private Data data;
 
     @Autowired
