@@ -89,7 +89,6 @@ public class MainController {
         } else {
             if (password.equals(confirm_password)) {
                 User user = new User(username, password);
-
                 data.users().save(user);
                 model.addAttribute("posts", data.posts().findAll());
                 return "login_page";

@@ -85,7 +85,7 @@ public class PostController {
             comment.setPost(data.posts().findById(postId).get());
 
             data.comments().save(comment);
-            return "redirect:post/" + postId;
+            return "redirect:/post/" + postId;
         }
     }
 

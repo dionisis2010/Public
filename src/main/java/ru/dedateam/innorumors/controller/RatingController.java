@@ -73,17 +73,19 @@ public class RatingController {
         if (vote == null) {
             VoteComment voteComment = new VoteComment(user.getId(), commentId, Vote.LIKE);
             data.commentVotes().save(voteComment);
+            return "deda/deda_like";
         } else {
             switch (vote.getVote()) {
                 case LIKE:
                     data.commentVotes().delete(vote);
-                    break;
+                    return "deda/deda_drop_like";
                 case DISLIKE:
                     vote.setVote(Vote.LIKE);
                     data.commentVotes().save(vote);
+                    return "deda/deda_like";
             }
+            return CastomErrorController.ERROR;
         }
-        return "deda";
     }
 
     @PostMapping(path = "dislikeComment")
@@ -93,17 +95,19 @@ public class RatingController {
         if (vote == null) {
             VoteComment voteComment = new VoteComment(user.getId(), commentId, Vote.DISLIKE);
             data.commentVotes().save(voteComment);
+            return "deda/deda_dislike";
         } else {
             switch (vote.getVote()) {
                 case DISLIKE:
                     data.commentVotes().delete(vote);
-                    break;
+                    return "deda/deda_drop_dislike";
                 case LIKE:
                     vote.setVote(Vote.DISLIKE);
                     data.commentVotes().save(vote);
+                    return "deda/deda_dislike";
             }
+            return CastomErrorController.ERROR;
         }
-        return "deda";
     }
 
 }

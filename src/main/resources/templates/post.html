@@ -89,10 +89,12 @@
                                                     <h6 class="comment-name">
                                                         <a th:href="@{/user/{id}(id=${comment.getAuthor().getId()})}"
                                                            th:text="${comment.getAuthor().getUsername()}"></a>
-                                                    </h6>
+
+                                                        <div class="l-rightside39">
                                                     <span><i class="fa fa-clock-o" aria-hidden="true"
                                                              th:text="${comment.getFormatPostedTime()}"></i></span>
-
+                                                        </div>
+                                                    </h6>
                                                     <!-- like/dislike -->
                                                     <div class="l-rightside39">
                                                         <span class="single-question-vote-result"

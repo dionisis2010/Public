@@ -37,11 +37,11 @@
                             <ul>
                                 <li>
                                     <i class="fa fa-plus" aria-hidden="true"
-                                       th:text="'Дата Регистрации: ' + ${user.getFormatLastLogIn()}"></i>
+                                       th:text="'Дата Регистрации: ' + ${user.getFormatRegistrationTime()}"></i>
                                 </li>
                                 <li>
                                     <i class="fa fa-plus" aria-hidden="true"
-                                       th:text="'Вход в онлайн: ' + ${user.getFormatRegistrationTime()}"></i>
+                                       th:text="'Вход в онлайн: ' + ${user.getFormatLastLogIn()}"></i>
                                 </li>
                             </ul>
                         </div>
