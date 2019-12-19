@@ -17,7 +17,7 @@ import java.util.Optional;
 @Component
 public class MyAuthenticationProvider implements AuthenticationProvider {
 
-    UserRepo userRepo;
+    private UserRepo userRepo;
 
     @Autowired
     public MyAuthenticationProvider(UserRepo userRepo) {

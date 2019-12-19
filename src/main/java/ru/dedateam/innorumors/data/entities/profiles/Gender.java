@@ -1,6 +1,5 @@
 package ru.dedateam.innorumors.data.entities.profiles;
 
-import lombok.Getter;
 
 public enum Gender {
 

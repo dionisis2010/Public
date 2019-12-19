@@ -7,7 +7,6 @@ import ru.dedateam.innorumors.service.DateFormater;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Table(name = "posts")
@@ -33,9 +32,6 @@ public class Post {
 
     @Column(name = "posted_time", nullable = false)
     private LocalDateTime postedTime;
-
-    //    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-//    private Set<Comment> comments;
 
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted;

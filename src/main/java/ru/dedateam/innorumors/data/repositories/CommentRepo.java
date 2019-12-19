@@ -13,12 +13,6 @@ public interface CommentRepo extends CrudRepository<Comment, Long> {
 
     Iterable<Comment> findByPostIdOrderByPostedTimeDesc(Long commentId);
 
-    Iterable<Comment> findAllByPostId(Long id);
-
-    Integer countAllByPostId(Long id);
-
-    Integer countAllByAuthorId(Long id);
-
     Iterable<Comment> findAllByAuthorId(Long authorId);
 
     Iterable<Comment> findAllByPostIdAndIsDeleted(Long id, Boolean isDeleted);

@@ -1,7 +1,6 @@
 package ru.dedateam.innorumors.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,14 +9,8 @@ import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.entities.review.Review;
-import ru.dedateam.innorumors.data.repositories.CommentRepo;
-import ru.dedateam.innorumors.data.repositories.PostRepo;
-import ru.dedateam.innorumors.data.repositories.UserRepo;
 import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
-import ru.dedateam.innorumors.service.RatService;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "admin")
