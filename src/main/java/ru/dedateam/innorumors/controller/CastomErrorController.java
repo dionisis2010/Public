@@ -32,6 +32,8 @@ public class CastomErrorController implements ErrorController {
                         statusCode + " PAGE NOT FOUND",
                         "Старница с таким адресом не существует");
                 return ERROR_PAGE_WITH_DESCRIPTION;
+            } else if (request.getAttribute(RequestDispatcher.ERROR_MESSAGE).toString().equals("Forbidden")) {
+                    return ERROR_ACCESS;
             } else {
                 return ERROR;
             }

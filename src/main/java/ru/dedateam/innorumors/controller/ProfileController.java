@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.dedateam.innorumors.data.entities.profiles.Role;
 import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.data.entities.content.Post;
@@ -28,11 +29,18 @@ public class ProfileController {
                               Model model) {
         ModelService.putAuth(model);
         User user = data.users().findById(id).get();
-        user.setRating(ratService.countUserRating(id));
-        model.addAttribute("user", user);
-        model.addAttribute("countPosts", data.posts().countAllByAuthorId(id));
-        model.addAttribute("countComments", data.comments().countAllByAuthorIdAndIsDeleted(id, false));
-        return "user_info";
+        if (user.getRole().equals(Role.ROLE_BANED)) {
+            CastomErrorController.setErrorDescription(model,
+                    "Пользователь заблокирован",
+                    "Если будете плохо себя вести и вас заблокируем");
+            return CastomErrorController.ERROR_PAGE_WITH_DESCRIPTION;
+        } else {
+            user.setRating(ratService.countUserRating(id));
+            model.addAttribute("user", user);
+            model.addAttribute("countPosts", data.posts().countAllByAuthorId(id));
+            model.addAttribute("countComments", data.comments().countAllByAuthorIdAndIsDeleted(id, false));
+            return "user_info";
+        }
     }
 
     @GetMapping(path = "all")

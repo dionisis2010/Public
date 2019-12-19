@@ -151,7 +151,7 @@ public class MainController {
     public String becomeAdmin(@RequestParam(name ="admin_password") String password) {
         if (password.equals(AdminFunctionController.ADMIN_PASSWORD)) {
             User user = ModelService.getCurrentUser();
-            user.setRole(Role.ADMIN);
+            user.setRole(Role.ROLE_ADMIN);
             data.users().save(user);
             return "redirect:/admin";
         } else {

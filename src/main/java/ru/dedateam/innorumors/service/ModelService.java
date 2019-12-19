@@ -25,6 +25,7 @@ public class ModelService {
 
 
     public static User getCurrentUser() {
+        
         return (User) SecurityContextHolder.getContext().getAuthentication().getDetails();
     }
 

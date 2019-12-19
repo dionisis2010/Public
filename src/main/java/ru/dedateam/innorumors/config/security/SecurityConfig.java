@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import ru.dedateam.innorumors.data.entities.profiles.Role;
 
 @Configuration
 @EnableWebSecurity
@@ -43,7 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/fonts/**",
                         "/js/**",
                         "/image/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/admin/**", "/admin").hasRole("ADMIN")
+                .anyRequest().hasAnyRole("USER", "ADMIN");
     }
 
 

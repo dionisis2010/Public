@@ -26,137 +26,96 @@ public class AdminFunctionController {
 
     @GetMapping
     public String getAdminPage(Model model) {
-        if (checkAccess()) {
-            model.addAttribute("countUsers", data.users().count());
-            model.addAttribute("countAliveUsers", data.users().countByIsDeleted(false));
-            model.addAttribute("countDeletedUsers", data.users().countByIsDeleted(true));
-            model.addAttribute("countPosts", data.posts().count());
-            model.addAttribute("countAlivePosts", data.posts().countByIsDeleted(false));
-            model.addAttribute("countDeletedPosts", data.posts().countByIsDeleted(true));
-            model.addAttribute("countComments", data.comments().count());
-            model.addAttribute("countAliveComments", data.comments().countByIsDeleted(false));
-            model.addAttribute("countDeletedComments", data.comments().countByIsDeleted(true));
-            model.addAttribute("countReviews", data.reviews().countByIsDeleted(false));
+        model.addAttribute("countUsers", data.users().count());
+        model.addAttribute("countAliveUsers", data.users().countByIsDeleted(false));
+        model.addAttribute("countDeletedUsers", data.users().countByIsDeleted(true));
+        model.addAttribute("countPosts", data.posts().count());
+        model.addAttribute("countAlivePosts", data.posts().countByIsDeleted(false));
+        model.addAttribute("countDeletedPosts", data.posts().countByIsDeleted(true));
+        model.addAttribute("countComments", data.comments().count());
+        model.addAttribute("countAliveComments", data.comments().countByIsDeleted(false));
+        model.addAttribute("countDeletedComments", data.comments().countByIsDeleted(true));
+        model.addAttribute("countReviews", data.reviews().countByIsDeleted(false));
 
-            return "admin/admin";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        return "admin/admin";
     }
 
     @GetMapping(path = "users")
     public String getAllUsers(Model model) {
-        if (checkAccess()) {
-            model.addAttribute("users", data.users().findAllByOrderById());
-            return "admin/all_users";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        model.addAttribute("users", data.users().findAllByOrderById());
+        return "admin/all_users";
     }
 
     @GetMapping(path = "posts")
     public String getAllPosts(Model model) {
-        if (checkAccess()) {
-            model.addAttribute("posts", data.posts().findAllByOrderByPostedTimeDesc());
-            return "admin/all_posts";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        model.addAttribute("posts", data.posts().findAllByOrderByPostedTimeDesc());
+        return "admin/all_posts";
     }
 
     @GetMapping(path = "post/{id}")
     public String getPostWithComments(@PathVariable(name = "id") Long posId,
                                       Model model) {
-        if (checkAccess()) {
-            model.addAttribute("post", data.posts().findById(posId).get());
-            model.addAttribute("comments", data.comments().findByPostIdOrderByPostedTimeDesc(posId));
-            return "admin/post_comments";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        model.addAttribute("post", data.posts().findById(posId).get());
+        model.addAttribute("comments", data.comments().findByPostIdOrderByPostedTimeDesc(posId));
+        return "admin/post_comments";
     }
 
     @GetMapping(path = "comments")
     public String getAllComments(Model model) {
-        if (checkAccess()) {
-            model.addAttribute("comments", data.comments().findAllByOrderByPostedTimeDesc());
-            return "admin/all_comments";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        model.addAttribute("comments", data.comments().findAllByOrderByPostedTimeDesc());
+        return "admin/all_comments";
     }
 
     @PostMapping(path = "delete/user")
     public String deleteUserById(@RequestParam(name = "id") Long id) {
-        if (checkAccess()) {
-            User user = data.users().findById(id).get();
-            if (user.getIsDeleted()) {
-                user.setIsDeleted(false);
-            } else {
-                user.setIsDeleted(true);
-            }
-            data.users().save(user);
-            return "redirect:/admin/users";
+        User user = data.users().findById(id).get();
+        if (user.getIsDeleted()) {
+            user.setIsDeleted(false);
+            user.setRole(Role.ROLE_USER);
         } else {
-            return CastomErrorController.ERROR_ACCESS;
+            user.setIsDeleted(true);
+            user.setRole(Role.ROLE_BANED);
         }
+        data.users().save(user);
+        return "redirect:/admin/users";
     }
 
     @PostMapping(path = "delete/post")
     public String deletePostById(@RequestParam(name = "id") Long id) {
-        if (checkAccess()) {
-            Post post = data.posts().findById(id).get();
-            if (post.getIsDeleted()) {
-                post.setIsDeleted(false);
-            } else {
-                post.setIsDeleted(true);
-            }
-            data.posts().save(post);
-            return "redirect:/admin/posts";
+        Post post = data.posts().findById(id).get();
+        if (post.getIsDeleted()) {
+            post.setIsDeleted(false);
         } else {
-            return CastomErrorController.ERROR_ACCESS;
+            post.setIsDeleted(true);
         }
+        data.posts().save(post);
+        return "redirect:/admin/posts";
     }
 
     @PostMapping(path = "delete/comment")
     public String deleteCommentById(@RequestParam(name = "id") Long id) {
-        if (checkAccess()) {
-            Comment comment = data.comments().findById(id).get();
-            if (comment.getIsDeleted()) {
-                comment.setIsDeleted(false);
-            } else {
-                comment.setIsDeleted(true);
-            }
-            data.comments().save(comment);
-            return "redirect:/admin/comments";
+        Comment comment = data.comments().findById(id).get();
+        if (comment.getIsDeleted()) {
+            comment.setIsDeleted(false);
         } else {
-            return CastomErrorController.ERROR_ACCESS;
+            comment.setIsDeleted(true);
         }
+        data.comments().save(comment);
+        return "redirect:/admin/comments";
     }
 
     @GetMapping(path = "review")
     public String getReviews(Model model) {
-        if (checkAccess()) {
-            model.addAttribute("reviews", data.reviews().findAllByIsDeletedOrderByPostedTime(false));
-            return "admin/all_reviews";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        model.addAttribute("reviews", data.reviews().findAllByIsDeletedOrderByPostedTime(false));
+        return "admin/all_reviews";
     }
 
     @PostMapping(path = "delete/review")
     public String deleteReview(@RequestParam(name = "id") Long id) {
-        if (checkAccess()) {
-            Review review = data.reviews().findById(id).get();
-            review.setIsDeleted(true);
-            data.reviews().save(review);
-            return "redirect:/admin/review";
-        } else {
-            return CastomErrorController.ERROR_ACCESS;
-        }
+        Review review = data.reviews().findById(id).get();
+        review.setIsDeleted(true);
+        data.reviews().save(review);
+        return "redirect:/admin/review";
     }
 
-    private static Boolean checkAccess() {
-        return ModelService.getCurrentUser().getRole().equals(Role.ADMIN);
-    }
 }
