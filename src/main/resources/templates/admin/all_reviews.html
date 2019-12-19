@@ -12,7 +12,8 @@
         <input type="hidden" name="id" th:value="${review.getId()}">
         <h3>
             <div th:text="'author: ' + ${review.getAuthor().getId()} + ' ' + ${review.getAuthor().getUsername()}
-            + ' | id: ' + ${review.getId()}  + ' | title: ' + ${review.getTitle()}"></div>
+            + ' | id: ' + ${review.getId()}  + ' | ' + ${review.getFormatPostedTime()}"></div>
+            <h3 th:text="${review.getTitle()}"></h3>
             <h4 th:text="${review.getBody()}"></h4>
             <button type="submit">delete</button>
         </h3>

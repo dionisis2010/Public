@@ -6,7 +6,7 @@ import ru.dedateam.innorumors.data.entities.review.Review;
 
 @Repository
 public interface ReviewsRepo extends CrudRepository<Review, Long> {
-    Integer countAllBy();
+    Integer countByIsDeleted(Boolean isDeleted);
 
     Iterable<Review> findAllByIsDeletedOrderByPostedTime(Boolean isDelete);
 }

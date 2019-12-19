@@ -42,7 +42,7 @@ public class AdminFunctionController {
             model.addAttribute("countComments", data.comments().count());
             model.addAttribute("countAliveComments", data.comments().countByIsDeleted(false));
             model.addAttribute("countDeletedComments", data.comments().countByIsDeleted(true));
-            model.addAttribute("countReviews", data.reviews().count());
+            model.addAttribute("countReviews", data.reviews().countByIsDeleted(false));
 
             return "admin/admin";
         } else {

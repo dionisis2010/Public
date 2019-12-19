@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/do_login",
                         "/registration",
                         "/do_registration",
+                        "/deda/**",
                         "/css/**",
                         "/fonts/**",
                         "/js/**",

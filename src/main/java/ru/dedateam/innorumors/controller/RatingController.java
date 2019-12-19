@@ -11,15 +11,14 @@ import ru.dedateam.innorumors.data.entities.content.VotePost;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
-import ru.dedateam.innorumors.service.RatService;
 
 @Controller
 @RequestMapping(path = "rat")
-public class RatController {
+public class RatingController {
     private Data data;
 
     @Autowired
-    public RatController(Data data) {
+    public RatingController(Data data) {
         this.data = data;
     }
 
@@ -30,17 +29,19 @@ public class RatController {
         if (vote == null) {
             VotePost votePost = new VotePost(user.getId(), postId, Vote.LIKE);
             data.postVotes().save(votePost);
+            return "deda/deda_like";
         } else {
-            switch (vote.getVote()){
+            switch (vote.getVote()) {
                 case LIKE:
                     data.postVotes().delete(vote);
-                    break;
+                    return "deda/deda_drop_like";
                 case DISLIKE:
                     vote.setVote(Vote.LIKE);
                     data.postVotes().save(vote);
+                    return "deda/deda_like";
             }
+            return CastomErrorController.ERROR;
         }
-        return "deda";
     }
 
     @PostMapping(path = "dislikePost")
@@ -50,18 +51,20 @@ public class RatController {
         if (vote == null) {
             VotePost votePost = new VotePost(user.getId(), postId, Vote.DISLIKE);
             data.postVotes().save(votePost);
+            return "deda/deda_dislike";
         } else {
-            switch (vote.getVote()){
+            switch (vote.getVote()) {
                 case DISLIKE:
                     data.postVotes().delete(vote);
-                    break;
+                    return "deda/deda_drop_dislike";
                 case LIKE:
                     vote.setVote(Vote.DISLIKE);
                     data.postVotes().save(vote);
+                    return "deda/deda_dislike";
             }
+            return CastomErrorController.ERROR;
         }
-        return "deda";
-}
+    }
 
     @PostMapping(path = "likeComment")
     public String likeComment(@RequestParam(name = "commentId") Long commentId) {
@@ -71,7 +74,7 @@ public class RatController {
             VoteComment voteComment = new VoteComment(user.getId(), commentId, Vote.LIKE);
             data.commentVotes().save(voteComment);
         } else {
-            switch (vote.getVote()){
+            switch (vote.getVote()) {
                 case LIKE:
                     data.commentVotes().delete(vote);
                     break;
@@ -91,7 +94,7 @@ public class RatController {
             VoteComment voteComment = new VoteComment(user.getId(), commentId, Vote.DISLIKE);
             data.commentVotes().save(voteComment);
         } else {
-            switch (vote.getVote()){
+            switch (vote.getVote()) {
                 case DISLIKE:
                     data.commentVotes().delete(vote);
                     break;

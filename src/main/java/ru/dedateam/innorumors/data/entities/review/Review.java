@@ -3,6 +3,7 @@ package ru.dedateam.innorumors.data.entities.review;
 import lombok.Getter;
 import lombok.Setter;
 import ru.dedateam.innorumors.data.entities.profiles.User;
+import ru.dedateam.innorumors.service.DateFormater;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -48,5 +49,9 @@ public class Review {
         this.body = body;
         this.postedTime = LocalDateTime.now();
         this.isDeleted = false;
+    }
+
+    public String getFormatPostedTime() {
+        return DateFormater.format(postedTime);
     }
 }

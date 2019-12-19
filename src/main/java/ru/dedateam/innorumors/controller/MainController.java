@@ -1,7 +1,7 @@
 package ru.dedateam.innorumors.controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.dedateam.innorumors.data.entities.content.Post;
 import ru.dedateam.innorumors.data.entities.profiles.User;
 import ru.dedateam.innorumors.data.entities.review.Review;
-import ru.dedateam.innorumors.data.repositories.ReviewsRepo;
 import ru.dedateam.innorumors.service.Data;
 import ru.dedateam.innorumors.service.ModelService;
 import ru.dedateam.innorumors.service.RatService;
@@ -34,8 +33,12 @@ public class MainController {
 
     @GetMapping
     public String getIndex(Model model) {
-        putPostsInModel(model);
-        return "index";
+        if (SecurityContextHolder.getContext().getAuthentication().getDetails() instanceof User) {
+            return "redirect:home";
+        } else {
+            putPostsInModel(model);
+            return "index";
+        }
     }
 
     @GetMapping(path = "/home")
@@ -54,7 +57,7 @@ public class MainController {
 
     @GetMapping(path = "/deda")
     public String getDeda() {
-        return "deda";
+        return "deda/deda";
     }
 
     @GetMapping(path = "/login")
@@ -110,7 +113,7 @@ public class MainController {
                          Model model) {
         List<Post> posts = new LinkedList<>();
         data.posts().findByIsDeletedOrderByPostedTimeDesc(false).forEach(post -> {
-            if (post.getTitle().contains(word)) {
+            if (post.getTitle().toLowerCase().contains(word.toLowerCase())) {
                 posts.add(post);
             }
         });
@@ -135,7 +138,7 @@ public class MainController {
         } else {
             Review review = new Review(ModelService.getCurrentUser(), email, title, body);
             data.reviews().save(review);
-            return "deda";
+            return "deda/deda_review";
         }
     }
 
